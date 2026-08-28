@@ -1,140 +1,161 @@
 # IMPLEMENTATION_PLAN.md
 
-The phase roadmap. What gets built, in what order, by which lane, and what has to be true before
-each phase can start.
+The phase roadmap. What gets built, in what order, and what has to be true before each phase can
+start.
 
 Product requirements are in [`PRD.md`](PRD.md); technical structure in
-[`ARCHITECTURE.md`](ARCHITECTURE.md); parallel-agent mechanics in [`LANES.md`](LANES.md).
+[`ARCHITECTURE.md`](ARCHITECTURE.md); how one agent hands work to the next in
+[`HANDOFF.md`](HANDOFF.md).
 
-Estimates are in **agent sessions per lane**. Two lanes run concurrently, so a phase's wall-clock
-cost is roughly its per-lane figure, not the sum.
+Estimates are in **agent sessions**. One agent works at a time, so these are sequential: the figures
+add up rather than overlapping.
 
 ---
 
 ## Ordering rationale
 
-Foundation first, then **logbook** – deliberately, ahead of the more exciting modules. The logbook
-depends on no external API, is immediately useful on its own, and exercises every pattern the rest
-of the project needs: tables, print templates, offline sync, totals arithmetic, EASA compliance.
-Getting those patterns right on a self-contained module is much cheaper than getting them wrong on
-the map.
+Foundation first, then **logbook** rather than one of the more exciting modules. The logbook depends
+on no external API, is immediately useful on its own, and exercises every pattern the rest of the
+project needs: tables, print templates, offline sync, totals arithmetic, EASA compliance. Getting
+those patterns right on a self-contained module is much cheaper than getting them wrong on the map.
 
-The **calculation engine** then lands alongside it in the other lane, with the **E6B** as its
-visible proof: a graphical flight computer that a pilot can check against a physical E6B. If the
-dial agrees with the real thing, the OFP will too – and the failure is caught by a human turning a
-dial rather than by reading a spreadsheet of numbers.
+The **calculation engine** follows, with the **E6B** built directly on top of it as its visible
+proof: a graphical flight computer a pilot can check against a physical E6B. If the dial agrees with
+the real thing, the OFP will too, and the failure gets caught by a human turning a dial rather than
+by reading a column of numbers.
 
-Map, OFP and FPL follow, in the order of how much they depend on what came before.
+Aeronautical data before the map, because the map has nothing to draw without it. Terrain with the
+map, because the elevation profile is a map feature. Then OFP, which consumes everything built so
+far, and FPL, which consumes the OFP's route.
 
 ---
 
 ## Blocking, before Phase 1
 
-**FLY-002 – FAA NOTAM coverage spike.** No NOTAM code may be written until this reports. See
+**FLY-002 – FAA NOTAM coverage spike.** No NOTAM code may be written until this reports, and a
+refusal of access closes it. See
 [`backlog/FLY-002-notam-coverage-spike.md`](backlog/FLY-002-notam-coverage-spike.md).
 
 **Owner prerequisites**, none of which an agent can do:
 
 | | Needed for |
 |---|---|
-| Neon project + `lane-a` / `lane-b` branches | Phase 1 |
+| Neon project with `main` and `dev` branches | Phase 1 – the only hard blocker |
+| Google OAuth client | Phase 1, Google sign-in only |
+| Cloudflare Tunnel to `flyte.czekanski.dev` | Phase 1 deployment only |
 | OpenAIP client id | Phase 4 |
-| FAA API credentials | FLY-002 |
-| Google OAuth client | Phase 1 |
-| Cloudflare Tunnel to `flyte.czekanski.dev` | Phase 1 deployment |
-| **Real POH data** (D-001) | Phase 2+3 weight & balance, Phase 6 OFP |
+| FAA API credentials | FLY-002, and likely to be refused |
+| **Real POH data** (D-001) | Phase 3 weight and balance, Phase 6 OFP |
 | OKL PRz OFP template (D-005) | Phase 6 print templates |
+
+See [`OWNER_SETUP.md`](OWNER_SETUP.md) for how to obtain each.
 
 ---
 
-## Phase 0 – Documentation and bootstrap · 3 sessions
+## Phase 0 – Documentation and bootstrap · 6 sessions · complete
 
-Repository, conventions, and every document an agent needs to work unsupervised.
-
-| Lane | Delivers |
-|---|---|
-| A | `PRD.md`, `ARCHITECTURE.md`, `DOMAIN.md`, `DATA_SOURCES.md`, `SAFETY.md`, `MAINTENANCE.md`, `PILOT_VALIDATION.md`, ADRs 0001–0011 |
-| B | `AGENTS.md`, `AGENT_WORKFLOW.md`, `LANES.md`, `CONTRIBUTING.md`, `TESTING.md`, `DESIGN_SYSTEM.md`, `.github/`, backlog scaffolding |
+Repository, conventions, and every document an agent needs to work unsupervised: `PRD`,
+`ARCHITECTURE`, `DOMAIN`, `DATA_SOURCES`, `SAFETY`, `MAINTENANCE`, `PILOT_VALIDATION`, `AGENTS`,
+`AGENT_WORKFLOW`, `HANDOFF`, `CONTRIBUTING`, `TESTING`, ADRs 0001 and 0002, GitHub templates, and
+the prose gate in CI.
 
 **Done when:** an agent handed only a task file and this repository can execute it without asking
-anything that is already written down.
+anything already written down.
 
-## Phase 1 – Foundation · 5 sessions per lane
+## Phase 1 – Foundation · ~10 sessions
 
-| Lane | Delivers |
-|---|---|
-| A | Monorepo + `catalog:` + Turborepo · `packages/config` (ESLint flat config, `eslint-plugin-boundaries`, tsconfig, Tailwind base) · Neon + Drizzle + PostGIS + migrations · **Better Auth** with all four sign-in methods and the `(auth)` pages · Docker Compose · Cloudflare Tunnel · CI and CD |
-| B | Next.js App Router shell and `(app)` layout · `packages/ui` with shadcn/ui · theme system (colours, transparency, radius, density, red night mode) · next-intl PL/EN · PWA: Serwist, manifest, icons, offline shell · **`packages/aviation/units`** – branded types, converters, presets, with golden vectors |
+Monorepo with a pinned dependency catalog and Turborepo · `packages/config` carrying the ESLint flat
+config, `eslint-plugin-boundaries`, tsconfig and Tailwind base · Neon with Drizzle, PostGIS and the
+first migrations · **Better Auth** with all four sign-in methods and the `(auth)` pages · Next.js
+App Router shell and `(app)` layout · `packages/ui` on shadcn/ui · theme system including the red
+night mode · next-intl in Polish and English · PWA via Serwist, manifest and icons · Docker Compose
+and the Cloudflare Tunnel · CI and CD · **`packages/aviation/units`** with branded types, converters
+and its first golden vectors.
 
-**Contract-first before the split:** `packages/db/src/schema/auth.ts` and the session helper
-signature, so Lane B can build the shell against a known auth surface.
+**Suggested split:** infrastructure and auth first (catalog, config, database, Better Auth, Docker,
+CI), then the application shell (App Router, UI package, theming, i18n, PWA), then units. Each is
+roughly three sessions and each ends somewhere a successor can pick up cleanly.
 
 **Done when:** the app is deployed at `flyte.czekanski.dev`, installable as a PWA, you can sign in
 with a passkey and switch language, and `pnpm verify` is green in CI.
 
-## Phase 2+3 – Logbook ‖ Calculation engine · 8 sessions per lane
+## Phase 2 – Logbook · ~8 sessions
 
-The cleanest parallel split in the project: pure mathematics on one side, data-driven UI on the
-other, no shared files.
+Schema and CRUD · TanStack Table with sorting, filtering, pagination and column selection ·
+**paper-style view** with *this page / brought forward / total* running totals · automatic totals by
+class, type, function and period · FCL.060 recency · **sailplane fields** (launch method, launch
+count, task, maximum altitude) · FSTD sessions · CSV import · print template rendered through
+Playwright · **full offline** via Dexie with an outbox.
 
-**Lane A – `packages/aviation` and E6B**
+**Done when:** a month of real entries from the paper logbook produces identical totals, and the
+printout would be accepted as a licence record.
 
-All modules per [`DOMAIN.md`](DOMAIN.md): `geo`, `magnetic` (WMM2025 implemented in-house),
-`atmosphere`, `navigation`, `mass-balance`, `performance`, `fuel`, `time`, `logbook` rules – each
-with golden vectors sourced outside this codebase, and property tests covering the invariants.
+## Phase 3 – Calculation engine and E6B · ~10 sessions
+
+All of `packages/aviation` per [`DOMAIN.md`](DOMAIN.md): `geo`, `magnetic` (WMM2025 implemented
+in-house), `atmosphere`, `navigation`, `mass-balance`, `performance`, `fuel`, `time` – each with
+golden vectors sourced outside this codebase and property tests covering the documented invariants.
 
 Then the **E6B**: two coaxial logarithmic dials in SVG driven by Pointer Events with momentum and
 graduation snapping; the wind side with sliding card, grommet and wind dot; a form mode for every
 operation; and a "show the working" panel exposing intermediate steps.
 
-**Lane B – Logbook**
+**Blocked in part by D-001.** Without real POH figures, mass and balance and performance ship on
+placeholder data flagged `data_verified: false` and marked as unverified everywhere it appears.
 
-Schema and CRUD · TanStack Table with sorting, filtering, pagination and column selection ·
-**paper-style view** with *this page / brought forward / total* running totals · automatic totals by
-class, type, function and period · FCL.060 recency · **sailplane fields** (launch method, launch
-count, task, maximum altitude) · CSV import · print template · **full offline** via Dexie with an
-outbox.
+**Done when:** the E6B agrees with a physical E6B across the Phase 3 pilot validation checklist.
 
-**Done when:** the E6B agrees with a physical E6B across the Phase 2+3 pilot validation checklist,
-and a month of real logbook entries produce totals matching the paper book.
+## Phase 4 – Aeronautical data · ~8 sessions
 
-## Phase 4+5 – Aeronautical data ‖ Map and terrain · 9 sessions per lane
+`packages/aviation-data` with the port interfaces landed first, in their own task, so later work
+builds against something committed · OpenAIP adapter · AIRAC importer and worker cron with row-count
+sanity checks · PostGIS schema and GiST indexes · offline snapshot export to IndexedDB ·
+`aip_overrides` for corrections from eAIP · the AIRAC expiry banner.
 
-**Contract-first before the split:** the `AeroDataSource` and `ElevationSource` port interfaces.
+**Done when:** the Polish dataset imports on a cron, is queryable by position, and exports a
+snapshot small enough for IndexedDB.
 
-| Lane | Delivers |
-|---|---|
-| A | `packages/aviation-data` · OpenAIP adapter · AIRAC importer and worker cron · PostGIS schema with GiST indexes · offline snapshot export to IndexedDB · `aip_overrides` · `packages/aviation/terrain` – corridor sampling, MEF, safe altitude · `ElevationSource` adapter |
-| B | MapLibre + OpenFreeMap + Terrarium hillshade · airspace, aerodrome, navaid and reporting-point layers with filters and zoom-dependent labelling · **click → nearby features panel** with ADEP/ADES/waypoint actions · route editor: drag, insert into leg, reorder, undo/redo · search by ICAO, name, DMS and decimal coordinates · **terrain profile chart** · mobile performance work to hold 60 fps |
+## Phase 5 – Map, terrain and safe altitude · ~12 sessions
+
+MapLibre with OpenFreeMap and Terrarium hillshade · airspace, aerodrome, navaid and reporting-point
+layers with filters and zoom-dependent labelling · **click to see nearby features** with
+ADEP/ADES/waypoint actions · route editor with drag, insert into leg, reorder, undo and redo ·
+search by ICAO, name, DMS and decimal coordinates · `packages/aviation/terrain` for corridor
+sampling, MEF and safe altitude · `ElevationSource` adapter · **terrain profile chart** · mobile
+performance work to hold 60 fps.
 
 **Done when:** a route can be built by clicking, EPRJ renders correctly inside the EPRZ zone, and
-safe altitudes for EPRJ→EPKR stand up against the VFR chart.
+safe altitudes for EPRJ to EPKR stand up against the VFR chart.
 
-## Phase 6 – OFP, weather, time marks · 9 sessions per lane
+## Phase 6 – OFP, weather and time marks · ~18 sessions
 
-| Lane | Delivers |
-|---|---|
-| A | Weather adapters – AWC, Open-Meteo pressure levels, IMGW, manual METAR/TAF paste parser · Redis caching with per-source TTLs · `packages/aviation/timemarks` · Overpass adapter · integration of fuel, W&B and performance into a single OFP computation |
-| B | The shared `Route` object wired so map and OFP edit the same state live · OFP form · W&B envelope chart · `<DataFreshness/>` · time marks on the map in **both** modes – fixed interval and snap-to-feature · **four print templates**: GA, OKL PRz training, compact, sailplane |
+The largest phase, and the one to split most carefully.
 
-**Done when:** an OFP for EPRJ→EPML→EPRJ matches manual computation throughout, and the printout
-matches the OKL PRz template.
+Weather adapters for AWC, Open-Meteo pressure levels, IMGW and a manual METAR/TAF paste parser ·
+Redis caching with per-source TTLs · `<DataFreshness/>` · the shared `Route` object wired so the map
+and the OFP edit the same state live · OFP form and computation · W&B envelope chart ·
+`packages/aviation/timemarks` with the Overpass adapter · time marks on the map in **both** modes,
+fixed interval and snap to feature · **four print templates**: GA, OKL PRz training, compact,
+sailplane · immutable OFP snapshots.
 
-## Phase 7 – FPL · 4 sessions per lane
+**Done when:** an OFP for EPRJ to EPML and back matches manual computation throughout, and the
+printout matches the OKL PRz template.
 
-| Lane | Delivers |
-|---|---|
-| A | `packages/aviation/icao` – Items 7–19 encoding and validation, route string builder and parser, golden vectors from real messages |
-| B | FPL form · pre-fill from route and aircraft profile · **live message preview with in-place error highlighting** · copy to clipboard · printable form · IWB and telephone filing instructions · reusable templates |
+## Phase 7 – FPL · ~8 sessions
+
+`packages/aviation/icao` for Items 7 to 19, encoding and validation, with golden vectors taken from
+real messages · FPL form · pre-fill from route and aircraft profile · **live message preview with
+in-place error highlighting** · copy to clipboard · printable form · IWB and telephone filing
+instructions · reusable templates.
 
 **Done when:** a generated message is accepted by IWB first time, with no field corrections.
 
-## Phase 8 – Settings and polish · 5 sessions per lane
+## Phase 8 – Settings and polish · ~10 sessions
 
-| Lane | Delivers |
-|---|---|
-| A | Settings backend · GDPR export and account deletion · aircraft library API with JSON import/export · `fuel_policy` |
-| B | Settings UI · theme editor · **per-quantity unit configuration** · aircraft editor (stations, envelopes, POH tables, FPL equipment) · WCAG 2.1 AA audit · Lighthouse PWA ≥ 95 · real-device testing outdoors |
+Settings backend and UI · GDPR export and account deletion · aircraft library with stations,
+envelopes, POH tables and FPL equipment, plus JSON import and export · `fuel_policy` override ·
+theme editor · **per-quantity unit configuration** · WCAG 2.1 AA audit · Lighthouse PWA at 95 or
+better · testing on a real phone outdoors.
 
 ---
 
@@ -152,10 +173,10 @@ Each has a revisit trigger recorded in [`MAINTENANCE.md`](MAINTENANCE.md).
 
 At the end of every phase, before the next begins:
 
-1. Both lanes merged to `main`, CI green.
-2. **Owner completes the pilot validation checklist** for that phase. Unexplained discrepancies in
-   safety-relevant figures block progress.
-3. Dependency versions re-verified against the registry.
-4. Architect rewrites `LANES.md` and writes the next phase's task files.
+1. All task branches merged to `main`, CI green, no task left `in-progress`.
+2. **Owner completes the pilot validation checklist** for that phase. An unexplained discrepancy in
+   a safety-relevant figure blocks progress.
+3. Dependency versions re-verified against the npm registry, not against recollection.
+4. Architect writes the next phase's task files, each sized to one agent session.
 5. `pnpm backlog:sync`.
-6. Both lanes reset their Neon branches from `main`.
+6. Reset the `dev` Neon branch from `main`.

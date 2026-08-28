@@ -18,16 +18,16 @@
 
 ## Blocking
 
-| Id | Title | Lane | Est. | Status |
-|---|---|---|---|---|
-| [FLY-002](backlog/FLY-002-notam-coverage-spike.md) | Spike: does the FAA NOTAM API actually cover EP** locations? | any | S | ⚪ todo |
+| Id | Title | Est. | Status |
+|---|---|---|---|
+| [FLY-002](backlog/FLY-002-notam-coverage-spike.md) | Spike: does the FAA NOTAM API actually cover EP** locations? | S | ⚪ todo |
 
 > **FLY-002 gates all NOTAM work.** Requires FAA API credentials from the owner first.
 
 ## Phase 0 – Documentation and bootstrap
 
-| Id | Title | Lane | Est. | Status |
-|---|---|---|---|---|
+| Id | Title | Est. | Status |
+|---|---|---|---|
 | – | Repository bootstrap, conventions, core documentation | – | – | 🟢 done (initial commit) |
 
 Phase 0 documentation was written directly rather than tracked as individual tasks. Task-level
@@ -37,7 +37,7 @@ tracking begins with Phase 1.
 
 *Task files to be written by the Architect at the Phase 0 → 1 sync point.*
 
-Planned scope per lane is in [`IMPLEMENTATION_PLAN.md`](IMPLEMENTATION_PLAN.md#phase-1--foundation--5-sessions-per-lane).
+Planned scope is in [`IMPLEMENTATION_PLAN.md`](IMPLEMENTATION_PLAN.md#phase-1--foundation--10-sessions).
 
 ---
 
@@ -45,6 +45,5 @@ Planned scope per lane is in [`IMPLEMENTATION_PLAN.md`](IMPLEMENTATION_PLAN.md#p
 
 | | |
 |---|---|
-| **Lane** | A / B / any – see [`LANES.md`](LANES.md) |
-| **Est.** | S = under a session · M = about a session · L = **split it, this is a planning defect** |
+| **Est.** | S = under one agent budget · M = about one · L = **split it: it guarantees a mid-task handoff** |
 | **Status** | todo → in-progress → in-review → done · blocked |

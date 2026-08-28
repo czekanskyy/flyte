@@ -3,7 +3,6 @@ id: FLY-002
 title: "Spike: does the FAA NOTAM API actually cover EP** locations?"
 status: todo
 phase: 0
-lane: any
 depends_on: []
 owns_paths:
   - docs/DATA_SOURCES.md

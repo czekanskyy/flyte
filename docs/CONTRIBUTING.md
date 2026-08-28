@@ -21,12 +21,14 @@ Requirements: Node ≥ 20.9 (24 or 25 recommended), pnpm 11, Docker for the PDF 
 ## Branches
 
 ```
-lane-a/FLY-123-wind-triangle
-lane-b/FLY-124-logbook-table
+feat/FLY-123-wind-triangle
+fix/FLY-124-night-totals-across-midnight
+docs/FLY-131-domain-fuel-section
+chore/FLY-133-catalog-bump
 ```
 
-`lane-<a|b>/` identifies which parallel agent lane owns the work ([`LANES.md`](LANES.md)), then the
-task id, then a short slug. Solo human work may use `feat/`, `fix/`, `docs/` or `chore/` instead.
+Change type, task id, short slug. An unfinished branch stays until its task is done, even across
+several agents – see [`HANDOFF.md`](HANDOFF.md).
 
 ## Commits
 
@@ -61,7 +63,7 @@ One task, one PR. Target **under 400 changed lines**; over 800 will be sent back
 reviewer cannot meaningfully check a 2000-line diff, and pretending otherwise is how defects get in.
 
 ```bash
-gh pr create --fill --base main --label "lane-a,phase-3"
+gh pr create --fill --base main --label "phase-3"
 gh pr checks --watch
 ```
 
@@ -70,7 +72,8 @@ fine and informative; a ticked box that is not true is a problem.
 
 ### Review
 
-- **Cross-lane:** Lane A reviews Lane B and vice versa. Nobody reviews their own work.
+- **Sequential:** the incoming agent reviews the PR left by its predecessor, as its first act.
+  Nobody reviews their own work – see [`HANDOFF.md`](HANDOFF.md) §4.
 - Reviewers check against [`DOMAIN.md`](DOMAIN.md), not against intuition. "That looks about right"
   is not a review of a navigation formula.
 - The **Aviation validator** role can block a merge on formula grounds alone.
@@ -120,7 +123,7 @@ Beyond that:
 ## Dependencies
 
 - Added to `pnpm-workspace.yaml` under `catalog:`, referenced as `"catalog:"` in package files.
-- **Lane A alone** edits the catalog during parallel work.
+- Bumping a dependency is its own `chore` task, never a side effect of feature work.
 - Every new dependency needs an ADR covering: what problem it solves, what was considered, bundle
   cost, maintenance status, licence.
 - Treat bundle size as a budget, not an afterthought – this application is opened on a phone on an
@@ -131,11 +134,11 @@ Beyond that:
 ```bash
 pnpm db:generate        # produce a migration from the schema change
 # rename it: NNNN_flyXXX_short_description.sql
-pnpm db:migrate         # apply to your lane's Neon branch
+pnpm db:migrate         # apply to the dev Neon branch
 ```
 
-Migrations are forward-only and never edited once merged. Schema files are split per domain so two
-lanes rarely touch the same file.
+Migrations are forward-only and never edited once merged. Schema files are split per domain to keep
+each one small enough to read cold at the start of a session.
 
 ## Translations
 

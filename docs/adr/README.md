@@ -44,14 +44,14 @@ That last case is the main reason this directory exists. Pinning TypeScript one 
 | 0007 | Ports and adapters for external data sources | Planned |
 | 0008 | SI internally, branded unit types | Planned |
 | 0009 | Attribution policy | Planned |
-| 0010 | Two parallel agent lanes | Planned |
+| 0010 | One agent at a time, with a handoff protocol | Planned |
 | 0011 | Implement WMM 2025 in-house | Planned |
 | 0012 | NOTAM source | Blocked on FLY-002 |
 
 ## Evaluated and rejected, pending a full ADR
 
 **Neon Managed Better Auth** (checked 2026-08-28). Neon now offers Better Auth as a managed service
-with per-branch auth environments, which would have suited the two-lane workflow well. Rejected
+with per-branch auth environments, which looked convenient. Rejected
 because its supported plugin set is Admin, Email OTP, JWT, Magic Link, Organization (partial),
 Open API and Phone Number – **passkeys are absent and not on the published roadmap**. Passkeys are
 the specific reason Better Auth was chosen over Auth.js in the first place, and the specific reason
@@ -61,6 +61,6 @@ It is also beta, targeting GA "this quarter", with pricing not yet published, an
 auth layer to Neon – against the reasoning in ADR 0004, which treats Neon as ordinary Postgres.
 
 Self-hosted Better Auth loses nothing by comparison: the auth tables live in the branch database
-either way, so per-lane isolation comes free from Neon branching without the managed layer.
+either way, so branch isolation comes free from Neon branching without the managed layer.
 
 Revisit if passkey support ships and reaches GA.

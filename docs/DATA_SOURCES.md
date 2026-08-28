@@ -230,7 +230,7 @@ printed page and changing the layout by nothing at all. Awaiting the owner's dec
 
 ```bash
 # Database
-DATABASE_URL=                 # Neon connection string (per-lane branch in development)
+DATABASE_URL=                 # Neon connection string (the dev branch, never main)
 
 # Auth
 BETTER_AUTH_SECRET=

@@ -167,7 +167,7 @@ Each requirement is written so it can be verified. `MUST` is v1; `SHOULD` is v1 
 | **Internationalisation** | Complete PL and EN. No hardcoded strings |
 | **Privacy** | Data belongs to the user: full export, complete deletion. No analytics without consent. No third party receives flight data |
 | **Security** | Argon2id password hashing; passkeys preferred; no API key ever reaches the browser; all external calls proxied server-side |
-| **Maintainability** | Two AI agents can work in parallel without conflict ([`LANES.md`](LANES.md)) |
+| **Maintainability** | A new agent can pick up mid-task from the repository alone ([`HANDOFF.md`](HANDOFF.md)) |
 
 ---
 
@@ -195,8 +195,7 @@ map, then the OFP.
 
 ## 8. Delivery
 
-Two parallel agent lanes; estimates are sessions **per lane**. Full detail in the implementation
-plan.
+One agent at a time; estimates are agent sessions. Full detail in the implementation plan.
 
 | Phase | Delivers | Sessions |
 |---|---|---|

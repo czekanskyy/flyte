@@ -41,7 +41,7 @@ pnpm verify
 - [ ] Both `pl` and `en` translations added
 - [ ] Tested at 375 px width; touch targets ≥ 44 px
 - [ ] Only paths declared in the task's `owns_paths` were touched
-- [ ] New dependencies have an ADR (and were added to the catalog by Lane A)
+- [ ] New dependencies have an ADR
 
 ### Documentation
 
@@ -57,5 +57,6 @@ pnpm verify
 
 ### Reviewer
 
-<!-- Cross-lane: Lane A reviews Lane B and vice versa. Never your own work.
-     Formula changes additionally need Aviation validator approval. -->
+<!-- Reviewed by the NEXT agent, not by you. Leave this PR open when you stop;
+     picking it up and reviewing it is your successor's first job (docs/HANDOFF.md).
+     Formula changes additionally need an Aviation validator pass. -->

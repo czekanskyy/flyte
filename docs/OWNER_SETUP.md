@@ -12,7 +12,7 @@ step-by-step walkthrough is a separate working document.
 
 | # | Service | Provides | Blocks | Self-service |
 |---|---|---|---|---|
-| 1 | **Neon** | `DATABASE_URL` + one branch per agent lane | All of Phase 1 | Yes |
+| 1 | **Neon** | `DATABASE_URL` for a `dev` branch | All of Phase 1 | Yes |
 | 2 | **Google Cloud** | `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET` | Google sign-in only | Yes |
 | 3 | **Cloudflare** | Tunnel token, DNS for `flyte.czekanski.dev` | Deployment only | Yes |
 | 4 | **FAA** | `FAA_CLIENT_ID`, `FAA_CLIENT_SECRET` | FLY-002 / NOTAM only | **No – by request, may be refused** |
@@ -24,22 +24,22 @@ without them.
 
 ## 1. Neon – the only hard blocker
 
-Three branches are needed, not one:
+Two branches, not one:
 
 | Branch | Purpose |
 |---|---|
-| `main` | Production. Never developed against directly |
-| `lane-a` | Agent lane A |
-| `lane-b` | Agent lane B |
+| `main` | Production. Never developed against, never in a local environment file |
+| `dev` | The working branch. This is what `DATABASE_URL` points at locally |
 
-Per-lane branches are what make the parallel workflow safe: one agent running a migration cannot
-disturb the other's running application. Branches are created from `main` and can be reset from it
-at any phase sync point. See [`LANES.md`](LANES.md).
+The separation exists because agents run migrations, and `pnpm db:migrate` applies them to whatever
+`DATABASE_URL` it finds. Keeping production out of every local environment file is what stops a
+mistyped command reaching real data. `dev` is resettable from `main` at any phase sync point, so it
+stays disposable by design.
 
 Region: choose an EU region (Frankfurt is closest to Poland) for latency and for keeping personal
 data inside the EU.
 
-Each lane's `.env.local` gets its own branch connection string:
+The `dev` connection string goes in `.env.local`:
 
 ```bash
 DATABASE_URL=postgresql://...@ep-....eu-central-1.aws.neon.tech/flyte?sslmode=require
@@ -109,29 +109,21 @@ is the official source for Polish NOTAMs regardless of what the FAA would have p
 
 ## Where each connection string goes
 
-Three branches means three connection strings, and they do **not** all live in the same place.
+Two branches means two connection strings, and they do **not** go to the same place.
 
 | Branch | Destination | When |
 |---|---|---|
-| `lane-a` | `C:\Users\Dominik\Dev\flyte\.env.local` | Now |
-| `lane-b` | `C:\Users\Dominik\Dev\flyte-lane-b\.env.local` | Phase 1, once the worktree exists |
+| `dev` | `C:\Users\Dominik\Dev\flyte\.env.local` | Now |
 | `main` | Password manager, then a GitHub Actions secret and the TrueNAS app | Phase 1 deployment |
-
-The two lanes work in separate git worktrees, so each has its own working directory and therefore
-its own `.env.local`. Nothing needs switching between them and nothing collides: each agent reads
-the file sitting next to the code it is editing.
-
-Until the lane B worktree exists there is nowhere to put its string, so keep it in a password
-manager alongside the production one. A text file on the desktop is not a holding place for a
-credential granting write access to a database.
 
 ### Production never lives on the development machine
 
 A deliberate safety boundary, not tidiness.
 
-Agents run migrations. `pnpm db:migrate` reads `DATABASE_URL` from whichever `.env.local` sits in
-its working directory. If the production string were ever in one of those files, a mistyped command,
-a stale shell, or an agent working from the wrong directory could run a migration against real data.
+Agents run migrations. `pnpm db:migrate` reads `DATABASE_URL` from `.env.local` and applies whatever
+is pending. If the production string were ever in that file, a mistyped command or a stale shell
+would be one step away from migrating real data. With a single agent there is also nobody working
+in a second environment who might notice something going somewhere unexpected.
 
 So the `main` connection string goes to the deployment pipeline only:
 
@@ -142,8 +134,8 @@ gh secret set DATABASE_URL --repo czekanskyy/flyte
 `gh secret set` prompts for the value and sends it straight to GitHub. It is not echoed, not written
 to shell history, and not visible to anyone reading the session.
 
-Neon branches can be reset from `main` at any phase sync point, so a lane branch is disposable by
-design. Production is not, and the two should never be reachable from the same file.
+`dev` can be reset from `main` at any phase sync point, so it is disposable by design. Production is
+not, and the two should never be reachable from the same file.
 
 ## Handling the credentials
 

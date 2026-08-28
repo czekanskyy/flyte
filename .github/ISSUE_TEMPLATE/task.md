@@ -1,6 +1,6 @@
 ---
 name: Task
-about: A unit of work for an agent lane
+about: A unit of work sized to one agent session
 title: "FLY-XXX – "
 labels: ''
 assignees: ''
@@ -15,7 +15,7 @@ If it is not self-contained, it is not ready.
 -->
 
 **Task file:** `docs/backlog/FLY-XXX-slug.md`
-**Phase:** · **Lane:** A / B / any · **Estimate:** S / M / L
+**Phase:** · **Estimate:** S / M / L
 
 ### Goal
 
@@ -31,7 +31,7 @@ If it is not self-contained, it is not ready.
 packages/…/**
 ```
 
-<!-- Must not overlap the other lane's paths for this phase – check docs/LANES.md. -->
+<!-- Scope control: keeps a low-budget session from wandering into an unfinishable refactor. -->
 
 ### Acceptance criteria
 
@@ -47,4 +47,5 @@ packages/…/**
 
 ---
 
-<!-- Estimate L means this is a planning defect. Split it before starting. -->
+<!-- Estimate L means this is a planning defect, and a guaranteed mid-task handoff.
+     Split it before starting - see docs/HANDOFF.md section 6. -->

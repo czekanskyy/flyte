@@ -147,23 +147,27 @@ Notably, TypeScript is deliberately held one major behind `latest`;
 | [`docs/PILOT_VALIDATION.md`](docs/PILOT_VALIDATION.md) | Manual checks a pilot performs at the end of each phase |
 | [`docs/CONTRIBUTING.md`](docs/CONTRIBUTING.md) | Git, commits, pull requests, code style |
 | [`docs/AGENT_WORKFLOW.md`](docs/AGENT_WORKFLOW.md) | How AI agents are organised on this project |
-| [`docs/LANES.md`](docs/LANES.md) | Path ownership for parallel agents |
+| [`docs/HANDOFF.md`](docs/HANDOFF.md) | How one agent hands work to the next |
 | [`docs/MAINTENANCE.md`](docs/MAINTENANCE.md) | Recurring obligations, including the 2030 WMM renewal |
 | [`docs/adr/`](docs/adr/) | Architecture decision records |
 
 ## Built with AI agents
 
-Flyte is developed largely by AI coding agents working in two parallel lanes, each in its own git
-worktree and its own database branch. The process documentation is therefore load-bearing rather
-than decorative: [`AGENTS.md`](AGENTS.md) is the operating manual,
-[`docs/LANES.md`](docs/LANES.md) is the ownership table that keeps two agents out of the same files,
-and [`docs/DOMAIN.md`](docs/DOMAIN.md) exists so that no agent ever has to recall an aviation
-formula from memory.
+Flyte is developed largely by AI coding agents, one at a time, each picking up where the last ran
+out of context. That makes the process documentation load-bearing rather than decorative:
+[`AGENTS.md`](AGENTS.md) is the operating manual, [`docs/HANDOFF.md`](docs/HANDOFF.md) is the
+protocol for stopping cleanly and picking up cold, and [`docs/DOMAIN.md`](docs/DOMAIN.md) exists so
+that no agent ever has to recall an aviation formula from memory.
+
+One consequence is worth naming: the incoming agent's first job is to review the pull request the
+previous one left open. It is the only reviewer with genuinely fresh context, and reviewing the work
+is also how it learns what it has inherited.
 
 ## Contributing
 
 See [`docs/CONTRIBUTING.md`](docs/CONTRIBUTING.md). In short: Conventional Commits, one task per
-pull request, cross-lane review, and `pnpm verify` green before opening anything.
+pull request, review by the next agent rather than your own, and `pnpm verify` green before
+opening anything.
 
 A defect in a calculation or a safety indicator is not an ordinary bug. It goes through the
 [safety defect process](docs/SAFETY.md#10-reporting-a-safety-defect), which requires a reproducing

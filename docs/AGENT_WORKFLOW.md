@@ -11,15 +11,16 @@ A role is a mode of operation, not a person. One session takes one role at a tim
 
 | Role | Does | May edit | Cannot |
 |---|---|---|---|
-| **Architect** | Breaks a phase into tasks, writes ADRs, maintains `LANES.md` and the backlog | `docs/**` | Write implementation code |
+| **Architect** | Breaks a phase into tasks, writes ADRs, maintains the backlog | `docs/**` | Write implementation code |
 | **Implementer** | Executes one task: code, tests, PR | Only the task's `owns_paths` | Review its own PR; touch other paths |
 | **Reviewer** | Reviews a PR against the checklist | Nothing – comments only | Review a PR it authored |
 | **Aviation validator** | Checks formulas against `DOMAIN.md` and primary sources; audits golden vectors | Comments; `DOMAIN.md` corrections | – |
 | **Doc keeper** | Writes `docs/progress/`, updates statuses, maintains the glossary | `docs/**` | Change code or tests |
 
 The separation that matters most is **Implementer ≠ Reviewer**. An agent that has spent a session
-convincing itself a formula is right is the worst possible reviewer of that formula. With two lanes
-running, this is free: Lane A reviews Lane B and vice versa.
+convincing itself a formula is right is the worst possible reviewer of that formula. With one agent
+at a time, the separation is temporal rather than parallel: **the incoming agent reviews the open PR
+left by its predecessor, as its first act.** See §5.
 
 The **Aviation validator** can block a merge on formula grounds alone, even when every test passes.
 Tests prove the code matches the specification; the validator checks the specification.
@@ -32,27 +33,30 @@ Tests prove the code matches the specification; the validator checks the specifi
 Architect writes docs/backlog/FLY-XXX-slug.md
         │
         ▼
-Implementer  ─ reads task + referenced docs
-             ─ confirms owns_paths in LANES.md
-             ─ status: in-progress
-             ─ branch: lane-<a|b>/FLY-XXX-slug
-             ─ writes tests first for numeric behaviour
-             ─ implements
-             ─ pnpm verify
-             ─ docs/progress/FLY-XXX.md
-             ─ gh pr create
-             ─ status: in-review
+Agent N   ─ picks up: git log / status / branch -a / gh pr list
+          ─ REVIEWS the open PR left by agent N-1        ──▶ approve or request changes
+          ─ reads docs/progress/ for recent tasks
+          ─ reads task file + referenced docs
+          ─ status: in-progress
+          ─ branch: <type>/FLY-XXX-slug  (or resumes an existing one)
+          ─ writes tests first for numeric behaviour
+          ─ implements, staying inside owns_paths
+          ─ pnpm verify
+          ─ lands before empty: commit, push, docs/progress/FLY-XXX.md
+          ─ gh pr create ─ status: in-review
         │
         ▼
-Reviewer (other lane) ─ checklist ─┬─ changes requested ──▶ back to Implementer
-                                   └─ approved
+Agent N+1 ─ reviews that PR as its first act ──▶ back to the loop
         │
         ▼
-Aviation validator (formula changes only) ─ approve or block
+Aviation validator pass (formula changes only) ─ approve or block
         │
         ▼
 Owner merges (squash) ──▶ status: done
 ```
+
+A task may span several agents. Each one leaves a session entry in `docs/progress/FLY-XXX.md`, and
+the branch carries work-in-progress commits that are never rebased away.
 
 ## 3. Task file format
 
@@ -64,7 +68,6 @@ id: FLY-042
 title: Wind triangle solver
 status: todo              # todo | in-progress | in-review | done | blocked
 phase: 3
-lane: A                   # A | B | any
 depends_on: [FLY-038]
 owns_paths:
   - packages/aviation/src/navigation/**
@@ -98,20 +101,23 @@ self-contained, it is not ready.
 **`estimate: L` is a planning defect.** Split it. A task that outgrows one session loses context
 partway through, and that is where subtly wrong code comes from.
 
-## 4. Two lanes
+## 4. One agent at a time
 
-Full mechanics in [`LANES.md`](LANES.md). The essentials:
+Full protocol in [`HANDOFF.md`](HANDOFF.md). The essentials:
 
-- Two git worktrees sharing one object store – no `index.lock` contention.
-- One Neon database branch per lane – migrations cannot collide.
-- Ports 3000 and 3001.
-- Path ownership declared per phase and per task; **anything outside it means stop and report**.
-- Lane A alone edits the dependency catalog.
-- Cross-lane review.
+- **One agent, one working directory**, one `dev` branch of the database. No worktrees.
+- **Keep a context reserve.** Around 20 % remaining: take on no new work. Around 10 %: commit, push,
+  write the handoff note, stop.
+- **Write `docs/progress/FLY-XXX.md` every session**, not only when a task completes. A task may
+  span three agents; the file gets three entries.
+- **The incoming agent reviews the outgoing agent's PR** before starting anything of its own.
+- **An unfinished branch stays.** Work-in-progress commits are a record of the route taken. Do not
+  rebase them away to make history tidy.
 
-**Contract-first when lanes must meet.** If Lane A builds an adapter Lane B will consume, a short
-task lands the TypeScript interfaces on `main` *before* either starts. Both then build against a
-committed contract instead of reconciling two guesses later.
+**Contract-first still applies, but across time.** When one piece of work
+depends on an interface another will implement, land the TypeScript interfaces alone in a short
+task first. The next agent then builds against something committed rather than against its own
+reconstruction of what was probably intended.
 
 ## 5. Sub-agents
 
@@ -124,8 +130,9 @@ Not worth spawning:
 - Anything touching files another agent has open.
 - Work needing continuity of design judgement across steps.
 
-**At most three in parallel within a lane**, and only on disjoint paths. Beyond that, rebasing costs
-more than the parallelism saves.
+**At most three in parallel**, and only on disjoint paths. Note that sub-agents spend your context
+budget too - a broad search costs less than reading the files yourself, but it is not free, and
+running dry mid-task is the failure this workflow is built to avoid.
 
 ## 6. Context discipline
 
@@ -172,7 +179,7 @@ Every completed task writes `docs/progress/FLY-XXX.md`:
 ```markdown
 # FLY-042 – Wind triangle solver
 
-**Completed:** 2026-09-14 · **Lane:** A · **PR:** #37
+**Session 2 · completed:** 2026-09-14 · **PR:** #37
 
 ## Done
 Solver in `packages/aviation/src/navigation/windTriangle.ts`. 14 golden vectors covering all four
@@ -191,6 +198,6 @@ Magnetic declination still hardcoded at 6°E in the integration test. Unblocked 
 result; if that ever needs to change, the OFP leg table assumes GS > 0.
 ```
 
-One file per task – never a shared log, so two lanes never conflict on it. The "notes for whoever
-comes next" section is the most valuable part: it is where hard-won context survives the end of a
-session.
+One file per task, never a shared log. The "notes for whoever comes next" section is the most
+valuable part of this entire process: with sequential agents it is the only channel through which
+hard-won context survives the end of a session.

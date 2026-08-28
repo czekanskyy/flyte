@@ -24,9 +24,10 @@ real go/no-go decisions in real aircraft. Treat every calculation accordingly.
 3. **Every new public function in `packages/aviation` needs a golden test vector**
    computed by hand or taken from an authoritative source. No vector, no merge.
 
-4. **Stay inside `owns_paths`.** Your task file declares which paths you own. Another agent is
-   working in this repository right now. If you need to touch anything outside your paths, **stop
-   and report** – do not "just quickly fix" it.
+4. **Stay inside `owns_paths`.** Your task file declares which paths it covers. Wandering outside
+   them is how a session runs out of budget halfway through a refactor nobody asked for, leaving
+   the next agent a mess to inherit. If you need to touch anything outside your paths, **stop and
+   report** – do not "just quickly fix" it.
 
 5. **`pnpm verify` must pass before you open a PR.** Not "should" – must.
 
@@ -96,46 +97,54 @@ Your task lives in `docs/backlog/FLY-XXX-*.md`. It is self-contained: you should
 previous conversation to execute it.
 
 ```
-1. Read the task file, and every doc it references.
-2. Read docs/LANES.md – confirm which paths you own this phase.
-3. Set status: in-progress in the task file.
-4. git checkout -b lane-<a|b>/FLY-XXX-<slug>
-5. Write the test first when the behaviour is numeric. Golden vectors before implementation.
-6. Implement. Stay inside owns_paths.
-7. pnpm verify
-8. Write docs/progress/FLY-XXX.md
-9. gh pr create --fill --base main
-10. Set status: in-review
+ 1. Pick up: git log, git status, git branch -a, gh pr list.
+    You are probably not the first agent here - docs/HANDOFF.md §2.
+ 2. Review the open PR your predecessor left, if there is one. That is your first job.
+ 3. Read docs/progress/ for this task and the few before it.
+ 4. Read the task file and every doc it references.
+ 5. Set status: in-progress in the task file.
+ 6. git checkout -b <type>/FLY-XXX-<slug>   (or check out the existing task branch)
+ 7. Write the test first when the behaviour is numeric. Golden vectors before implementation.
+ 8. Implement. Stay inside owns_paths.
+ 9. pnpm verify
+10. Write docs/progress/FLY-XXX.md - every session, not only at task completion.
+11. gh pr create --fill --base main
+12. Set status: in-review
 ```
 
-If you discover the task is wrong, under-specified, or larger than one session: **stop, write down
+If you discover the task is wrong, under-specified, or larger than one budget: **stop, write down
 what you found in the task file, and report.** Do not expand scope silently. An `estimate: L` task
-is a planning error – ask for it to be split.
+is a planning error – split it, or ask for it to be split.
 
 ---
 
-## 5. Two agents work here simultaneously
+## 5. You are probably not the first agent on this task
 
-This repo is worked by two parallel CLI agents in separate git worktrees, each with its own Neon
-database branch. [`docs/LANES.md`](docs/LANES.md) is the authoritative ownership table for the
-current phase.
+One agent works this repository at a time. When it runs out of context budget, another takes over
+from where it stopped. [`docs/HANDOFF.md`](docs/HANDOFF.md) is the full protocol; the essentials:
 
-Conflict-prone files and the rules that keep them calm:
+**Before you write code**, find out what you inherited: `git log`, `git status`, `git branch -a`,
+`gh pr list`, then `docs/progress/` for the task and the two or three before it, then `pnpm verify`
+to learn whether you are starting green or inheriting a failure.
 
-| File | Rule |
-|---|---|
-| `pnpm-workspace.yaml` (`catalog:`) | **Lane A only.** Lane B files a `chore(deps)` task instead |
-| `pnpm-lock.yaml` | Never hand-merge. After rebase: `pnpm install` |
-| `docs/BACKLOG.md` | **Generated** by `pnpm backlog:sync`. Never edit by hand – truth lives in task frontmatter |
-| Progress notes | One file per task: `docs/progress/FLY-XXX.md`. Never a shared log |
-| Drizzle migrations | Name them `NNNN_flyXXX_description.sql` so collisions are loud, not silent |
-| DB schema | Split per domain: `packages/db/src/schema/{auth,logbook,aip,routes}.ts` |
-| i18n messages | Split per module: `messages/{pl,en}/<module>.json` |
+**Review your predecessor's open PR first.** With one agent at a time there is no second reviewer,
+and reviewing your own work is not review. The incoming agent has the one thing the outgoing agent
+cannot have - fresh context - so review and onboarding are the same reading. Find a defect in what
+you inherited? Say so plainly. The alternative is building on it.
 
-**When two lanes must meet** (one builds a data adapter, the other the UI that consumes it), a
-short *contract-first* task lands the TypeScript interfaces in
-`packages/aviation-data/src/ports/` on `main` **before** the lanes diverge. Both then code against
-the same interface.
+**Keep a reserve and land before you are empty.** At roughly 20 % remaining, take on no new work.
+At roughly 10 %, commit, push, and write `docs/progress/FLY-XXX.md`. Finishing one more function
+and running dry is worse than stopping one function early with a clean note: the next agent then
+pays for both the unfinished function and the missing explanation.
+
+**The handoff note is the deliverable that survives you.** State what is done, what is not, which
+approaches you already tried and rejected and why, the next concrete step, and anything that cost
+you time to discover. Rejected approaches matter most - the next agent will otherwise find the same
+appealing shortcut and spend the same hour on it.
+
+Several conventions in this repository exist to make that handoff cheap: one progress file per
+task, self-contained task files, schema and i18n split per module, migrations named
+`NNNN_flyXXX_*`, and `docs/BACKLOG.md` generated by `pnpm backlog:sync` rather than hand-edited.
 
 ---
 
@@ -203,7 +212,7 @@ fix(logbook): correct night-time totals across UTC midnight
 docs(domain): document contingency fuel rule with NCO citation
 ```
 
-**Branches** – `lane-a/FLY-123-wind-triangle`, `lane-b/FLY-124-logbook-table`
+**Branches** – `feat/FLY-123-wind-triangle`, `fix/FLY-124-night-totals`, `docs/`, `chore/`
 
 **Merges** – squash only. `main` stays linear and always deployable.
 

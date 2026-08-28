@@ -169,11 +169,12 @@ Sessions are database-backed via the Drizzle adapter. Passwords use Argon2id.
 ## 9. Database
 
 Neon Postgres with PostGIS. Split by domain across `packages/db/src/schema/` – partly for clarity,
-partly so two parallel agents rarely touch the same file.
+partly to keep each file small enough for an incoming agent to read cold.
 
-Neon's branching is load-bearing for the parallel-agent workflow: each lane develops against its own
-branch of the database, so one agent's migration cannot disturb the other. See
-[`LANES.md`](LANES.md).
+Two branches: `main` for production and `dev` for development. The production connection string
+never appears in a local environment file, because agents run migrations and `pnpm db:migrate` reads
+whatever `DATABASE_URL` it finds. `dev` is resettable from `main` at any phase sync point. See
+[`HANDOFF.md`](HANDOFF.md) §8.
 
 Geometry columns use PostGIS with GiST indexes. Everything else is ordinary relational data.
 
