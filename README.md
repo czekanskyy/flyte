@@ -107,8 +107,8 @@ pnpm test:vectors  # the hand-verified aviation calculations
 pnpm test:e2e      # Playwright
 ```
 
-> Until [FLY-010](docs/backlog/FLY-010-monorepo-bootstrap.md) lands, the repository is still
-> documentation-only and the one check that runs is `node scripts/lint-prose.mjs`.
+> `pnpm verify` is a skeleton until FLY-011 wires typecheck, lint and tests. `pnpm install`
+> and `pnpm backlog:sync` already work.
 
 ## Repository structure
 
