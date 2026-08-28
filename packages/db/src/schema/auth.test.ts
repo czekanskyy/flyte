@@ -10,4 +10,8 @@ describe("auth schema", () => {
     expect(getTableName(verification)).toBe("verification");
     expect(getTableName(passkey)).toBe("passkey");
   });
+
+  it("stores Better Auth 1.7.2 account issuer for identity uniqueness", () => {
+    expect(account.issuer.name).toBe("issuer");
+  });
 });

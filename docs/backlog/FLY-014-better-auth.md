@@ -1,7 +1,7 @@
 ---
 id: FLY-014
 title: "Better Auth: email/password, passkeys, Google, magic link"
-status: todo
+status: in-review
 phase: 1
 depends_on: [FLY-012, FLY-013]
 owns_paths:

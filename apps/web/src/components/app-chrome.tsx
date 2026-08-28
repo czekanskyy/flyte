@@ -1,5 +1,6 @@
 import { getTranslations } from "next-intl/server";
 import type { ReactNode } from "react";
+import { SessionNav } from "../app/[locale]/(auth)/session-nav.tsx";
 import { Link } from "../i18n/navigation.ts";
 import { LanguageSwitch } from "./language-switch.tsx";
 
@@ -19,7 +20,7 @@ export async function AppChrome({ children }: Props) {
         </Link>
         <nav className="nav" aria-label={tApp("appName")}>
           <Link href="/">{t("home")}</Link>
-          <Link href="/login">{t("signIn")}</Link>
+          <SessionNav />
           <LanguageSwitch />
         </nav>
       </header>

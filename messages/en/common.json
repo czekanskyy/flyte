@@ -10,10 +10,6 @@
     "signIn": "Sign in",
     "language": "Language"
   },
-  "auth": {
-    "signInTitle": "Sign in",
-    "signInBody": "Better Auth lands in the next task. This view is only a sketch of the (auth) layout."
-  },
   "locale": {
     "pl": "Polski",
     "en": "English"

@@ -10,10 +10,6 @@
     "signIn": "Zaloguj się",
     "language": "Język"
   },
-  "auth": {
-    "signInTitle": "Logowanie",
-    "signInBody": "Logowanie (Better Auth) pojawi się w następnym zadaniu. Ten widok jest tylko szkicem układu (auth)."
-  },
   "locale": {
     "pl": "Polski",
     "en": "English"
