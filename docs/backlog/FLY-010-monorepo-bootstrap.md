@@ -1,7 +1,7 @@
 ---
 id: FLY-010
 title: "Monorepo bootstrap: pnpm workspace, catalog, Turborepo, package skeletons"
-status: todo
+status: in-review
 phase: 1
 depends_on: []
 owns_paths:
@@ -28,6 +28,7 @@ owns_paths:
   - docs/progress/FLY-010.md
   - docs/backlog/FLY-010-monorepo-bootstrap.md
   - docs/BACKLOG.md
+  - .github/workflows/prose.yml
 estimate: M
 ---
 

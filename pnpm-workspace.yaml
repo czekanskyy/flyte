@@ -1,0 +1,51 @@
+packages:
+  - apps/*
+  - packages/*
+
+catalog:
+  # Core – ADR 0001, re-verified 2026-08-28. typescript stays 6.0.3: ADR 0002.
+  next: 16.3.3
+  react: 19.2.8
+  react-dom: 19.2.8
+  typescript: 6.0.3
+  tailwindcss: 4.3.3
+  turbo: 2.10.12
+
+  # Application
+  better-auth: 1.7.2
+  drizzle-orm: 0.45.2
+  drizzle-kit: 0.31.10
+  "@neondatabase/serverless": 1.1.0
+  maplibre-gl: 6.6.0
+  react-map-gl: 8.1.2
+  "@tanstack/react-query": 5.102.8
+  "@tanstack/react-table": 9.2.4
+  zustand: 5.0.15
+  zod: 4.5.1
+  react-hook-form: 7.86.0
+  next-intl: 4.14.1
+  serwist: 9.5.12
+  "@serwist/next": 9.5.12
+  dexie: 4.4.5
+  lucide-react: 1.35.0
+  d3-scale: 4.0.2
+  date-fns: 4.4.0
+
+  # Aviation-specific
+  geographiclib-geodesic: 2.2.0
+  suncalc: 2.0.1
+
+  # Tooling
+  vitest: 4.1.11
+  "@vitest/coverage-v8": 4.1.11
+  "@testing-library/react": 16.3.3
+  playwright: 1.62.1
+  "@playwright/test": 1.62.1
+  fast-check: 4.9.0
+  msw: 2.15.0
+  eslint: 10.9.1
+  typescript-eslint: 8.68.0
+  eslint-plugin-boundaries: 7.2.0
+  prettier: 3.9.6
+  size-limit: 13.0.3
+  argon2: 0.45.1

@@ -18,5 +18,9 @@ jobs:
       - uses: actions/setup-node@v5
         with:
           node-version: '24'
+          # This job only runs `node scripts/lint-prose.mjs`. setup-node v5
+          # otherwise reads package.json "packageManager" and looks for pnpm
+          # on PATH, which this workflow does not install.
+          package-manager-cache: false
       - name: Check for em-dashes
         run: node scripts/lint-prose.mjs
