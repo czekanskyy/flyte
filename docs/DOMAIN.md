@@ -57,6 +57,51 @@ Markers used below:
 | Alternate aerodrome | Lotnisko zapasowe | ALTN |
 | Time marks along a leg | Minutówki | – |
 
+### 1.1 Unit conversions ✅
+
+Everything inside `packages/aviation` is SI. Conversion to and from display units happens only
+through `packages/aviation/units`, and only at the UI boundary. See
+[ADR 0008](adr/0008-si-branded-units.md).
+
+Constructors wrap a number in a branded type (`feet(3000)`, `knots(90)`). Arithmetic between two
+different brands is a type error. Conversions themselves **do not round**; rounding policy in the
+table above applies to aviation *results* (safe altitude, fuel, leg time), not to unit conversion.
+
+**Fuel mass ↔ volume is not a unit conversion.** It requires an explicit density argument taken
+from §8.4. `packages/aviation/units` must not default a fuel density.
+
+Implement from the **exact** definitions below, not from rounded table printouts. ICAO Annex 5
+Table 3-3 prints `1 kt = 0.514 444 m/s`; the exact value is `1852 / 3600` m/s. Use the ratio.
+
+| Quantity | From | To | Factor | Exact? | Source |
+|---|---|---|---|---|---|
+| Length | ft | m | `0.3048` | yes | ICAO Annex 5, 5th ed. (2010), Chapter 1 definition of the foot |
+| Length | NM | m | `1852` | yes | ICAO Annex 5, 5th ed. (2010), Chapter 1 definition of the nautical mile |
+| Length | km | m | `1000` | yes | SI |
+| Length | statute mile | m | `1609.344` | yes | 5280 × 0.3048 m; NIST SP 811 Appendix B.8 |
+| Speed | kt | m/s | `1852 / 3600` | yes | 1 kt = 1 NM/h (Annex 5 Chapter 1). Table 3-3 prints 0.514 444 |
+| Speed | km/h | m/s | `1 / 3.6` | yes | SI |
+| Speed | ft/min | m/s | `0.3048 / 60` | yes | Derived from the foot |
+| Speed | mph | m/s | `1609.344 / 3600` | yes | Derived from the statute mile |
+| Mass | lb (avoirdupois) | kg | `0.45359237` | yes | International Yard and Pound Agreement (1959); NIST SP 811 fn 22 |
+| Volume | L | m³ | `0.001` | yes | ICAO Annex 5 Chapter 1: 1 L = 1 dm³ |
+| Volume | US gal | L | `3.785411784` | yes | 231 in³, 1 in = 0.0254 m exactly (NIST SP 811) |
+| Volume | Imp gal | L | `4.54609` | yes | NIST SP 811 Appendix B.8 (marked exact) |
+| Pressure | hPa | Pa | `100` | yes | SI prefix. 1 hPa = 1 mbar |
+| Pressure | inHg (conventional) | Pa | `3386.389` | conventional | NIST SP 811 "inch of mercury, conventional (inHg)" |
+| Temperature | °C | K | `T = t + 273.15` | yes (offset) | BIPM SI Brochure 9th ed. (2019); Annex 5 Chapter 1 |
+| Temperature | °F | °C | `t = (t_F − 32) × 5/9` | yes | NIST SP 811 |
+| Angle | deg | rad | `π / 180` | yes | SI |
+| Time | min | s | `60` | yes | SI |
+| Time | h | s | `3600` | yes | SI |
+
+**Invariants** (property-tested in FLY-018):
+
+- Every conversion round-trips to the original value within a relative tolerance of `1e-9` for
+  finite inputs in operational ranges (altitudes −1000 ft to 60 000 ft, speeds 0 to 500 kt, etc.).
+- No public function returns `NaN` or `Infinity` for any finite input.
+- Volume ↔ mass of fuel is not provided as a zero-argument conversion.
+
 ---
 
 ## 2. Geodesy
@@ -554,3 +599,6 @@ date.
 | NOAA NCEI – World Magnetic Model 2025 | §3 declination, and its golden vectors |
 | AIP Poland / eAIP VFR (PANSA) | Aerodrome and airspace data verification |
 | Aircraft POH / AFM | §5.1 IAS→CAS, §9 arms and envelopes, §8 fuel flows, performance tables |
+| ICAO Annex 5, 5th ed. (July 2010) – Units of Measurement | §1.1 conversion factors: foot, nautical mile, knot, litre |
+| NIST SP 811 – Guide for the Use of the SI (2008), Appendix B.8 | §1.1 conversion factors: pound, gallon, statute mile, conventional inHg |
+| BIPM SI Brochure, 9th ed. (2019) | §1.1 Celsius–kelvin offset |

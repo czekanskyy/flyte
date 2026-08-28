@@ -8,7 +8,7 @@ Plan a route on a map, and the operational flight plan, the ICAO flight plan and
 all derive from the same route – same weather, same aircraft, same numbers.
 
 [![prose](https://github.com/czekanskyy/flyte/actions/workflows/prose.yml/badge.svg)](https://github.com/czekanskyy/flyte/actions/workflows/prose.yml)
-[![status](https://img.shields.io/badge/status-phase%200%20%C2%B7%20foundation-orange)](docs/IMPLEMENTATION_PLAN.md)
+[![status](https://img.shields.io/badge/status-phase%201%20%C2%B7%20foundation-orange)](docs/IMPLEMENTATION_PLAN.md)
 [![PWA](https://img.shields.io/badge/PWA-installable-5a0fc8)](https://web.dev/progressive-web-apps/)
 
 </div>
@@ -48,13 +48,13 @@ and re-checking a figure on an airfield apron.
 
 ## Project status
 
-**Phase 0 – foundation.** The repository currently contains the product definition, the
-architecture, the aviation reference and the agent operating manual. No application code yet.
+**Phase 1 – foundation.** Task files are written. Application code starts at
+[FLY-010](docs/backlog/FLY-010-monorepo-bootstrap.md).
 
 | Phase | Scope | Status |
 |---|---|---|
 | 0 | Documentation, conventions, repository | ✅ complete |
-| 1 | Monorepo, auth, database, i18n, theming, PWA, deployment | ⏳ next |
+| 1 | Monorepo, auth, database, i18n, theming, PWA, deployment | 🔵 in progress |
 | 2+3 | Logbook ‖ calculation engine and E6B | planned |
 | 4+5 | AIRAC import ‖ map, terrain, safe altitude | planned |
 | 6 | OFP, weather, time marks, print templates | planned |
@@ -107,8 +107,8 @@ pnpm test:vectors  # the hand-verified aviation calculations
 pnpm test:e2e      # Playwright
 ```
 
-> The commands above land in Phase 1. Today the repository carries documentation only, and the one
-> check that runs is `node scripts/lint-prose.mjs`.
+> Until [FLY-010](docs/backlog/FLY-010-monorepo-bootstrap.md) lands, the repository is still
+> documentation-only and the one check that runs is `node scripts/lint-prose.mjs`.
 
 ## Repository structure
 

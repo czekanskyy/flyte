@@ -238,6 +238,13 @@ BETTER_AUTH_URL=https://flyte.czekanski.dev
 GOOGLE_CLIENT_ID=
 GOOGLE_CLIENT_SECRET=
 
+# Magic link (optional in Phase 1; the form is hidden when unset)
+SMTP_HOST=
+SMTP_PORT=587
+SMTP_USER=
+SMTP_PASSWORD=
+SMTP_FROM=noreply@flyte.czekanski.dev
+
 # Aeronautical data
 OPENAIP_CLIENT_ID=
 

@@ -72,9 +72,20 @@ night mode · next-intl in Polish and English · PWA via Serwist, manifest and i
 and the Cloudflare Tunnel · CI and CD · **`packages/aviation/units`** with branded types, converters
 and its first golden vectors.
 
-**Suggested split:** infrastructure and auth first (catalog, config, database, Better Auth, Docker,
-CI), then the application shell (App Router, UI package, theming, i18n, PWA), then units. Each is
-roughly three sessions and each ends somewhere a successor can pick up cleanly.
+Task files (written at the Phase 0 → 1 sync point):
+
+| Id | Title | Est. | Depends on |
+|---|---|---|---|
+| [FLY-010](backlog/FLY-010-monorepo-bootstrap.md) | Monorepo bootstrap | M | – |
+| [FLY-011](backlog/FLY-011-shared-config-ci.md) | Shared config + CI verify | M | 010 |
+| [FLY-012](backlog/FLY-012-db-drizzle-neon.md) | Drizzle + Neon + PostGIS | M | 010, 011 |
+| [FLY-013](backlog/FLY-013-next-app-i18n.md) | App Router + next-intl | M | 011 |
+| [FLY-014](backlog/FLY-014-better-auth.md) | Better Auth (four methods) | M | 012, 013 |
+| [FLY-015](backlog/FLY-015-ui-theme-night.md) | UI kit + night mode | M | 013 |
+| [FLY-016](backlog/FLY-016-pwa-serwist.md) | PWA | M | 013 |
+| [FLY-017](backlog/FLY-017-docker-cd.md) | Docker Compose + CD | M | 013 |
+| [FLY-018](backlog/FLY-018-aviation-units.md) | `aviation/units` | M | 011 |
+| [FLY-019](backlog/FLY-019-first-run-ack.md) | First-run acknowledgement | S | 014, 015 |
 
 **Done when:** the app is deployed at `flyte.czekanski.dev`, installable as a PWA, you can sign in
 with a passkey and switch language, and `pnpm verify` is green in CI.
