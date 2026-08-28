@@ -1,7 +1,7 @@
 ---
 id: FLY-013
 title: "Next.js App Router shell and next-intl (PL/EN)"
-status: todo
+status: in-review
 phase: 1
 depends_on: [FLY-011]
 owns_paths:

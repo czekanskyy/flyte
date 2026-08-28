@@ -21,6 +21,9 @@ to drift onto a different React.
 |---|---|---|
 | `next` | 16.3.3 | App Router, Turbopack. `engines: node >=20.9` |
 | `react`, `react-dom` | 19.2.8 | |
+| `@types/react` | 19.2.18 | FLY-013 |
+| `@types/react-dom` | 19.2.5 | FLY-013 |
+| `@types/node` | 24.13.3 | Matches the CI Node 24 line, not Node 26 `latest` |
 | `typescript` | **6.0.3** | Deliberately not 7.x – see [ADR 0002](0002-typescript-version.md) |
 | `tailwindcss` | 4.3.3 | |
 | `turbo` | 2.10.12 | |

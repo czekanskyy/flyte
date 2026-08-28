@@ -1,0 +1,21 @@
+{
+  "appName": "Flyte",
+  "home": {
+    "title": "Flyte",
+    "tagline": "Elektroniczna torba lotnicza dla pilotów szkolnych i lotnictwa ogólnego w Polsce.",
+    "body": "Planowanie trasy, OFP, FPL i dziennik lotów będą tu, gdy kolejne etapy wylądują. Dziś to szkielet aplikacji: język, układ i zdrowie serwera."
+  },
+  "nav": {
+    "home": "Start",
+    "signIn": "Zaloguj się",
+    "language": "Język"
+  },
+  "auth": {
+    "signInTitle": "Logowanie",
+    "signInBody": "Logowanie (Better Auth) pojawi się w następnym zadaniu. Ten widok jest tylko szkicem układu (auth)."
+  },
+  "locale": {
+    "pl": "Polski",
+    "en": "English"
+  }
+}
