@@ -11,10 +11,10 @@ trigger and a consequence for missing it.
 | Item | Every | Next due | Miss consequence |
 |---|---|---|---|
 | AIRAC data import | 28 days | Automated (worker cron) | Expired-cycle banner; planning against stale airspace |
-| Dependency version audit | Start of each phase | Phase 1 | Building on assumptions instead of facts |
+| Dependency version audit | Start of each phase | Phase 2 | Building on assumptions instead of facts |
 | **WMM coefficient renewal** | 5 years | **before 2030-01-01** | Magnetic headings silently wrong and getting worse |
 | Regulatory review (Part-NCO, SERA, Part-FCL) | Annually | 2027-08 | Fuel minima or VFR limits no longer match law |
-| Golden vector audit | Each phase | Phase 1 | Vectors drift toward implementation instead of truth |
+| Golden vector audit | Each phase | Phase 1 (FLY-018 lands the first vectors) | Vectors drift toward implementation instead of truth |
 | Certificate and secret rotation | Annually | 2027-08 | Outage |
 
 ---

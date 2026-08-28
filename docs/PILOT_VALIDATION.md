@@ -24,6 +24,29 @@ looking at it.
 
 ---
 
+## Phase 1 – Foundation
+
+No calculations yet. This checklist is operational: can a pilot *use the shell* the way the rest
+of the product will be used?
+
+| Check | OK |
+|---|---|
+| `pnpm verify` is green in CI | ☐ |
+| Sign in with email and password | ☐ |
+| Register a passkey and sign in with it | ☐ |
+| Sign in with Google (if the OAuth client is configured) | ☐ |
+| Switch the UI between Polish and English; both are complete for the screens that exist | ☐ |
+| Red night mode is actually red, readable at 375 px, and does not flash white on load | ☐ |
+| Install as a PWA on desktop and on a phone | ☐ |
+| First-run acknowledgement is shown before the planning placeholder; the wording matches SAFETY.md §1.1 | ☐ |
+| App reachable at `flyte.czekanski.dev` over HTTPS | ☐ |
+| `/credits` is reachable when signed in | ☐ |
+
+There is nothing here to compute by hand. If a check fails, it is a defect, not a rounding
+discussion.
+
+---
+
 ## Phase 2+3 – calculation engine and E6B
 
 ### E6B against your physical calculator

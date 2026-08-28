@@ -6,7 +6,8 @@
 
 Greenfield project. Every version below was read from the npm registry with `npm view` on
 2026-08-28, not recalled from training data – several majors were further ahead than assumed
-(MapLibre 6 not 5, ESLint 10 not 9, Vitest 4, TanStack Table 9).
+(MapLibre 6 not 5, ESLint 10 not 9, Vitest 4, TanStack Table 9). Re-verified at Phase 1 start
+the same day; four patch/minor moves were applied (see Consequences).
 
 ## Decision
 
@@ -35,14 +36,14 @@ to drift onto a different React.
 | `maplibre-gl` | 6.6.0 | Native 3D terrain and hillshade from DEM tiles, no API key, genuinely open source |
 | `react-map-gl` | 8.1.2 | Peer range `maplibre-gl >=1.13.0` – compatible with 6.x |
 | `@tanstack/react-query` | 5.102.8 | With `query-sync-storage-persister` for offline |
-| `@tanstack/react-table` | 9.2.3 | v9 is `latest` and stable |
+| `@tanstack/react-table` | 9.2.4 | v9 is `latest` and stable |
 | `zustand` | 5.0.15 | Holds the single `Route` object shared by map and OFP |
-| `zod` | 4.4.3 | Same schemas across UI, API and calculation inputs |
+| `zod` | 4.5.1 | Same schemas across UI, API and calculation inputs |
 | `react-hook-form` | 7.86.0 | |
-| `next-intl` | 4.14.0 | |
+| `next-intl` | 4.14.1 | |
 | `serwist`, `@serwist/next` | 9.5.12 | Works with Turbopack; `next-pwa` still requires webpack |
 | `dexie` | 4.4.5 | |
-| `lucide-react` | 1.34.0 | |
+| `lucide-react` | 1.35.0 | |
 | `d3-scale` | 4.0.2 | Scales only. Charts are hand-written SVG – W&B envelopes and terrain profiles must print correctly, which rules out canvas-based chart libraries |
 | `date-fns` | 4.4.0 | |
 
@@ -81,3 +82,18 @@ Deferred until needed: `pmtiles` 4.5.0, for offline map tiles – out of scope f
 - Versions are re-verified against the registry at the start of each phase. Agents must not assume
   their training data reflects current releases – this ADR exists partly as evidence that assuming
   it would have been wrong four times over on day one.
+
+### Phase 1 start re-verification (2026-08-28)
+
+`npm view <package> version` against every pin above. Unchanged except:
+
+| Package | Was | Now |
+|---|---|---|
+| `@tanstack/react-table` | 9.2.3 | 9.2.4 |
+| `zod` | 4.4.3 | 4.5.1 |
+| `next-intl` | 4.14.0 | 4.14.1 |
+| `lucide-react` | 1.34.0 | 1.35.0 |
+
+`typescript` latest is 7.0.2. `typescript-eslint@8.68.0` peer range is still
+`typescript: >=4.8.4 <6.1.0`. [ADR 0002](0002-typescript-version.md) exit condition is **not**
+met; catalog stays on `6.0.3`.

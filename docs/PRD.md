@@ -1,7 +1,7 @@
 # PRD.md – Flyte
 
 **Product:** Flyte – an Electronic Flight Bag for student pilots and general-aviation pilots in Poland
-**Status:** Phase 0 · **Owner:** Dominik Czekański · **Last updated:** 2026-08-28
+**Status:** Phase 1 · **Owner:** Dominik Czekański · **Last updated:** 2026-08-28
 
 ---
 

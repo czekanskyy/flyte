@@ -37,16 +37,17 @@ That last case is the main reason this directory exists. Pinning TypeScript one 
 |---|---|---|
 | [0001](0001-stack-and-version-pins.md) | Stack and version pins | Accepted |
 | [0002](0002-typescript-version.md) | Pin TypeScript to 6.0.3, not 7.x | Accepted |
-| 0003 | Package manager: pnpm, not bun | Planned |
-| 0004 | Neon Postgres with PostGIS as the single datastore | Planned |
-| 0005 | Better Auth, self-hosted, over Auth.js and Neon Managed Better Auth | Planned |
-| 0006 | MapLibre GL over Leaflet | Planned |
-| 0007 | Ports and adapters for external data sources | Planned |
-| 0008 | SI internally, branded unit types | Planned |
-| 0009 | Attribution policy | Planned |
-| 0010 | One agent at a time, with a handoff protocol | Planned |
-| 0011 | Implement WMM 2025 in-house | Planned |
+| [0003](0003-package-manager.md) | Package manager: pnpm, not bun | Accepted |
+| [0004](0004-neon-postgis.md) | Neon Postgres with PostGIS as the single datastore | Accepted |
+| [0005](0005-better-auth.md) | Better Auth, self-hosted, over Auth.js and Neon Managed Better Auth | Accepted |
+| 0006 | MapLibre GL over Leaflet | Planned (Phase 5) |
+| 0007 | Ports and adapters for external data sources | Planned (Phase 4) |
+| [0008](0008-si-branded-units.md) | SI internally, branded unit types | Accepted |
+| 0009 | Attribution policy | Planned (credits page, Phase 1 FLY-019) |
+| 0010 | One agent at a time, with a handoff protocol | Planned (already practised; write-up later) |
+| 0011 | Implement WMM 2025 in-house | Planned (Phase 3) |
 | 0012 | NOTAM source | Blocked on FLY-002 |
+| 0013 | shadcn/ui as the component kit | Planned (FLY-015 writes it) |
 
 ## Evaluated and rejected, pending a full ADR
 

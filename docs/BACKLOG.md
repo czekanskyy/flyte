@@ -4,14 +4,14 @@
 
 # Backlog
 
-**Generated:** 2026-08-28 · **Current phase:** 0 – Documentation and bootstrap
+**Generated:** 2026-08-28 · **Current phase:** 1 – Foundation
 
 ## Summary
 
 | Status | Count |
 |---|---|
 | 🔴 blocked | 0 |
-| ⚪ todo | 1 |
+| ⚪ todo | 11 |
 | 🔵 in-progress | 0 |
 | 🟡 in-review | 0 |
 | 🟢 done | 0 |
@@ -23,23 +23,35 @@
 | [FLY-002](backlog/FLY-002-notam-coverage-spike.md) | Spike: does the FAA NOTAM API actually cover EP** locations? | S | ⚪ todo |
 
 > **FLY-002 gates all NOTAM work.** Requires FAA API credentials from the owner first.
+> It does **not** gate Phase 1.
 
 ## Phase 0 – Documentation and bootstrap
 
 | Id | Title | Est. | Status |
 |---|---|---|---|
-| – | Repository bootstrap, conventions, core documentation | – | – | 🟢 done (initial commit) |
+| – | Repository bootstrap, conventions, core documentation | – | 🟢 done (initial commit) |
+| [FLY-002](backlog/FLY-002-notam-coverage-spike.md) | Spike: does the FAA NOTAM API actually cover EP** locations? | S | ⚪ todo |
 
-Phase 0 documentation was written directly rather than tracked as individual tasks. Task-level
-tracking begins with Phase 1.
+Phase 0 documentation was written directly rather than tracked as individual tasks.
 
 ## Phase 1 – Foundation
 
-*Task files to be written by the Architect at the Phase 0 → 1 sync point.*
+| Id | Title | Est. | Status |
+|---|---|---|---|
+| [FLY-010](backlog/FLY-010-monorepo-bootstrap.md) | Monorepo bootstrap: pnpm workspace, catalog, Turborepo, package skeletons | M | ⚪ todo |
+| [FLY-011](backlog/FLY-011-shared-config-ci.md) | Shared config: TypeScript, ESLint boundaries, Prettier, Vitest, CI verify | M | ⚪ todo |
+| [FLY-012](backlog/FLY-012-db-drizzle-neon.md) | packages/db: Drizzle, Neon, PostGIS, auth schema | M | ⚪ todo |
+| [FLY-013](backlog/FLY-013-next-app-i18n.md) | Next.js App Router shell and next-intl (PL/EN) | M | ⚪ todo |
+| [FLY-014](backlog/FLY-014-better-auth.md) | Better Auth: email/password, passkeys, Google, magic link | M | ⚪ todo |
+| [FLY-015](backlog/FLY-015-ui-theme-night.md) | packages/ui, theme system, red night mode | M | ⚪ todo |
+| [FLY-016](backlog/FLY-016-pwa-serwist.md) | PWA: Serwist, manifest, icons | M | ⚪ todo |
+| [FLY-017](backlog/FLY-017-docker-cd.md) | Docker Compose and CD to GHCR | M | ⚪ todo |
+| [FLY-018](backlog/FLY-018-aviation-units.md) | packages/aviation/units: branded types, converters, golden vectors | M | ⚪ todo |
+| [FLY-019](backlog/FLY-019-first-run-ack.md) | First-run acknowledgement, credits stub, app chrome | S | ⚪ todo |
 
-Planned scope is in [`IMPLEMENTATION_PLAN.md`](IMPLEMENTATION_PLAN.md#phase-1--foundation--10-sessions).
-
----
+Suggested order: **FLY-010 → FLY-011**, then FLY-012 and FLY-013 in either order, then FLY-014
+(needs both). FLY-018 can start as soon as FLY-011 lands. FLY-015 / FLY-016 / FLY-017 need
+FLY-013. FLY-019 needs FLY-014 and FLY-015.
 
 ## Legend
 
