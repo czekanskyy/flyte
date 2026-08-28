@@ -1,0 +1,21 @@
+{
+  "appName": "Flyte",
+  "home": {
+    "title": "Flyte",
+    "tagline": "An Electronic Flight Bag for student pilots and general-aviation pilots in Poland.",
+    "body": "Route planning, OFP, FPL and the logbook land in later phases. Today this is the application shell: language, layout and a health endpoint."
+  },
+  "nav": {
+    "home": "Home",
+    "signIn": "Sign in",
+    "language": "Language"
+  },
+  "auth": {
+    "signInTitle": "Sign in",
+    "signInBody": "Better Auth lands in the next task. This view is only a sketch of the (auth) layout."
+  },
+  "locale": {
+    "pl": "Polski",
+    "en": "English"
+  }
+}

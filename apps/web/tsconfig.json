@@ -1,8 +1,13 @@
 {
   "extends": "@flyte/config/tsconfig/react.json",
   "compilerOptions": {
-    "rootDir": "src",
-    "outDir": "dist"
+    "plugins": [{ "name": "next" }],
+    "incremental": true,
+    "rootDir": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   },
-  "include": ["src"]
+  "include": ["src", "next.config.ts", "next-env.d.ts", ".next/types/**/*.ts"],
+  "exclude": ["node_modules"]
 }
