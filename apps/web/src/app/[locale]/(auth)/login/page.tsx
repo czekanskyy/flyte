@@ -24,7 +24,7 @@ export default async function LoginPage({ params }: Props) {
   }
 
   return (
-    <main>
+    <main className="panel">
       <h1>{signedIn ? t("accountTitle") : t("signInTitle")}</h1>
       <AuthForms features={features} signedIn={signedIn} email={email} />
     </main>

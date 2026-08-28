@@ -116,6 +116,9 @@ importers:
       '@flyte/db':
         specifier: workspace:*
         version: link:../../packages/db
+      '@flyte/ui':
+        specifier: workspace:*
+        version: link:../../packages/ui
       argon2:
         specifier: 'catalog:'
         version: 0.45.1
@@ -249,10 +252,23 @@ importers:
         version: 4.1.11(@types/node@24.13.3)(vite@8.2.2(@types/node@24.13.3)(esbuild@0.28.2)(tsx@4.23.12))
 
   packages/ui:
+    dependencies:
+      react:
+        specifier: 'catalog:'
+        version: 19.2.8
+      react-dom:
+        specifier: 'catalog:'
+        version: 19.2.8(react@19.2.8)
     devDependencies:
       '@flyte/config':
         specifier: workspace:*
         version: link:../config
+      '@types/react':
+        specifier: 'catalog:'
+        version: 19.2.18
+      '@types/react-dom':
+        specifier: 'catalog:'
+        version: 19.2.5(@types/react@19.2.18)
       eslint:
         specifier: 'catalog:'
         version: 10.9.1(supports-color@7.2.0)

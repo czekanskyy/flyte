@@ -1,11 +1,11 @@
 "use client";
 
+import { Button, Input, Label } from "@flyte/ui";
 import { useTranslations } from "next-intl";
 import { useEffect, useState, type FormEvent } from "react";
 import { authClient } from "../../../../lib/auth-client.ts";
 import type { AuthFeatures } from "../../../../lib/auth-types.ts";
 import { useRouter } from "../../../../i18n/navigation.ts";
-import "./auth-forms.css";
 
 type Props = {
   features: AuthFeatures;
@@ -167,12 +167,12 @@ export function AuthForms({ features, signedIn, email }: Props) {
         {error ? <p className="auth-error">{error}</p> : null}
         {ok ? <p className="auth-ok">{ok}</p> : null}
         <div className="auth-form">
-          <button type="button" disabled={busy} onClick={() => void onPasskeyRegister()}>
+          <Button disabled={busy} onClick={() => void onPasskeyRegister()}>
             {t("passkeyRegister")}
-          </button>
-          <button type="button" disabled={busy} onClick={() => void onSignOut()}>
+          </Button>
+          <Button variant="ghost" disabled={busy} onClick={() => void onSignOut()}>
             {t("signOut")}
-          </button>
+          </Button>
         </div>
       </div>
     );
@@ -184,9 +184,9 @@ export function AuthForms({ features, signedIn, email }: Props) {
       {ok ? <p className="auth-ok">{ok}</p> : null}
 
       <form className="auth-form" onSubmit={(event) => void onSignIn(event)}>
-        <label>
+        <Label>
           {t("emailLabel")}
-          <input
+          <Input
             type="email"
             name="email"
             autoComplete="username webauthn"
@@ -194,10 +194,10 @@ export function AuthForms({ features, signedIn, email }: Props) {
             value={passEmail}
             onChange={(event) => setPassEmail(event.target.value)}
           />
-        </label>
-        <label>
+        </Label>
+        <Label>
           {t("passwordLabel")}
-          <input
+          <Input
             type="password"
             name="password"
             autoComplete="current-password webauthn"
@@ -206,53 +206,53 @@ export function AuthForms({ features, signedIn, email }: Props) {
             value={password}
             onChange={(event) => setPassword(event.target.value)}
           />
-        </label>
-        <button type="submit" disabled={busy}>
+        </Label>
+        <Button type="submit" disabled={busy}>
           {t("signInSubmit")}
-        </button>
+        </Button>
       </form>
 
       <form className="auth-form" onSubmit={(event) => void onSignUp(event)}>
         <h2>{t("signUpTitle")}</h2>
-        <label>
+        <Label>
           {t("nameLabel")}
-          <input
+          <Input
             type="text"
             name="name"
             autoComplete="name"
             value={name}
             onChange={(event) => setName(event.target.value)}
           />
-        </label>
-        <button type="submit" disabled={busy}>
+        </Label>
+        <Button type="submit" variant="ghost" disabled={busy}>
           {t("signUpSubmit")}
-        </button>
+        </Button>
       </form>
 
       <p className="auth-or">{t("orDivider")}</p>
 
       {features.passkeys ? (
         <div className="auth-form">
-          <button type="button" disabled={busy} onClick={() => void onPasskeySignIn()}>
+          <Button disabled={busy} onClick={() => void onPasskeySignIn()}>
             {t("passkeySignIn")}
-          </button>
+          </Button>
         </div>
       ) : null}
 
       {features.google ? (
         <div className="auth-form">
-          <button type="button" disabled={busy} onClick={() => void onGoogle()}>
+          <Button disabled={busy} onClick={() => void onGoogle()}>
             {t("googleSignIn")}
-          </button>
+          </Button>
         </div>
       ) : null}
 
       {features.magicLink ? (
         <form className="auth-form" onSubmit={(event) => void onMagicLink(event)}>
           <h2>{t("magicLinkTitle")}</h2>
-          <label>
+          <Label>
             {t("emailLabel")}
-            <input
+            <Input
               type="email"
               name="magic-email"
               autoComplete="email"
@@ -260,10 +260,10 @@ export function AuthForms({ features, signedIn, email }: Props) {
               value={magicEmail}
               onChange={(event) => setMagicEmail(event.target.value)}
             />
-          </label>
-          <button type="submit" disabled={busy}>
+          </Label>
+          <Button type="submit" disabled={busy}>
             {t("magicLinkSubmit")}
-          </button>
+          </Button>
         </form>
       ) : null}
     </div>

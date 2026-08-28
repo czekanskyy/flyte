@@ -10,7 +10,7 @@ export default async function HomePage({ params }: Props) {
   const t = await getTranslations("home");
 
   return (
-    <main>
+    <main className="panel">
       <h1>{t("title")}</h1>
       <p className="tagline">{t("tagline")}</p>
       <p>{t("body")}</p>

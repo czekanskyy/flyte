@@ -15,6 +15,7 @@
     "@better-auth/drizzle-adapter": "catalog:",
     "@better-auth/passkey": "catalog:",
     "@flyte/db": "workspace:*",
+    "@flyte/ui": "workspace:*",
     "argon2": "catalog:",
     "better-auth": "catalog:",
     "next": "catalog:",

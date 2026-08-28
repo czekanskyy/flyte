@@ -225,6 +225,9 @@ docs(domain): document contingency fuel rule with NCO citation
 - Server Components by default; `'use client'` only where interactivity requires it.
 - Every user-visible string goes through `next-intl` with **both** `pl` and `en` keys. No hardcoded text.
 - Mobile-first. Test at 375 px. Touch targets ≥ 44 px – this gets used outdoors, in gloves, in sunlight.
+- **Visual language is glassmorphism** ([ADR 0014](docs/adr/0014-glassmorphism.md)). Chrome is
+  translucent and blurred, large-radius, Apple-like. Do not introduce flat opaque grey as the
+  default. Night mode is red glass, not dark-grey. Print templates are exempt.
 
 **Prose – applies to every `.md` file, code comment, commit message and PR description**
 - **Never use an em-dash (U+2014). Use an en-dash (U+2013, `–`) instead.** House style, no exceptions.
