@@ -65,13 +65,22 @@ to drift onto a different React.
 | `fast-check` | 4.9.0 |
 | `msw` | 2.15.0 |
 | `eslint` | 10.9.1 |
+| `@eslint/js` | 10.0.1 |
 | `typescript-eslint` | 8.68.0 |
 | `eslint-plugin-boundaries` | 7.2.0 |
+| `eslint-plugin-react-hooks` | 7.1.1 |
+| `eslint-config-prettier` | 10.1.8 |
+| `globals` | 17.11.0 |
 | `prettier` | 3.9.6 |
 | `size-limit` | 13.0.3 |
 | `argon2` | 0.45.1 |
 
 Deferred until needed: `pmtiles` 4.5.0, for offline map tiles – out of scope for v1.
+
+`eslint-plugin-react@7.37.5` (latest on 2026-08-28) peers `eslint` up to `^9.7` and refuses ESLint 10.
+It is **not** in the catalog. `eslint-plugin-react-hooks@7.1.1` does support ESLint 10 and is
+enough until `eslint-config-next` arrives in FLY-013. Revisit `eslint-plugin-react` when its
+peer range includes ESLint 10.
 
 ## Consequences
 

@@ -1,0 +1,16 @@
+pnpm-lock.yaml
+node_modules
+.next
+dist
+coverage
+.turbo
+*.tsbuildinfo
+
+# Prose is gated by lint:prose (en-dashes), not Prettier. Reformatting the
+# documentation corpus is out of scope for a tooling task.
+docs
+*.md
+.github
+AGENTS.md
+README.md
+scripts
