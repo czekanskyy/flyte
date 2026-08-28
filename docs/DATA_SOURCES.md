@@ -139,9 +139,17 @@ not used.
 | | |
 |---|---|
 | **Base URL** | `https://external-api.faa.gov/notamapi/v1/notams` |
-| **Auth** | `client_id` + `client_secret`, free registration on the FAA API portal |
+| **Auth** | `client_id` + `client_secret`, **granted by request only** – email `NOTAMS@faa.gov` |
 | **Query** | `icaoLocation`, `domesticLocation`, `notamType`, `responseFormat` |
 | **Env** | `FAA_CLIENT_ID`, `FAA_CLIENT_SECRET` |
+
+**Access is not self-service, and may not be granted at all.** The FAA API portal does not issue
+NOTAM API credentials on signup: access is requested by email to `NOTAMS@faa.gov`, and operator
+eligibility is restricted. A private non-commercial project outside US airspace is not an obvious
+candidate for approval.
+
+So there are now two gates, not one: *can we get credentials at all*, and *if so, does the data
+cover Poland*. Either failing sends us to the fallback below.
 
 **Nothing may be built on this until `FLY-002` completes.** The FAA redistributes international
 NOTAMs, but coverage and currency for `EP**` locations is unconfirmed. A NOTAM module that silently

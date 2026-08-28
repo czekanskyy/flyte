@@ -34,12 +34,17 @@ Better to have no NOTAM feature than one that lies by omission.
 ## Context
 
 - API: `https://external-api.faa.gov/notamapi/v1/notams`
-- Auth: `client_id` + `client_secret`, free self-service registration on the FAA API developer portal
+- Auth: `client_id` + `client_secret`, **issued on request only** – email `NOTAMS@faa.gov` stating the
+  intended use. Not available on signup, and eligibility is restricted
 - Relevant query parameters: `icaoLocation`, `notamType`, `responseFormat`
 - Current documentation state is captured in `docs/DATA_SOURCES.md` §8
 
-**The owner must register for FAA API credentials before this task can run.** Record them as
+**The owner must obtain FAA API credentials before this task can run, and may be refused.** Record them as
 `FAA_CLIENT_ID` / `FAA_CLIENT_SECRET`. This is a prerequisite, not part of the task.
+
+**If access is refused, this task is complete.** Record the refusal in
+`docs/adr/0012-notam-source.md` and adopt the fallback below – that is a valid outcome, not a
+failure, and it should be reached quickly rather than pursued.
 
 ## Acceptance criteria
 
