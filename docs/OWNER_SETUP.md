@@ -107,6 +107,44 @@ is the official source for Polish NOTAMs regardless of what the FAA would have p
 
 ---
 
+## Where each connection string goes
+
+Three branches means three connection strings, and they do **not** all live in the same place.
+
+| Branch | Destination | When |
+|---|---|---|
+| `lane-a` | `C:\Users\Dominik\Dev\flyte\.env.local` | Now |
+| `lane-b` | `C:\Users\Dominik\Dev\flyte-lane-b\.env.local` | Phase 1, once the worktree exists |
+| `main` | Password manager, then a GitHub Actions secret and the TrueNAS app | Phase 1 deployment |
+
+The two lanes work in separate git worktrees, so each has its own working directory and therefore
+its own `.env.local`. Nothing needs switching between them and nothing collides: each agent reads
+the file sitting next to the code it is editing.
+
+Until the lane B worktree exists there is nowhere to put its string, so keep it in a password
+manager alongside the production one. A text file on the desktop is not a holding place for a
+credential granting write access to a database.
+
+### Production never lives on the development machine
+
+A deliberate safety boundary, not tidiness.
+
+Agents run migrations. `pnpm db:migrate` reads `DATABASE_URL` from whichever `.env.local` sits in
+its working directory. If the production string were ever in one of those files, a mistyped command,
+a stale shell, or an agent working from the wrong directory could run a migration against real data.
+
+So the `main` connection string goes to the deployment pipeline only:
+
+```bash
+gh secret set DATABASE_URL --repo czekanskyy/flyte
+```
+
+`gh secret set` prompts for the value and sends it straight to GitHub. It is not echoed, not written
+to shell history, and not visible to anyone reading the session.
+
+Neon branches can be reset from `main` at any phase sync point, so a lane branch is disposable by
+design. Production is not, and the two should never be reachable from the same file.
+
 ## Handling the credentials
 
 - Values go into `.env.local`, which is git-ignored. **Never commit them, and never paste them into
