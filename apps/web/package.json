@@ -12,6 +12,11 @@
     "test": "vitest run"
   },
   "dependencies": {
+    "@better-auth/drizzle-adapter": "catalog:",
+    "@better-auth/passkey": "catalog:",
+    "@flyte/db": "workspace:*",
+    "argon2": "catalog:",
+    "better-auth": "catalog:",
     "next": "catalog:",
     "next-intl": "catalog:",
     "react": "catalog:",

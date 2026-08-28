@@ -4,6 +4,8 @@
     "plugins": [{ "name": "next" }],
     "incremental": true,
     "rootDir": ".",
+    "declaration": false,
+    "declarationMap": false,
     "paths": {
       "@/*": ["./src/*"]
     }

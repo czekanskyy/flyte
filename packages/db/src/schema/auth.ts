@@ -4,11 +4,20 @@
  * Field list taken from Better Auth 1.7.2 (`better-auth` catalog pin):
  * https://github.com/better-auth/better-auth/blob/v1.7.2/docs/content/docs/concepts/database.mdx
  * Passkey plugin: docs/content/docs/plugins/passkey.mdx (table `passkey`).
+ * FLY-014 adds `account.issuer` (unique with `account_id`).
  *
  * Do not add application columns here (locale, theme, first-run ack).
- * Those land in FLY-014 / FLY-019.
+ * Those land in FLY-019.
  */
-import { boolean, index, integer, pgTable, text, timestamp } from "drizzle-orm/pg-core";
+import {
+  boolean,
+  index,
+  integer,
+  pgTable,
+  text,
+  timestamp,
+  uniqueIndex,
+} from "drizzle-orm/pg-core";
 
 export const user = pgTable("user", {
   id: text("id").primaryKey(),
@@ -41,6 +50,7 @@ export const account = pgTable(
   "account",
   {
     id: text("id").primaryKey(),
+    issuer: text("issuer").notNull(),
     accountId: text("account_id").notNull(),
     providerId: text("provider_id").notNull(),
     userId: text("user_id")
@@ -56,7 +66,10 @@ export const account = pgTable(
     createdAt: timestamp("created_at").notNull(),
     updatedAt: timestamp("updated_at").notNull(),
   },
-  (table) => [index("account_userId_idx").on(table.userId)],
+  (table) => [
+    index("account_userId_idx").on(table.userId),
+    uniqueIndex("account_issuer_accountId_uidx").on(table.issuer, table.accountId),
+  ],
 );
 
 export const verification = pgTable(
