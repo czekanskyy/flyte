@@ -17,8 +17,9 @@
     "verify": "turbo typecheck test build && pnpm lint && pnpm lint:prose",
     "lint:prose": "node scripts/lint-prose.mjs",
     "backlog:sync": "node scripts/backlog-sync.mjs",
-    "db:generate": "echo db:generate lands in FLY-012 && node -e \"process.exit(0)\"",
-    "db:migrate": "echo db:migrate lands in FLY-012 && node -e \"process.exit(0)\""
+    "db:generate": "pnpm --filter @flyte/db generate",
+    "db:migrate": "pnpm --filter @flyte/db migrate",
+    "db:check:postgis": "pnpm --filter @flyte/db check:postgis"
   },
   "devDependencies": {
     "@flyte/config": "workspace:*",
