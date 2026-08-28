@@ -28,6 +28,7 @@ owns_paths:
   - docs/progress/FLY-010.md
   - docs/backlog/FLY-010-monorepo-bootstrap.md
   - docs/BACKLOG.md
+  - .github/workflows/prose.yml
 estimate: M
 ---
 
