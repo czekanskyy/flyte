@@ -1,0 +1,33 @@
+# Normalize line endings: LF in the repository, native on checkout is DISABLED.
+# The project is developed on Windows but runs in Linux containers — LF everywhere
+# avoids "whole file changed" diffs and broken shell scripts in Docker.
+* text=auto eol=lf
+
+# Explicitly binary — never touch these.
+*.png    binary
+*.jpg    binary
+*.jpeg   binary
+*.gif    binary
+*.webp   binary
+*.avif   binary
+*.ico    binary
+*.pdf    binary
+*.woff   binary
+*.woff2  binary
+*.ttf    binary
+*.otf    binary
+*.mbtiles binary
+*.pmtiles binary
+
+# Windows batch files require CRLF to run correctly.
+*.bat    text eol=crlf
+*.cmd    text eol=crlf
+
+# Generated files — collapse in PR diffs on GitHub.
+pnpm-lock.yaml           linguist-generated=true -diff
+docs/BACKLOG.md          linguist-generated=true
+packages/db/migrations/* linguist-generated=true
+
+# Golden test vectors are data, not code — keep them out of language stats
+# but ALWAYS show the diff: a silent change here is a safety incident.
+packages/aviation/test/vectors/*.json linguist-detectable=false
