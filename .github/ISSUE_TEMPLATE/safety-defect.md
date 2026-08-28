@@ -13,7 +13,7 @@ A safety defect is not an ordinary bug. Per docs/SAFETY.md §10:
   2. Add a reproducing golden vector BEFORE changing any implementation code.
   3. Never adjust an existing golden vector to make a test pass.
 
-If this defect is on `main`, say so in the title — it may already be in a printout
+If this defect is on `main`, say so in the title – it may already be in a printout
 that someone is flying with.
 -->
 

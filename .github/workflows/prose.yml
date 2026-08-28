@@ -1,0 +1,22 @@
+name: prose
+
+# House style gate. Runs from day one, before the application exists, because
+# the documentation is the deliverable in Phase 0 and the rule is easier to hold
+# than to retrofit across a few thousand lines later.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  lint-prose:
+    name: no em-dashes
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '24'
+      - name: Check for em-dashes
+        run: node scripts/lint-prose.mjs

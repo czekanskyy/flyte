@@ -1,13 +1,13 @@
 # Architecture Decision Records
 
-One file per decision that would be expensive to reverse. Numbered, immutable once accepted — a
+One file per decision that would be expensive to reverse. Numbered, immutable once accepted – a
 decision that changes gets a **new** ADR that supersedes the old one, so the reasoning at the time
 survives.
 
 ## Format
 
 ```markdown
-# ADR NNNN — Title
+# ADR NNNN – Title
 
 **Status:** Proposed | Accepted | Superseded by ADR-MMMM · **Date:** YYYY-MM-DD
 

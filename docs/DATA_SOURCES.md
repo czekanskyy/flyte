@@ -9,7 +9,7 @@ for the PANSA AIXM dataset, or the FAA NOTAM API for EAD, must be a one-adapter 
 
 ---
 
-## 1. Aeronautical data — OpenAIP
+## 1. Aeronautical data – OpenAIP
 
 | | |
 |---|---|
@@ -21,7 +21,7 @@ for the PANSA AIXM dataset, or the FAA NOTAM API for EAD, must be a one-adapter 
 | **Env** | `OPENAIP_CLIENT_ID` |
 
 **Licence consequences:**
-- Non-commercial use only. Flyte is a private, non-commercial project — this is compatible.
+- Non-commercial use only. Flyte is a private, non-commercial project – this is compatible.
 - Attribution is required. See §8 for exactly how this project does it.
 - Share-alike applies to adapted *data*, not to our application code.
 
@@ -36,11 +36,11 @@ reference and a date. The UI labels which source each point came from.
 
 ---
 
-## 2. Official verification — AIP Poland (PANSA)
+## 2. Official verification – AIP Poland (PANSA)
 
 | | |
 |---|---|
-| **eAIP** | `https://www.ais.pansa.pl/` — IFR, VFR and MIL volumes, HTML with printable PDF |
+| **eAIP** | `https://www.ais.pansa.pl/` – IFR, VFR and MIL volumes, HTML with printable PDF |
 | **AIP Data Set** | AIXM 5.1, **commercial licence required** |
 | **Obstacles** | Obstacle Data Sets (AIXM 5.1) and eTOD Area 1 (CSV) |
 
@@ -52,20 +52,20 @@ should the project ever license the dataset.
 
 ---
 
-## 3. Weather — aviationweather.gov (NOAA Aviation Weather Center)
+## 3. Weather – aviationweather.gov (NOAA Aviation Weather Center)
 
 | | |
 |---|---|
 | **Base URL** | `https://aviationweather.gov/api/data/` |
 | **Auth** | None |
 | **Provides** | METAR, TAF, SIGMET, AIRMET, G-AIRMET, PIREP; JSON, GeoJSON, XML, IWXXM, raw |
-| **Verified** | `?ids=EPWA,EPKK,EPMO&format=json` returns Polish stations — confirmed 2026-08-28 |
+| **Verified** | `?ids=EPWA,EPKK,EPMO&format=json` returns Polish stations – confirmed 2026-08-28 |
 | **Update rate** | METAR/SIGMET/PIREP ~1 min · TAF ~10 min · stations daily |
 
 Response fields include `icaoId`, `obsTime`, `reportTime`, `temp`, `dewp`, `wdir`, `wspd`, `visib`,
 `altim`, `clouds`, `cover`, `fltCat`, `rawOb`, `lat`, `lon`, `elev`, `name`.
 
-**Operator requirements — these are conditions of use, not suggestions:**
+**Operator requirements – these are conditions of use, not suggestions:**
 - Send a descriptive `User-Agent` (`Flyte/<version> (+https://flyte.czekanski.dev)`). Generic agents
   get filtered as bots.
 - Keep requests small and infrequent. Cache in Redis: METAR 5 min, TAF 30 min, SIGMET 5 min.
@@ -73,7 +73,7 @@ Response fields include `icaoId`, `obsTime`, `reportTime`, `temp`, `dewp`, `wdir
 
 ---
 
-## 4. Winds aloft — Open-Meteo
+## 4. Winds aloft – Open-Meteo
 
 | | |
 |---|---|
@@ -83,7 +83,7 @@ Response fields include `icaoId`, `obsTime`, `reportTime`, `temp`, `dewp`, `wdir
 | **Licence** | Free for non-commercial use |
 
 **This is a critical dependency, not a nice-to-have.** Without winds aloft there is no wind
-correction angle, no true ground speed and no honest ETE — the OFP would be arithmetic dressed up
+correction angle, no true ground speed and no honest ETE – the OFP would be arithmetic dressed up
 as planning.
 
 Geopotential height converts pressure levels to the altitudes the pilot actually flies. Levels are
@@ -91,7 +91,7 @@ interpolated to the planned cruising altitude for each leg.
 
 Cache: 1 hour, keyed by rounded position and forecast hour.
 
-## 5. Elevation — Open-Meteo Elevation API
+## 5. Elevation – Open-Meteo Elevation API
 
 | | |
 |---|---|
@@ -108,11 +108,11 @@ requests must be chunked at 100 and results cached by route geometry hash.
 (EPRJ→EPKR). The port exists so Copernicus GLO-30, self-hosted, can replace it without touching
 `packages/aviation/terrain`.
 
-`maplibre-gl`'s `queryTerrainElevation()` is **not** an acceptable substitute — it only returns data
+`maplibre-gl`'s `queryTerrainElevation()` is **not** an acceptable substitute – it only returns data
 for tiles currently loaded in the viewport, so results depend on where the user happens to be
 looking. Never use it for a safe-altitude figure.
 
-## 6. Terrain visualisation — AWS Open Data Terrarium tiles
+## 6. Terrain visualisation – AWS Open Data Terrarium tiles
 
 | | |
 |---|---|
@@ -120,9 +120,9 @@ looking. Never use it for a safe-altitude figure.
 | **Auth** | None |
 | **MapLibre** | `raster-dem` source with `encoding: 'terrarium'` |
 
-Display only — hillshade and 3D terrain on the map. Numeric answers come from §5.
+Display only – hillshade and 3D terrain on the map. Numeric answers come from §5.
 
-## 7. Polish meteorological data — IMGW
+## 7. Polish meteorological data – IMGW
 
 | | |
 |---|---|
@@ -134,7 +134,7 @@ Display only — hillshade and 3D terrain on the map. Numeric answers come from 
 Supplementary local context for VFR. IMGW's dedicated *aviation* products are commercial and are
 not used.
 
-## 8. NOTAM — FAA NOTAM API ⚠ UNVERIFIED FOR POLAND
+## 8. NOTAM – FAA NOTAM API ⚠ UNVERIFIED FOR POLAND
 
 | | |
 |---|---|
@@ -145,7 +145,7 @@ not used.
 
 **Nothing may be built on this until `FLY-002` completes.** The FAA redistributes international
 NOTAMs, but coverage and currency for `EP**` locations is unconfirmed. A NOTAM module that silently
-returns an empty list for Polish aerodromes is worse than no module — it looks like "no NOTAMs".
+returns an empty list for Polish aerodromes is worse than no module – it looks like "no NOTAMs".
 
 `FLY-002` must establish: does `icaoLocation=EPRJ|EPML|EPKR|EPWA` return results, are they current,
 and how do they compare against the same query in PANSA IWB on the same day?
@@ -155,16 +155,16 @@ field parsed into the OFP. That fallback is acceptable and honest.
 
 **Regardless of the outcome, PANSA AIS remains the official source** and the UI must say so.
 
-There is no free, legal, programmatic NOTAM source for European airspace — EUROCONTROL EAD requires
+There is no free, legal, programmatic NOTAM source for European airspace – EUROCONTROL EAD requires
 a contract. This is a known limitation of the project, not an oversight.
 
-## 9. Ground features for time marks — OpenStreetMap / Overpass
+## 9. Ground features for time marks – OpenStreetMap / Overpass
 
 | | |
 |---|---|
 | **Endpoint** | Public Overpass instances (`overpass-api.de`, mirrors) |
 | **Auth** | None; strict fair-use rate limits |
-| **Licence** | **ODbL** — attribution required |
+| **Licence** | **ODbL** – attribution required |
 
 Queried features: `waterway=river`, `highway=motorway|trunk`, `railway=rail`, `natural=water`
 shorelines, `place=city|town`.
@@ -197,7 +197,7 @@ Attribution appears **only on views that actually consume OpenAIP data**:
 | View | Attribution |
 |---|---|
 | Map, route editor | Discreet credit in the map corner |
-| OFP — route section | Credit in the section footer |
+| OFP – route section | Credit in the section footer |
 | FPL | Credit in the form footer |
 | Logbook, E6B, settings, account, auth | **None** |
 
@@ -213,7 +213,7 @@ freshness, and the safety disclaimer. Linked from the footer and from Settings.
 
 Embedding attribution in **PDF XMP metadata** (`dc:source`, `xmpRights`) would satisfy the
 "reasonable to the medium" attribution requirement while remaining completely invisible on the
-printed page and changing the layout by nothing at all. Awaiting the owner's decision — see
+printed page and changing the layout by nothing at all. Awaiting the owner's decision – see
 [`DECISIONS_PENDING.md`](DECISIONS_PENDING.md).
 
 ---
@@ -233,7 +233,7 @@ GOOGLE_CLIENT_SECRET=
 # Aeronautical data
 OPENAIP_CLIENT_ID=
 
-# NOTAM — only after FLY-002 confirms coverage
+# NOTAM – only after FLY-002 confirms coverage
 FAA_CLIENT_ID=
 FAA_CLIENT_SECRET=
 

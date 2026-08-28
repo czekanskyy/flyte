@@ -1,10 +1,10 @@
-# AGENTS.md — Flyte
+# AGENTS.md – Flyte
 
 **Read this file completely before your first edit. It is not a style guide; it is the operating
 manual for a project where a wrong number can hurt someone.**
 
 Flyte is an Electronic Flight Bag (EFB) for student pilots and general-aviation pilots in Poland.
-Pilots will use its output — fuel figures, safe altitudes, weight-and-balance results — to make
+Pilots will use its output – fuel figures, safe altitudes, weight-and-balance results – to make
 real go/no-go decisions in real aircraft. Treat every calculation accordingly.
 
 ---
@@ -13,11 +13,11 @@ real go/no-go decisions in real aircraft. Treat every calculation accordingly.
 
 1. **Never invent an aviation formula, constant, or default.**
    If it is not in [`docs/DOMAIN.md`](docs/DOMAIN.md) with a cited source, you may not implement it.
-   Add it there first — with the citation — then implement.
+   Add it there first – with the citation – then implement.
 
 2. **Never guess a value.** Fuel density, reserve minima, terrain clearance margin, ICAO type
-   designator, magnetic model epoch — if you do not *know* it from a cited source, write
-   `// TODO(FLY-XXX): needs verification — <what exactly is unknown>`, add a line to
+   designator, magnetic model epoch – if you do not *know* it from a cited source, write
+   `// TODO(FLY-XXX): needs verification – <what exactly is unknown>`, add a line to
    [`docs/DECISIONS_PENDING.md`](docs/DECISIONS_PENDING.md), and say so in your PR description.
    A visible gap is safe. A plausible-looking wrong number is not.
 
@@ -26,9 +26,9 @@ real go/no-go decisions in real aircraft. Treat every calculation accordingly.
 
 4. **Stay inside `owns_paths`.** Your task file declares which paths you own. Another agent is
    working in this repository right now. If you need to touch anything outside your paths, **stop
-   and report** — do not "just quickly fix" it.
+   and report** – do not "just quickly fix" it.
 
-5. **`pnpm verify` must pass before you open a PR.** Not "should" — must.
+5. **`pnpm verify` must pass before you open a PR.** Not "should" – must.
 
 ---
 
@@ -38,7 +38,7 @@ real go/no-go decisions in real aircraft. Treat every calculation accordingly.
 |---|---|
 | **Stack** | Next.js 16 · React 19 · TypeScript 6.0.3 · Tailwind 4 · MapLibre GL 6 · Drizzle + Neon Postgres/PostGIS · Better Auth |
 | **Package manager** | pnpm 11 (workspaces + `catalog:`) with Turborepo |
-| **Repo shape** | monorepo — `apps/web`, `packages/{aviation,aviation-data,db,ui,config}` |
+| **Repo shape** | monorepo – `apps/web`, `packages/{aviation,aviation-data,db,ui,config}` |
 | **Deploy** | Docker Compose on TrueNAS behind Cloudflare Tunnel → `flyte.czekanski.dev` |
 | **Language** | Code, comments, docs, commits, PRs: **English**. UI: **Polish + English** via `next-intl` |
 
@@ -61,7 +61,7 @@ apps/web  ──▶  packages/ui
 `react`, `next`, anything from `apps/*`, any HTTP client, any filesystem or database access.
 
 It takes numbers and returns numbers. It must run in bare Node and its full test suite must finish
-in under a second. `eslint-plugin-boundaries` enforces this — if you find yourself fighting the
+in under a second. `eslint-plugin-boundaries` enforces this – if you find yourself fighting the
 lint rule, you are solving the problem in the wrong package.
 
 **Why this matters:** it is the only part of the codebase that can be exhaustively tested against
@@ -69,7 +69,7 @@ hand-computed values. Keeping I/O out of it is what makes that possible.
 
 ---
 
-## 3. Units — the single most common source of aviation software bugs
+## 3. Units – the single most common source of aviation software bugs
 
 **Everything inside the codebase is SI: metres, metres/second, kilograms, kelvin, pascal, seconds,
 radians.** Conversion to knots, feet, litres, °C, hPa happens **only** at the UI boundary and only
@@ -80,7 +80,7 @@ Units are branded types. This will not compile, and that is the point:
 ```ts
 const altitude: Feet = 3000 as Feet;
 const distance: Metres = 5000 as Metres;
-const nonsense = altitude + distance;  // ✗ Type error — good.
+const nonsense = altitude + distance;  // ✗ Type error – good.
 ```
 
 Rules:
@@ -97,7 +97,7 @@ previous conversation to execute it.
 
 ```
 1. Read the task file, and every doc it references.
-2. Read docs/LANES.md — confirm which paths you own this phase.
+2. Read docs/LANES.md – confirm which paths you own this phase.
 3. Set status: in-progress in the task file.
 4. git checkout -b lane-<a|b>/FLY-XXX-<slug>
 5. Write the test first when the behaviour is numeric. Golden vectors before implementation.
@@ -110,7 +110,7 @@ previous conversation to execute it.
 
 If you discover the task is wrong, under-specified, or larger than one session: **stop, write down
 what you found in the task file, and report.** Do not expand scope silently. An `estimate: L` task
-is a planning error — ask for it to be split.
+is a planning error – ask for it to be split.
 
 ---
 
@@ -126,7 +126,7 @@ Conflict-prone files and the rules that keep them calm:
 |---|---|
 | `pnpm-workspace.yaml` (`catalog:`) | **Lane A only.** Lane B files a `chore(deps)` task instead |
 | `pnpm-lock.yaml` | Never hand-merge. After rebase: `pnpm install` |
-| `docs/BACKLOG.md` | **Generated** by `pnpm backlog:sync`. Never edit by hand — truth lives in task frontmatter |
+| `docs/BACKLOG.md` | **Generated** by `pnpm backlog:sync`. Never edit by hand – truth lives in task frontmatter |
 | Progress notes | One file per task: `docs/progress/FLY-XXX.md`. Never a shared log |
 | Drizzle migrations | Name them `NNNN_flyXXX_description.sql` so collisions are loud, not silent |
 | DB schema | Split per domain: `packages/db/src/schema/{auth,logbook,aip,routes}.ts` |
@@ -152,7 +152,7 @@ See [`docs/TESTING.md`](docs/TESTING.md) for the full policy. The short version:
 | E2E | Playwright | The seven critical journeys in `docs/TESTING.md` |
 | Visual regression | Playwright screenshots | Every print/PDF template |
 
-A golden vector looks like this — note that `source` is mandatory:
+A golden vector looks like this – note that `source` is mandatory:
 
 ```json
 {
@@ -179,13 +179,13 @@ These are functional requirements, not decoration. See [`docs/SAFETY.md`](docs/S
 - Safe altitude always rounds **up**, and the applied margin is always displayed.
 - The first-run acknowledgement must be accepted before any planning feature is usable.
 
-## 8. Attribution policy — read before touching any print template
+## 8. Attribution policy – read before touching any print template
 
 Deliberate project decision, recorded in [`docs/DATA_SOURCES.md`](docs/DATA_SOURCES.md):
 
 - **No attribution or licence text on printed output.** OFP and FPL printouts must match the
   training organisation's template exactly; extra elements make them unusable.
-- **In-app attribution only on views that actually consume OpenAIP data** — map, route editor, the
+- **In-app attribution only on views that actually consume OpenAIP data** – map, route editor, the
   route section of the OFP, FPL. Logbook, E6B, settings and account show nothing.
 - `/credits` carries the full legal detail.
 
@@ -196,16 +196,16 @@ them. Do not "fix" it.
 
 ## 9. Conventions
 
-**Commits** — Conventional Commits, scope = package:
+**Commits** – Conventional Commits, scope = package:
 ```
 feat(aviation): add WMM 2025 declination model
 fix(logbook): correct night-time totals across UTC midnight
 docs(domain): document contingency fuel rule with NCO citation
 ```
 
-**Branches** — `lane-a/FLY-123-wind-triangle`, `lane-b/FLY-124-logbook-table`
+**Branches** – `lane-a/FLY-123-wind-triangle`, `lane-b/FLY-124-logbook-table`
 
-**Merges** — squash only. `main` stays linear and always deployable.
+**Merges** – squash only. `main` stays linear and always deployable.
 
 **TypeScript**
 - No `any`. No `@ts-ignore` without `// FLY-XXX: <reason>`.
@@ -215,9 +215,14 @@ docs(domain): document contingency fuel rule with NCO citation
 **React / Next**
 - Server Components by default; `'use client'` only where interactivity requires it.
 - Every user-visible string goes through `next-intl` with **both** `pl` and `en` keys. No hardcoded text.
-- Mobile-first. Test at 375 px. Touch targets ≥ 44 px — this gets used outdoors, in gloves, in sunlight.
+- Mobile-first. Test at 375 px. Touch targets ≥ 44 px – this gets used outdoors, in gloves, in sunlight.
 
-**Pull requests** — fill in every section of the template, including the aviation checklist.
+**Prose – applies to every `.md` file, code comment, commit message and PR description**
+- **Never use an em-dash (U+2014). Use an en-dash (U+2013, `–`) instead.** House style, no exceptions.
+- The same goes for user-facing copy in `messages/pl/*.json` and `messages/en/*.json`.
+- `pnpm lint:prose` fails the build on any U+2014 in the repository.
+
+**Pull requests** – fill in every section of the template, including the aviation checklist.
 Target under 400 changed lines; over 800 will be sent back to be split.
 
 ---
@@ -227,7 +232,7 @@ Target under 400 changed lines; over 800 will be sent back to be split.
 ```bash
 pnpm install              # install (frozen in CI)
 pnpm dev                  # all dev servers
-pnpm verify               # typecheck + lint + test + build — the pre-PR gate
+pnpm verify               # typecheck + lint + test + build – the pre-PR gate
 pnpm test                 # unit + golden vectors
 pnpm test:vectors         # golden vectors only
 pnpm test:e2e             # Playwright

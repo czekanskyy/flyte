@@ -1,4 +1,4 @@
-# DOMAIN.md — aviation reference for Flyte
+# DOMAIN.md – aviation reference for Flyte
 
 **This file is the only permitted source of aviation formulas, constants and rules in this project.**
 
@@ -7,8 +7,8 @@ and have it reviewed. If a formula here disagrees with your implementation, the 
 human resolves it.
 
 Markers used below:
-- ✅ **Verified** — derived from first principles or taken from a cited standard, and cross-checked.
-- ⚠ **VERIFY** — believed correct but not yet checked against the primary source. Must be confirmed
+- ✅ **Verified** – derived from first principles or taken from a cited standard, and cross-checked.
+- ⚠ **VERIFY** – believed correct but not yet checked against the primary source. Must be confirmed
   before the feature ships. Track in [`DECISIONS_PENDING.md`](DECISIONS_PENDING.md).
 
 ---
@@ -55,7 +55,7 @@ Markers used below:
 | Rate of climb | Prędkość wznoszenia | ROC |
 | Departure / destination aerodrome | Lotnisko odlotu / docelowe | ADEP / ADES |
 | Alternate aerodrome | Lotnisko zapasowe | ALTN |
-| Time marks along a leg | Minutówki | — |
+| Time marks along a leg | Minutówki | – |
 
 ---
 
@@ -78,7 +78,7 @@ true_course = normalise360(azi1)     // degrees true, at the start of the leg
 
 ### 2.2 Point at a distance along a leg ✅
 
-The **direct geodesic problem** — needed for time marks (minutówki) and terrain sampling:
+The **direct geodesic problem** – needed for time marks (minutówki) and terrain sampling:
 
 ```
 { lat2, lon2 } = Geodesic.WGS84.Direct(lat1, lon1, azi1, s12)
@@ -95,7 +95,7 @@ normalise360(θ) = ((θ mod 360) + 360) mod 360        // → [0, 360)
 signedDelta(a, b) = ((a − b + 540) mod 360) − 180    // → (−180, 180]
 ```
 
-`signedDelta` is the correct way to compute an angular difference — naive subtraction breaks across
+`signedDelta` is the correct way to compute an angular difference – naive subtraction breaks across
 the 0°/360° boundary. Use it everywhere.
 
 ---
@@ -110,14 +110,14 @@ NOAA NCEI / NGA / BGS. The coefficient file `WMM.COF` is public domain.
 Structure: degree- and order-12 spherical harmonic main field (168 Gauss coefficients) plus a
 degree- and order-12 secular variation model.
 
-We implement this ourselves in `packages/aviation/magnetic`. No maintained npm package exists —
+We implement this ourselves in `packages/aviation/magnetic`. No maintained npm package exists –
 the available ones ship expired WMM2020 coefficients, and an expired magnetic model in an EFB is
 not acceptable.
 
 > **Maintenance:** WMM2030 must replace these coefficients before 2030-01-01.
 > Tracked in [`MAINTENANCE.md`](MAINTENANCE.md).
 
-**Golden vectors:** NOAA publishes official test values for WMM2025. Use them verbatim — do not
+**Golden vectors:** NOAA publishes official test values for WMM2025. Use them verbatim – do not
 generate expected values from our own implementation.
 
 Poland sits at roughly **+5° to +7° East** declination in 2026. Use this only as a smoke-test
@@ -132,7 +132,7 @@ magnetic_course = normalise360(true_course − declination)
 true_course     = normalise360(magnetic_course + declination)
 ```
 
-Mnemonic cross-check: *"East is least, West is best"* — easterly variation is subtracted from true
+Mnemonic cross-check: *"East is least, West is best"* – easterly variation is subtracted from true
 to get magnetic. With Poland's +6°E, a true course of 090° is a magnetic course of 084°.
 
 Declination is evaluated at the **leg midpoint** (§2.3), at the planned cruising altitude, for the
@@ -145,7 +145,7 @@ compass_heading = normalise360(magnetic_heading − deviation)
 ```
 
 Deviation comes from the individual aircraft's compass correction card and is stored per aircraft.
-Default is zero — and a zero default must be visibly labelled as "no card entered", never silently
+Default is zero – and a zero default must be visibly labelled as "no card entered", never silently
 assumed correct.
 
 ---
@@ -217,7 +217,7 @@ IAS → (position/instrument error, from POH) → CAS → (density) → TAS → 
 ```
 
 The IAS→CAS correction table is aircraft-specific and comes from the POH. When no table is
-available, CAS = IAS **and the UI must say so** — do not silently equate them.
+available, CAS = IAS **and the UI must say so** – do not silently equate them.
 
 ### 5.2 TAS from CAS ✅
 
@@ -241,11 +241,11 @@ form is authoritative; the discrepancy is why the rule of thumb is a cross-check
 
 ### 6.1 Definitions ✅
 
-- `TC` — true course, the intended track over the ground.
-- `WD` — wind direction, **the direction the wind blows FROM**, degrees true.
-- `WS` — wind speed.
-- `TAS` — true airspeed.
-- `WCA` — wind correction angle, **positive to the right** (crab right of track).
+- `TC` – true course, the intended track over the ground.
+- `WD` – wind direction, **the direction the wind blows FROM**, degrees true.
+- `WS` – wind speed.
+- `TAS` – true airspeed.
+- `WCA` – wind correction angle, **positive to the right** (crab right of track).
 
 Meteorological reports (METAR, TAF, winds aloft) give the direction the wind comes *from*. This
 catches people out constantly; it is the sign convention used everywhere in this codebase.
@@ -268,7 +268,7 @@ headwind  = WS · cos(Δ)      // positive = headwind, negative = tailwind
 crosswind = WS · sin(Δ)      // positive = from the right
 ```
 
-### 6.3 Worked example — golden vector `wind-triangle-001` ✅
+### 6.3 Worked example – golden vector `wind-triangle-001` ✅
 
 Given TC = 090°, TAS = 100 kt, wind 040°/20 kt:
 
@@ -300,7 +300,7 @@ WCA, heading less than course) and loses ~13 kt to the headwind component. Both 
 - `WS = 0` ⟹ `WCA = 0` and `GS = TAS`.
 - Pure headwind (`Δ = 0`) ⟹ `WCA = 0` and `GS = TAS − WS`.
 - Pure tailwind (`Δ = 180°`) ⟹ `WCA = 0` and `GS = TAS + WS`.
-- `WS > TAS` with a large `|Δ|` has **no solution** — the aircraft cannot hold the course. The
+- `WS > TAS` with a large `|Δ|` has **no solution** – the aircraft cannot hold the course. The
   function must return an explicit "no solution" result, never `NaN`.
 - Reversing the course and keeping the wind reverses the sign of the crosswind component.
 
@@ -315,7 +315,7 @@ fuel_burn(leg)  = ETE_hours · fuel_flow
 ```
 
 Displayed leg times round **up** to the next whole minute. Totals are computed from unrounded
-seconds and rounded once at the end — rounding each leg and then summing inflates the total.
+seconds and rounded once at the end – rounding each leg and then summing inflates the total.
 
 ---
 
@@ -323,9 +323,9 @@ seconds and rounded once at the end — rounding each leg and then summing infla
 
 ### 8.1 Regulatory basis
 
-Regulation (EU) 965/2012, **Annex VII (Part-NCO), NCO.OP.125** — fuel/energy scheme for aeroplanes.
+Regulation (EU) 965/2012, **Annex VII (Part-NCO), NCO.OP.125** – fuel/energy scheme for aeroplanes.
 
-> ⚠ **VERIFY** — the numeric minima below are the values commonly taught and applied in Polish GA
+> ⚠ **VERIFY** – the numeric minima below are the values commonly taught and applied in Polish GA
 > training, but the exact wording must be checked against the **current consolidated text** of
 > Reg. (EU) 965/2012 Annex VII before release. Do not treat this section as a legal source.
 > Tracked in [`DECISIONS_PENDING.md`](DECISIONS_PENDING.md).
@@ -339,18 +339,18 @@ Regulation (EU) 965/2012, **Annex VII (Part-NCO), NCO.OP.125** — fuel/energy s
 ### 8.2 Block fuel structure ✅
 
 ```
-taxi          — from POH or a per-aircraft default
-trip          — Σ leg burns, including climb and descent allowances
-contingency   — percentage of trip fuel (default 5 %), configurable
-alternate     — trip fuel to the alternate, computed as a normal route
-final_reserve — from the table above, per user policy
-extra         — pilot's discretion
+taxi          – from POH or a per-aircraft default
+trip          – Σ leg burns, including climb and descent allowances
+contingency   – percentage of trip fuel (default 5 %), configurable
+alternate     – trip fuel to the alternate, computed as a normal route
+final_reserve – from the table above, per user policy
+extra         – pilot's discretion
 
 block = taxi + trip + contingency + alternate + final_reserve + extra
 ```
 
 **Project default:** NCO minima, overridable per user via `user_settings.fuel_policy`. This is not
-cosmetic — OKL PRz (the operator at EPRJ) requires **45 minutes** even for VFR by day. The default
+cosmetic – OKL PRz (the operator at EPRJ) requires **45 minutes** even for VFR by day. The default
 must be adjustable and the active policy must be visible on the OFP.
 
 ### 8.3 Endurance ✅
@@ -367,7 +367,7 @@ Computed on **usable** fuel, never total capacity. The difference is unusable fu
 |---|---|
 | AVGAS 100LL | 0.72 kg/l |
 | JET A-1 | 0.80 kg/l |
-| MOGAS | ⚠ **VERIFY** — varies by specification and season; must be entered per aircraft |
+| MOGAS | ⚠ **VERIFY** – varies by specification and season; must be entered per aircraft |
 
 Densities are temperature-dependent. For GA planning the 15 °C figures are standard practice; if
 temperature compensation is ever added it must be a deliberate, documented change.
@@ -385,7 +385,7 @@ total_moment = Σ moment_i
 CG           = total_moment / total_mass
 ```
 
-Arms are measured from the aircraft datum defined in the POH. The datum differs between types —
+Arms are measured from the aircraft datum defined in the POH. The datum differs between types –
 it is a per-aircraft property, never a constant.
 
 ### 9.2 Envelope check ✅
@@ -396,13 +396,13 @@ Testing against a bounding box will pass loading states that are actually outsid
 Use a ray-casting point-in-polygon test, with points exactly on the boundary treated as **inside**
 (the limit itself is certified).
 
-Many types have more than one envelope — typically *normal* and *utility* categories with different
+Many types have more than one envelope – typically *normal* and *utility* categories with different
 manoeuvre limits. All applicable envelopes are stored per aircraft and checked independently.
 
 ### 9.3 CG travel in flight ✅
 
 Fuel burn moves the CG. Both the take-off and the landing state must be inside the envelope, and
-so must the straight line between them — burning fuel moves the CG monotonically along that line,
+so must the straight line between them – burning fuel moves the CG monotonically along that line,
 so checking both endpoints is sufficient for a single fuel tank group.
 
 > ⚠ **VERIFY** for aircraft with multiple tanks burned in sequence (PA-34): the CG path is
@@ -412,9 +412,9 @@ so checking both endpoints is sufficient for a single fuel tank group.
 
 ## 10. Terrain and safe altitude
 
-### 10.1 Legal minimum — SERA.5005(f)
+### 10.1 Legal minimum – SERA.5005(f)
 
-Regulation (EU) 923/2012 (SERA), **SERA.5005(f)** — VFR minimum heights:
+Regulation (EU) 923/2012 (SERA), **SERA.5005(f)** – VFR minimum heights:
 
 > ⚠ **VERIFY** against the consolidated SERA text. Commonly applied as:
 > - Over congested areas of cities, towns or settlements, or over open-air assemblies:
@@ -423,7 +423,7 @@ Regulation (EU) 923/2012 (SERA), **SERA.5005(f)** — VFR minimum heights:
 
 This is the *legal minimum*, not a planning altitude.
 
-### 10.2 Planning safe altitude — project convention ✅
+### 10.2 Planning safe altitude – project convention ✅
 
 Flyte computes a **planning** safe altitude, deliberately more conservative than the legal minimum:
 
@@ -443,7 +443,7 @@ OFP unless the user changes them.
 ### 10.3 Terrain sampling ✅
 
 Sample at intervals of at most **1 NM** along the leg, and across the corridor width, using the
-`ElevationSource` port. Sparse sampling can step straight over a ridge — an under-sampled safe
+`ElevationSource` port. Sparse sampling can step straight over a ridge – an under-sampled safe
 altitude is worse than none, because it looks authoritative.
 
 Current source: Copernicus GLO-90 (90 m resolution) via Open-Meteo. This resolution is adequate for
@@ -487,14 +487,14 @@ pilot licences.
 
 Flyte records, in addition to the columns above:
 
-- **Launch method** — aerotow, winch, self-launch, bungee
+- **Launch method** – aerotow, winch, self-launch, bungee
 - **Number of launches**
 - **Task / distance** for cross-country flights
 - **Maximum altitude reached**
 
 > ⚠ **VERIFY** the exact SFCL.050 wording and whether any further field is mandatory.
 
-### 11.4 Recency — FCL.060(b)(1) ✅
+### 11.4 Recency – FCL.060(b)(1) ✅
 
 > ⚠ **VERIFY** wording. Commonly applied: to carry passengers as PIC, a pilot must have completed
 > **3 take-offs, approaches and landings** in the preceding **90 days** in an aircraft of the same
@@ -511,7 +511,7 @@ this page  +  brought forward from previous pages  =  total time
 ```
 
 Totals are computed from stored **seconds** and formatted for display. Never store, and never sum,
-pre-rounded hours-and-minutes values — the error compounds across hundreds of entries.
+pre-rounded hours-and-minutes values – the error compounds across hundreds of entries.
 
 ---
 
@@ -522,9 +522,9 @@ Field-by-field encoding rules for Items 7–19 live in
 
 Two rules that belong here because they affect the whole route model:
 
-- **Item 15 speed and level formats** — speed as `N` + 4 digits in knots (`N0100`), level as `A` +
+- **Item 15 speed and level formats** – speed as `N` + 4 digits in knots (`N0100`), level as `A` +
   3 digits in hundreds of feet for VFR altitudes (`A045`), or the literal `VFR`.
-- **Item 15 route** — `DCT` between points with no published route; waypoints as ICAO identifiers,
+- **Item 15 route** – `DCT` between points with no published route; waypoints as ICAO identifiers,
   named points, or degrees/minutes coordinates.
 
 ---
@@ -545,12 +545,12 @@ date.
 
 | Source | Used for |
 |---|---|
-| ICAO Doc 4444 — PANS-ATM, Appendix 2 | FPL fields 7–19 |
-| ICAO Doc 8643 — Aircraft Type Designators | `icao_type_designator` per aircraft |
-| ICAO Doc 7488 — Manual of the ICAO Standard Atmosphere | §4 constants and relations |
+| ICAO Doc 4444 – PANS-ATM, Appendix 2 | FPL fields 7–19 |
+| ICAO Doc 8643 – Aircraft Type Designators | `icao_type_designator` per aircraft |
+| ICAO Doc 7488 – Manual of the ICAO Standard Atmosphere | §4 constants and relations |
 | Reg. (EU) 1178/2011 Annex I (Part-FCL), AMC1 FCL.050 | §11 logbook |
 | Reg. (EU) 965/2012 Annex VII (Part-NCO), NCO.OP.125 | §8 fuel |
 | Reg. (EU) 923/2012 (SERA), SERA.5005 | §10.1 VFR minimum heights |
-| NOAA NCEI — World Magnetic Model 2025 | §3 declination, and its golden vectors |
+| NOAA NCEI – World Magnetic Model 2025 | §3 declination, and its golden vectors |
 | AIP Poland / eAIP VFR (PANSA) | Aerodrome and airspace data verification |
 | Aircraft POH / AFM | §5.1 IAS→CAS, §9 arms and envelopes, §8 fuel flows, performance tables |

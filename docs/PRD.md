@@ -1,6 +1,6 @@
-# PRD.md — Flyte
+# PRD.md – Flyte
 
-**Product:** Flyte — an Electronic Flight Bag for student pilots and general-aviation pilots in Poland
+**Product:** Flyte – an Electronic Flight Bag for student pilots and general-aviation pilots in Poland
 **Status:** Phase 0 · **Owner:** Dominik Czekański · **Last updated:** 2026-08-28
 
 ---
@@ -18,19 +18,19 @@ entry all derive from the same route object, with the same weather, using calcul
 been verified against hand-computed values.
 
 **It is a planning aid, not an approved data source.** It does not replace AIP, NOTAM or an official
-briefing. That boundary is enforced in the product, not just stated — see [`SAFETY.md`](SAFETY.md).
+briefing. That boundary is enforced in the product, not just stated – see [`SAFETY.md`](SAFETY.md).
 
 ## 2. Who it is for
 
-**Primary — the student pilot (PPL(A) training).** Flies from EPRJ with OKL PRz. Needs OFPs that
+**Primary – the student pilot (PPL(A) training).** Flies from EPRJ with OKL PRz. Needs OFPs that
 match the training organisation's template, needs to *show working* rather than just get answers,
 and is still learning the relationship between the numbers. Uses a laptop at home to plan and a
 phone at the airfield to re-check.
 
-**Secondary — the licensed GA pilot.** Wants a route planned in two minutes, a correct FPL, and a
+**Secondary – the licensed GA pilot.** Wants a route planned in two minutes, a correct FPL, and a
 logbook that satisfies an EASA/ULC audit. Values speed and trust over explanation.
 
-**Secondary — the glider pilot.** Needs an EASA-compliant logbook covering launch methods and
+**Secondary – the glider pilot.** Needs an EASA-compliant logbook covering launch methods and
 sailplane-specific fields. Does not need route planning: a glider goes where the weather is.
 
 **Considered, not targeted:** instructors and flying schools. The data model does not preclude them
@@ -79,8 +79,8 @@ Each requirement is written so it can be verified. `MUST` is v1; `SHOULD` is v1 
 
 - **MUST** display Poland with airspaces, aerodromes, navaids, VFR reporting points and obstacles,
   filterable by type, with zoom-dependent labelling.
-- **MUST** respond to a map click with a distance-sorted list of nearby features — aerodromes,
-  navaids, VFR points, landing sites, towns — each with a *Set as ADEP / Set as ADES / Add waypoint*
+- **MUST** respond to a map click with a distance-sorted list of nearby features – aerodromes,
+  navaids, VFR points, landing sites, towns – each with a *Set as ADEP / Set as ADES / Add waypoint*
   action.
 - **MUST** support building a route by clicking, dragging points, inserting a point into an existing
   leg, reordering, and undo/redo.
@@ -88,7 +88,7 @@ Each requirement is written so it can be verified. `MUST` is v1; `SHOULD` is v1 
 - **MUST** show terrain shading and, for a selected route, an elevation profile with the flight
   profile and obstacles overlaid.
 - **MUST** hold 60 fps while panning on a four-year-old Android phone.
-- **MUST** handle EPRJ correctly — an aerodrome inside the EPRZ control zone.
+- **MUST** handle EPRJ correctly – an aerodrome inside the EPRZ control zone.
 - **SHOULD** display the great-circle track with distance and course labels per leg.
 
 ### 5.2 OFP generator
@@ -97,7 +97,7 @@ Each requirement is written so it can be verified. `MUST` is v1; `SHOULD` is v1 
 - **MUST** compute per leg: true and magnetic course, magnetic heading, distance, TAS, wind, WCA,
   ground speed, ETE, ETO, fuel burned, fuel remaining, safe altitude, planned altitude, frequencies.
 - **MUST** compute a fuel plan: taxi, trip, contingency, alternate, final reserve, extra, block, and
-  endurance — using the user's fuel policy and stating which policy was applied.
+  endurance – using the user's fuel policy and stating which policy was applied.
 - **MUST** compute weight and balance with a plotted envelope, take-off and landing states, and an
   explicit pass/fail.
 - **MUST** interpolate POH performance for TODR, LDR and rate of climb.
@@ -136,7 +136,7 @@ Each requirement is written so it can be verified. `MUST` is v1; `SHOULD` is v1 
   scroll wheel, with momentum and snapping to graduations.
 - **MUST** provide a graphical wind side: sliding card, grommet, wind dot.
 - **MUST** provide a form mode for every operation, giving identical results.
-- **MUST** provide a "show the working" panel with intermediate steps — this is the training value.
+- **MUST** provide a "show the working" panel with intermediate steps – this is the training value.
 - **MUST** use the same `packages/aviation` functions as the OFP. The E6B is the visible proof that
   the engine is right.
 
@@ -150,7 +150,7 @@ Each requirement is written so it can be verified. `MUST` is v1; `SHOULD` is v1 
 - **MUST** allow **per-quantity** unit selection, with metric / imperial / aviation-mixed presets.
 - **MUST** provide an aircraft library editor: stations, envelopes, POH tables, FPL equipment, with
   JSON import and export.
-- **MUST** allow overriding the fuel policy — OKL PRz requires 45 minutes where NCO says 30.
+- **MUST** allow overriding the fuel policy – OKL PRz requires 45 minutes where NCO says 30.
 
 ---
 
@@ -184,7 +184,7 @@ Flyte generates a correct message, validates it, and tells the pilot exactly how
 match the training organisation's template exactly. Recorded in [`DATA_SOURCES.md`](DATA_SOURCES.md) §10.
 
 **Weather is proxied, aeronautical data is imported.** Aeronautical data changes on a 28-day cycle,
-so it is imported into our own database — fast spatial queries, offline snapshots, no dependency on
+so it is imported into our own database – fast spatial queries, offline snapshots, no dependency on
 OpenAIP being up. Weather changes by the minute and is fetched live with short-lived caching.
 
 **Correctness before features.** The order is deliberate: foundation, then logbook (self-contained

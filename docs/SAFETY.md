@@ -13,23 +13,23 @@ choice is between showing uncertainty and showing a confident-looking guess, sho
 Flyte is not an approved source of aeronautical information. It does not replace AIP Poland,
 NOTAM, or an official pre-flight briefing. It is a planning aid.
 
-This must be stated where the user will actually read it — not buried in a settings page.
+This must be stated where the user will actually read it – not buried in a settings page.
 
 ### 1.1 First-run acknowledgement
 
 Before any planning feature (map, OFP, FPL) becomes usable, the user must accept:
 
-> **PL** — „Flyte nie jest zatwierdzonym źródłem danych lotniczych. Nie zastępuje AIP, NOTAM ani
+> **PL** – „Flyte nie jest zatwierdzonym źródłem danych lotniczych. Nie zastępuje AIP, NOTAM ani
 > oficjalnej odprawy przedlotowej. Odpowiedzialność za przygotowanie i wykonanie lotu ponosi
 > dowódca statku powietrznego."
 
-> **EN** — "Flyte is not an approved source of aeronautical data. It does not replace AIP, NOTAM or
+> **EN** – "Flyte is not an approved source of aeronautical data. It does not replace AIP, NOTAM or
 > an official pre-flight briefing. Responsibility for the preparation and conduct of the flight
 > rests with the pilot in command."
 
 Stored per user with a timestamp and the text version accepted. Re-shown when the wording changes.
 
-The logbook and E6B are exempt — a logbook is a record, and an E6B is a calculator. Neither
+The logbook and E6B are exempt – a logbook is a record, and an E6B is a calculator. Neither
 produces flight-planning output.
 
 ### 1.2 On printed output
@@ -38,7 +38,7 @@ The safety statement appears on OFP and FPL printouts **only where the template 
 Training-organisation templates must be reproduced exactly, and an unexpected block of text makes a
 printout unusable.
 
-This is separate from licence attribution, which never appears on printouts at all — see
+This is separate from licence attribution, which never appears on printouts at all – see
 [`DATA_SOURCES.md`](DATA_SOURCES.md) §10.
 
 ---
@@ -56,12 +56,12 @@ changes state at defined thresholds.
 | SIGMET / AIRMET | < 30 min | 30–60 min | > 60 min |
 | Winds aloft | < 3 h | 3–6 h | > 6 h |
 | NOTAM | < 1 h | 1–6 h | > 6 h |
-| Anything served from the offline cache | — | — | **always red** |
+| Anything served from the offline cache | – | – | **always red** |
 
 Rules:
 - The **observation time**, not the fetch time, drives the age. A freshly fetched two-hour-old METAR
   is two hours old.
-- Offline data is always marked stale, regardless of age, with an explicit "no network — last known
+- Offline data is always marked stale, regardless of age, with an explicit "no network – last known
   value" label.
 - Stale data is never silently hidden. It is shown, marked, and the pilot decides.
 - A generated OFP records the age of every weather item **at generation time**, so a printout
@@ -108,12 +108,12 @@ This applies especially to aircraft data. An aircraft with no POH figures loaded
 ### 4.4 Placeholder data must be labelled
 
 Aircraft seeded with example rather than real POH figures carry a `data_verified: false` flag.
-Every view that uses them — and every printout — shows an unmissable "unverified aircraft data"
+Every view that uses them – and every printout – shows an unmissable "unverified aircraft data"
 marker. The flag clears only when the owner confirms the figures against the actual POH.
 
 ### 4.5 No solution is a valid answer
 
-Some inputs have no physical solution — wind stronger than TAS across the track, a load outside
+Some inputs have no physical solution – wind stronger than TAS across the track, a load outside
 every envelope, a runway shorter than the computed TODR. These return an explicit failure state
 with the reason. Never `NaN`, never a clamped value, never a nearest-valid guess.
 
@@ -125,8 +125,8 @@ with the reason. Never `NaN`, never a clamped value, never a nearest-valid guess
 
 ## 6. Provenance
 
-Each aeronautical data point exposes where it came from — OpenAIP, an `aip_overrides` correction
-from eAIP, or manual user entry — with the AIRAC cycle and, for overrides, the source reference and
+Each aeronautical data point exposes where it came from – OpenAIP, an `aip_overrides` correction
+from eAIP, or manual user entry – with the AIRAC cycle and, for overrides, the source reference and
 date.
 
 ## 7. OFP snapshots are immutable
@@ -140,7 +140,7 @@ printed and in a cockpit. A printed OFP must be reproducible, to the digit, a ye
 ## 8. Sailplanes
 
 Sailplanes are recorded in the logbook only. They do not appear in route planning, OFP or FPL
-selectors — a glider's route is decided by the weather, not by a flight plan, and offering the
+selectors – a glider's route is decided by the weather, not by a flight plan, and offering the
 feature would imply a capability Flyte does not have.
 
 Enforced in code by `aircraft.class === 'SAILPLANE'`, and covered by an E2E test.
@@ -167,7 +167,7 @@ Each requirement above has a test:
 A defect in a calculation, a freshness indicator, or a safety gate is **not** an ordinary bug.
 
 1. Open an issue with the `safety` label immediately, before attempting a fix.
-2. If the defect is on `main`, say so in the issue title — it may be in a printout someone is
+2. If the defect is on `main`, say so in the issue title – it may be in a printout someone is
    flying with.
 3. Add a golden vector reproducing it **before** changing any implementation code.
 4. Never adjust a golden vector to make a test pass. If vector and implementation disagree, a human

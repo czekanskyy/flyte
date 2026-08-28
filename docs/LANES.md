@@ -1,4 +1,4 @@
-# LANES.md — parallel agent ownership
+# LANES.md – parallel agent ownership
 
 Two CLI agents work this repository at the same time. This file is the **authoritative ownership
 table**. If a path is not listed as yours, you do not touch it.
@@ -33,7 +33,7 @@ neon branches create --name lane-b --parent main
 ```
 
 Each lane's `.env.local` points `DATABASE_URL` at its own branch. One agent's migration can then
-never break the other's running app. Reset a lane's branch from `main` at any time — it is free and
+never break the other's running app. Reset a lane's branch from `main` at any time – it is free and
 instant.
 
 ### Separate ports
@@ -50,9 +50,9 @@ Lane A dev server on `3000`, Lane B on `3001`. Set `PORT` in each `.env.local`.
 3. **Never hand-merge `pnpm-lock.yaml`.** After a rebase, delete the conflict and run `pnpm install`.
 4. **`docs/BACKLOG.md` is generated.** Run `pnpm backlog:sync`; never edit it directly. The truth
    lives in each task file's frontmatter.
-5. **One progress file per task** — `docs/progress/FLY-XXX.md`. There is no shared progress log,
+5. **One progress file per task** – `docs/progress/FLY-XXX.md`. There is no shared progress log,
    precisely so there is nothing to conflict on.
-6. **Migrations carry their task id** — `0007_fly042_add_logbook_totals.sql`. Two lanes adding
+6. **Migrations carry their task id** – `0007_fly042_add_logbook_totals.sql`. Two lanes adding
    `0007_*` produces a visible filename clash rather than a silent ordering bug.
 7. **Cross-lane review.** Lane A reviews Lane B's pull requests and vice versa. Nobody reviews
    their own.
@@ -68,7 +68,7 @@ Lane A dev server on `3000`, Lane B on `3001`. Set `PORT` in each `.env.local`.
 
 ## Contract-first, when the lanes must meet
 
-When one lane builds something the other consumes — a data adapter and the UI that uses it — do
+When one lane builds something the other consumes – a data adapter and the UI that uses it – do
 **not** let both improvise and reconcile later.
 
 1. A short task lands the TypeScript interfaces alone in
@@ -91,21 +91,21 @@ At the end of each phase:
 
 # Current assignment
 
-## Phase 0 — Documentation and repository bootstrap · **active**
+## Phase 0 – Documentation and repository bootstrap · **active**
 
 | Lane | Owns paths | Tasks | Branch |
 |---|---|---|---|
 | A | `docs/PRD.md`, `docs/ARCHITECTURE.md`, `docs/DOMAIN.md`, `docs/DATA_SOURCES.md`, `docs/SAFETY.md`, `docs/MAINTENANCE.md`, `docs/adr/**` | FLY-003 … FLY-006 | `lane-a/FLY-003` |
 | B | `AGENTS.md`, `docs/AGENT_WORKFLOW.md`, `docs/LANES.md`, `docs/CONTRIBUTING.md`, `docs/TESTING.md`, `docs/DESIGN_SYSTEM.md`, `.github/**`, `docs/backlog/**` | FLY-007 … FLY-010 | `lane-b/FLY-007` |
 
-**Frozen this phase:** `.gitignore`, `.gitattributes`, `README.md` — owner-maintained.
+**Frozen this phase:** `.gitignore`, `.gitattributes`, `README.md` – owner-maintained.
 
-**Blocking, before anything else:** **FLY-002** — verify FAA NOTAM coverage for `EP**`. Assigned to
+**Blocking, before anything else:** **FLY-002** – verify FAA NOTAM coverage for `EP**`. Assigned to
 whichever lane is free first. No NOTAM code may be written until it reports.
 
 ---
 
-## Phase 1 — Foundation · planned
+## Phase 1 – Foundation · planned
 
 | Lane | Owns paths |
 |---|---|
@@ -115,7 +115,7 @@ whichever lane is free first. No NOTAM code may be written until it reports.
 **Contract-first task before the split:** `packages/db/src/schema/auth.ts` and the session helper
 signature, so Lane B can build the app shell against a known auth surface.
 
-## Phase 2+3 — Logbook ‖ Calculation engine · planned
+## Phase 2+3 – Logbook ‖ Calculation engine · planned
 
 | Lane | Owns paths |
 |---|---|

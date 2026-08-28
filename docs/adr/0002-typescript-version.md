@@ -1,10 +1,10 @@
-# ADR 0002 — Pin TypeScript to 6.0.3, not 7.x
+# ADR 0002 – Pin TypeScript to 6.0.3, not 7.x
 
-**Status:** Accepted · **Date:** 2026-08-28 · **Supersedes:** — · **Superseded by:** —
+**Status:** Accepted · **Date:** 2026-08-28 · **Supersedes:** – · **Superseded by:** –
 
 ## Context
 
-TypeScript 7.0 shipped stable on 2026-07-08 — the compiler rewritten in Go, roughly ten times
+TypeScript 7.0 shipped stable on 2026-07-08 – the compiler rewritten in Go, roughly ten times
 faster on full builds. `npm view typescript version` returns **7.0.2**, and `latest` points at it.
 For a monorepo whose CI runs `typecheck` on every pull request, that is a real, recurring saving.
 
@@ -21,7 +21,7 @@ npm view typescript-eslint@8.68.0 peerDependencies
 
 This matters more here than it would in most projects. `packages/aviation` is the safety-critical
 calculation core, and its defining property is that it contains no React, no I/O and no network
-access — which is what allows its entire hand-verified test suite to run in under a second. That
+access – which is what allows its entire hand-verified test suite to run in under a second. That
 boundary is enforced mechanically by `eslint-plugin-boundaries`, which needs type information, which
 comes from `typescript-eslint`.
 
@@ -38,7 +38,7 @@ re-exporting the 6.0 API so existing tooling keeps working alongside 7.x.
 
 6.0.3 is the newest release inside `typescript-eslint`'s supported range.
 
-The compatibility-package hybrid — 7.x for builds, `tsc6` for lint — was considered and rejected for
+The compatibility-package hybrid – 7.x for builds, `tsc6` for lint – was considered and rejected for
 now: it means two compilers, two sets of diagnostics, and a class of "passes lint, fails build"
 confusion that would land on agents who cannot ask a follow-up question. The build-time saving does
 not justify that on a project of this size.
@@ -55,11 +55,11 @@ safety-critical package testable is enforced by CI rather than by hope.
 
 ## Exit condition
 
-Revisit when **`typescript-eslint` declares support for TypeScript 7** — expected once the stable
+Revisit when **`typescript-eslint` declares support for TypeScript 7** – expected once the stable
 programmatic API lands in 7.1.
 
 Migration then is: bump the catalog pin, bump `typescript-eslint`, run `pnpm verify`, and fix
 whatever the new compiler is stricter about. Small, and worth doing promptly for the build speed.
 
-Until then, this ADR is the answer to "why are we not on the latest TypeScript?" — the question will
+Until then, this ADR is the answer to "why are we not on the latest TypeScript?" – the question will
 recur, and the answer is not "nobody got round to it".

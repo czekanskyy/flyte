@@ -5,14 +5,14 @@ is right. This checklist is the only thing that catches a formula that is implem
 is wrong.
 
 **Performed by the owner, as a pilot, at the end of each phase.** It cannot be delegated to an
-agent — the whole point is comparison against an independent, human, non-software source.
+agent – the whole point is comparison against an independent, human, non-software source.
 
 ---
 
 ## How to use this
 
-For each item: compute it independently first — manual E6B or CX-3, POH chart, VFR chart, paper
-logbook — **then** compare with Flyte. Not the other way round. Reading Flyte's answer first will
+For each item: compute it independently first – manual E6B or CX-3, POH chart, VFR chart, paper
+logbook – **then** compare with Flyte. Not the other way round. Reading Flyte's answer first will
 anchor your manual working to it; this is a well-documented effect and it is exactly what this
 exercise is trying to defeat.
 
@@ -24,7 +24,7 @@ looking at it.
 
 ---
 
-## Phase 2+3 — calculation engine and E6B
+## Phase 2+3 – calculation engine and E6B
 
 ### E6B against your physical calculator
 
@@ -39,7 +39,7 @@ looking at it.
 | Crosswind on RWY 09, wind 130/18 | | | | ☐ |
 | Pressure altitude at EPRJ, QNH 1003 | | | | ☐ |
 
-The graphical dial and the form mode must agree exactly — they call the same functions. If they do
+The graphical dial and the form mode must agree exactly – they call the same functions. If they do
 not, that is a defect regardless of which one matches your E6B.
 
 ### Magnetic declination
@@ -50,7 +50,7 @@ not, that is a defect regardless of which one matches your E6B.
 | Declination at EPWA today | NOAA online calculator | | ☐ |
 | Declination requested for 2031 | must return an **error**, not a number | | ☐ |
 
-### Weight and balance — against the actual POH
+### Weight and balance – against the actual POH
 
 Per type (AT-3, TB-9, PA-28, PA-34):
 
@@ -69,7 +69,7 @@ If the aircraft still carries `data_verified: false`, confirm the unverified mar
 
 ---
 
-## Phase 4+5 — map, terrain, safe altitude
+## Phase 4+5 – map, terrain, safe altitude
 
 | Check | Reference | Flyte | OK |
 |---|---|---|---|
@@ -86,14 +86,14 @@ If the aircraft still carries `data_verified: false`, confirm the unverified mar
 | Obstacles near the route present and correct | AIP ENR 5.4 | | ☐ |
 
 EPRJ→EPKR is the critical one. It runs toward the Beskids and it is where 90 m elevation data is
-expected to be marginal. If safe altitude reads low against the chart MEF, say so — that is the
+expected to be marginal. If safe altitude reads low against the chart MEF, say so – that is the
 trigger for switching to GLO-30, and it is a finding this checklist exists to produce.
 
 Also confirm: the applied margin (1000 or 2000 ft) is displayed next to every safe altitude.
 
 ---
 
-## Phase 6 — OFP
+## Phase 6 – OFP
 
 Prepare a full OFP for **EPRJ→EPML→EPRJ** with a real aircraft and today's real weather. Then
 prepare the same flight entirely by hand.
@@ -119,7 +119,7 @@ Then:
 - [ ] Winds aloft are plausible for today
 - [ ] **Fuel policy shown on the OFP is the OKL PRz 45-minute one**, not the NCO default
 - [ ] Sum of leg times equals the stated total (not off by rounding)
-- [ ] Time marks fall where you would actually expect them on the ground — the river, the motorway,
+- [ ] Time marks fall where you would actually expect them on the ground – the river, the motorway,
       the town. Fly the route mentally and check they make sense as visual checkpoints
 - [ ] **The printout matches the OKL PRz template.** Layout, field positions, page breaks
 - [ ] **No licence or attribution text anywhere on the printout**
@@ -127,22 +127,22 @@ Then:
 
 ---
 
-## Phase 7 — FPL
+## Phase 7 – FPL
 
 Build an FPL for a flight you would genuinely file, then compare against the message you would
 compose yourself.
 
 | Item | Yours | Flyte | OK |
 |---|---|---|---|
-| 7 — Aircraft identification | | | ☐ |
-| 8 — Flight rules and type | | | ☐ |
-| 9 — Number, type, wake turbulence category | | | ☐ |
-| 10 — Equipment and capabilities | | | ☐ |
-| 13 — Departure and time | | | ☐ |
-| 15 — Speed, level, route | | | ☐ |
-| 16 — Destination, EET, alternates | | | ☐ |
-| 18 — Other information | | | ☐ |
-| 19 — Supplementary information | | | ☐ |
+| 7 – Aircraft identification | | | ☐ |
+| 8 – Flight rules and type | | | ☐ |
+| 9 – Number, type, wake turbulence category | | | ☐ |
+| 10 – Equipment and capabilities | | | ☐ |
+| 13 – Departure and time | | | ☐ |
+| 15 – Speed, level, route | | | ☐ |
+| 16 – Destination, EET, alternates | | | ☐ |
+| 18 – Other information | | | ☐ |
+| 19 – Supplementary information | | | ☐ |
 
 - [ ] Validation rejects a deliberately malformed field with a message that says what is wrong
 - [ ] The filing instructions are accurate against the current IWB interface
@@ -152,12 +152,12 @@ compose yourself.
 
 ---
 
-## Phase 2 / 8 — logbook
+## Phase 2 / 8 – logbook
 
 - [ ] A month of entries from your paper logbook, entered into Flyte, produce identical totals
 - [ ] SE, ME, night, IFR, PIC, dual and instructor breakdowns all match
 - [ ] Paper-style view reproduces your logbook's layout closely enough to be recognisable
-- [ ] Running totals — this page / brought forward / total — are correct across a page boundary
+- [ ] Running totals – this page / brought forward / total – are correct across a page boundary
 - [ ] FCL.060 recency status matches your own count
 - [ ] Sailplane entries carry launch method and launch count; totals separate from aeroplanes
 - [ ] A printout would be accepted as a licence record

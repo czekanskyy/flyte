@@ -13,11 +13,11 @@ pnpm verify      # typecheck → lint → test → build → e2e
 ```
 
 Must pass locally before a PR is opened, and in CI before a merge. No exceptions, no "it's just a
-doc change" — the gate is cheap precisely so it can be unconditional.
+doc change" – the gate is cheap precisely so it can be unconditional.
 
 ---
 
-## 1. Golden vectors — the core of the strategy
+## 1. Golden vectors – the core of the strategy
 
 Every public function in `packages/aviation` has hand-verified test vectors in
 `packages/aviation/test/vectors/<module>.json`.
@@ -86,7 +86,7 @@ Invariants that must be covered:
 - Safe altitude is monotonic: raising any terrain sample never lowers the result.
 - CG is bounded by the extreme station arms.
 - **Nothing in `packages/aviation` ever returns `NaN` or `Infinity`** for any finite input. This one
-  property has more defect-finding power than any other test in the repo — run it over every
+  property has more defect-finding power than any other test in the repo – run it over every
   exported function.
 
 ## 3. Unit tests
@@ -103,7 +103,7 @@ exactly the wrong moment.
 Testing Library, on behaviour rather than implementation. Query by role and accessible name.
 
 Mandatory coverage:
-- `<DataFreshness/>` at **each** threshold boundary — 29/30/31 min, 59/60/61 min.
+- `<DataFreshness/>` at **each** threshold boundary – 29/30/31 min, 59/60/61 min.
 - Forms: validation messages, error states, keyboard navigation.
 - Unit-aware displays: switching preference re-renders without altering the stored value.
 - Empty, loading and error states. Every one of them, every time.
@@ -112,17 +112,17 @@ Mandatory coverage:
 
 Seven journeys. They run in CI on every PR.
 
-1. **Account and logbook** — register → sign in (password, then passkey) → add an AT-3 → add a
+1. **Account and logbook** – register → sign in (password, then passkey) → add an AT-3 → add a
    logbook entry → print to PDF.
-2. **Route to OFP** — click the map near **EPRJ** → set ADEP → set **EPML** as ADES → add a
+2. **Route to OFP** – click the map near **EPRJ** → set ADEP → set **EPML** as ADES → add a
    turning point → generate OFP → **assert the sum of leg times equals the route total**.
-3. **Terrain** — **EPRJ→EPKR** → safe altitude is non-zero and rises toward the Beskids → the
+3. **Terrain** – **EPRJ→EPKR** → safe altitude is non-zero and rises toward the Beskids → the
    terrain profile renders.
-4. **FPL** — build from the route → validate → the message matches a fixture, and **EPRJ inside the
+4. **FPL** – build from the route → validate → the message matches a fixture, and **EPRJ inside the
    EPRZ zone is handled correctly**.
-5. **E6B** — rotate the dial by a set amount → the reading matches a golden vector.
-6. **Offline** — go offline → add a logbook entry → come back online → it syncs.
-7. **Sailplane scope** — a Puchacz does **not** appear in map/OFP/FPL selectors and **does** appear
+5. **E6B** – rotate the dial by a set amount → the reading matches a golden vector.
+6. **Offline** – go offline → add a logbook entry → come back online → it syncs.
+7. **Sailplane scope** – a Puchacz does **not** appear in map/OFP/FPL selectors and **does** appear
    in the logbook.
 
 Rules: no `waitForTimeout`; wait on state. No shared state between tests. Every test creates and
@@ -131,7 +131,7 @@ cleans up its own data.
 ## 6. Visual regression on print templates
 
 Every print template renders with a fixed dataset and is compared against a committed screenshot.
-Print output is the product here — a template that silently shifts by 3 mm no longer matches the
+Print output is the product here – a template that silently shifts by 3 mm no longer matches the
 training organisation's form.
 
 Assertions each template must satisfy:
@@ -175,5 +175,5 @@ pnpm test:run                      # single pass, as CI runs it
 pnpm test:e2e                      # Playwright
 pnpm test:e2e --ui                 # Playwright interactive
 pnpm test:visual --update-snapshots  # after an INTENDED template change only
-pnpm --filter @flyte/aviation test   # calculation engine alone — sub-second
+pnpm --filter @flyte/aviation test   # calculation engine alone – sub-second
 ```

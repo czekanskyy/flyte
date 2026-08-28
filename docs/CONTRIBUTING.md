@@ -1,7 +1,7 @@
 # CONTRIBUTING.md
 
 Conventions for humans and agents working on Flyte. Agents should read [`AGENTS.md`](../AGENTS.md)
-first — it is the operating manual; this file is the reference.
+first – it is the operating manual; this file is the reference.
 
 ---
 
@@ -9,7 +9,7 @@ first — it is the operating manual; this file is the reference.
 
 ```bash
 pnpm install
-cp .env.example .env.local        # fill in — see docs/DATA_SOURCES.md §11
+cp .env.example .env.local        # fill in – see docs/DATA_SOURCES.md §11
 pnpm db:migrate
 pnpm dev
 ```
@@ -57,7 +57,7 @@ Callers must convert at the UI boundary.
 
 ## Pull requests
 
-One task, one PR. Target **under 400 changed lines**; over 800 will be sent back to be split — a
+One task, one PR. Target **under 400 changed lines**; over 800 will be sent back to be split – a
 reviewer cannot meaningfully check a 2000-line diff, and pretending otherwise is how defects get in.
 
 ```bash
@@ -82,7 +82,7 @@ fine and informative; a ticked box that is not true is a problem.
 2. Golden vectors exist, and their `source` names something external.
 3. Units are SI internally, converted only at the boundary.
 4. No new `any`, no unexplained `@ts-ignore`.
-5. Safety requirements respected — freshness, rounding direction, no silent fallbacks.
+5. Safety requirements respected – freshness, rounding direction, no silent fallbacks.
 6. Both `pl` and `en` translations present.
 7. Only paths in the task's `owns_paths` were touched.
 8. New dependencies have an ADR.
@@ -93,7 +93,7 @@ Prettier and ESLint are authoritative and run in CI; do not argue with them in r
 
 Beyond that:
 
-- **Names say what, not how.** `calculateWindCorrectionAngle`, not `calcWCA` — this codebase is read
+- **Names say what, not how.** `calculateWindCorrectionAngle`, not `calcWCA` – this codebase is read
   by people learning the domain.
 - **Aviation abbreviations are fine in types and in the UI** where they are the standard term:
   `TAS`, `QNH`, `ADEP`. Spell them out in function names.
@@ -110,6 +110,10 @@ Beyond that:
  */
 ```
 
+- **No em-dashes (U+2014) anywhere.** Use an en-dash (U+2013, `–`). This applies to documentation,
+  comments,
+  commit messages, PR descriptions and UI copy alike. `pnpm lint:prose` enforces it in CI.
+
 - **Errors are values, not exceptions**, in the calculation engine. Return a discriminated union;
   never throw, never return `NaN`.
 
@@ -119,7 +123,7 @@ Beyond that:
 - **Lane A alone** edits the catalog during parallel work.
 - Every new dependency needs an ADR covering: what problem it solves, what was considered, bundle
   cost, maintenance status, licence.
-- Treat bundle size as a budget, not an afterthought — this application is opened on a phone on an
+- Treat bundle size as a budget, not an afterthought – this application is opened on a phone on an
   airfield, sometimes on a bad connection. `size-limit` runs in CI.
 
 ## Database changes
@@ -138,7 +142,7 @@ lanes rarely touch the same file.
 Every user-visible string goes through `next-intl` with keys in **both** `messages/pl/<module>.json`
 and `messages/en/<module>.json`. A missing key fails CI.
 
-Polish is the primary language — write it first, then English. Use correct Polish aviation
+Polish is the primary language – write it first, then English. Use correct Polish aviation
 terminology; the glossary is in [`DOMAIN.md`](DOMAIN.md) §1.
 
 ## Documentation

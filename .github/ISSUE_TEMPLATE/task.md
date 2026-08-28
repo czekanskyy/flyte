@@ -1,7 +1,7 @@
 ---
 name: Task
 about: A unit of work for an agent lane
-title: "FLY-XXX — "
+title: "FLY-XXX – "
 labels: ''
 assignees: ''
 ---
@@ -31,7 +31,7 @@ If it is not self-contained, it is not ready.
 packages/…/**
 ```
 
-<!-- Must not overlap the other lane's paths for this phase — check docs/LANES.md. -->
+<!-- Must not overlap the other lane's paths for this phase – check docs/LANES.md. -->
 
 ### Acceptance criteria
 

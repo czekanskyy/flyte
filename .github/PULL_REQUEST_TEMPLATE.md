@@ -1,9 +1,9 @@
 <!--
-Title format: FLY-XXX — short description
+Title format: FLY-XXX – short description
 One task per PR. Target under 400 changed lines; over 800 will be sent back to be split.
 -->
 
-## FLY-XXX — <title>
+## FLY-XXX – <title>
 
 ### What & why
 
@@ -32,10 +32,10 @@ pnpm verify
 - [ ] Golden vectors added, and their `source` names something outside this codebase
 - [ ] No golden vector was modified to make a test pass
 - [ ] Units are SI internally; conversion happens only at the UI boundary
-- [ ] No `NaN`, no `Infinity`, no silent fallback — missing inputs return an explicit state
+- [ ] No `NaN`, no `Infinity`, no silent fallback – missing inputs return an explicit state
 - [ ] Rounding is conservative for the pilot (altitude/fuel/time up, endurance down)
 - [ ] Data freshness indicators respected where time-sensitive data is shown
-- [ ] Attribution policy respected — in-app only where OpenAIP data is used, **never on printouts**
+- [ ] Attribution policy respected – in-app only where OpenAIP data is used, **never on printouts**
 - [ ] Unverified aircraft data is visibly marked
 - [ ] Works offline, where applicable
 - [ ] Both `pl` and `en` translations added

@@ -13,8 +13,8 @@ A role is a mode of operation, not a person. One session takes one role at a tim
 |---|---|---|---|
 | **Architect** | Breaks a phase into tasks, writes ADRs, maintains `LANES.md` and the backlog | `docs/**` | Write implementation code |
 | **Implementer** | Executes one task: code, tests, PR | Only the task's `owns_paths` | Review its own PR; touch other paths |
-| **Reviewer** | Reviews a PR against the checklist | Nothing — comments only | Review a PR it authored |
-| **Aviation validator** | Checks formulas against `DOMAIN.md` and primary sources; audits golden vectors | Comments; `DOMAIN.md` corrections | — |
+| **Reviewer** | Reviews a PR against the checklist | Nothing – comments only | Review a PR it authored |
+| **Aviation validator** | Checks formulas against `DOMAIN.md` and primary sources; audits golden vectors | Comments; `DOMAIN.md` corrections | – |
 | **Doc keeper** | Writes `docs/progress/`, updates statuses, maintains the glossary | `docs/**` | Change code or tests |
 
 The separation that matters most is **Implementer ≠ Reviewer**. An agent that has spent a session
@@ -102,8 +102,8 @@ partway through, and that is where subtly wrong code comes from.
 
 Full mechanics in [`LANES.md`](LANES.md). The essentials:
 
-- Two git worktrees sharing one object store — no `index.lock` contention.
-- One Neon database branch per lane — migrations cannot collide.
+- Two git worktrees sharing one object store – no `index.lock` contention.
+- One Neon database branch per lane – migrations cannot collide.
 - Ports 3000 and 3001.
 - Path ownership declared per phase and per task; **anything outside it means stop and report**.
 - Lane A alone edits the dependency catalog.
@@ -116,7 +116,7 @@ committed contract instead of reconciling two guesses later.
 ## 5. Sub-agents
 
 Worth spawning:
-- Broad codebase search — "find every use of `Knots`" — where only the conclusion is needed.
+- Broad codebase search – "find every use of `Knots`" – where only the conclusion is needed.
 - Reviewing a PR in a context that has not been shaped by writing it.
 - Extracting golden vectors from a source document.
 
@@ -133,7 +133,7 @@ Agents lose accuracy as context fills. Countermeasures built into the process:
 
 - Tasks are sized to one session.
 - Task files are self-contained, so nothing depends on remembering earlier conversation.
-- `DOMAIN.md` is the external memory for formulas — an agent looks things up rather than recalling
+- `DOMAIN.md` is the external memory for formulas – an agent looks things up rather than recalling
   them.
 - `docs/progress/FLY-XXX.md` records decisions at the end of each task, so the next agent inherits
   reasoning rather than reconstructing it.
@@ -145,7 +145,7 @@ Agents lose accuracy as context fills. Countermeasures built into the process:
    number is worse than a visible gap.
 2. **Adjust a golden vector to make a test pass.** If vector and code disagree, a human decides.
 3. **Touch paths outside `owns_paths`.**
-4. **Expand scope silently.** Discovering the task is wrong is useful information — report it.
+4. **Expand scope silently.** Discovering the task is wrong is useful information – report it.
 5. **Add a dependency without an ADR.**
 6. **Merge its own work.**
 
@@ -170,7 +170,7 @@ One escalation message costs a minute. A wrong number can reach a kneeboard.
 Every completed task writes `docs/progress/FLY-XXX.md`:
 
 ```markdown
-# FLY-042 — Wind triangle solver
+# FLY-042 – Wind triangle solver
 
 **Completed:** 2026-09-14 · **Lane:** A · **PR:** #37
 
@@ -180,7 +180,7 @@ wind quadrants, zero wind, pure head/tailwind and the no-solution case. Property
 invariants in DOMAIN.md §6.4.
 
 ## Decisions
-WCA sign convention: positive to the right of track. Documented in DOMAIN.md §6.1 — everything
+WCA sign convention: positive to the right of track. Documented in DOMAIN.md §6.1 – everything
 downstream depends on this.
 
 ## Open
@@ -191,6 +191,6 @@ Magnetic declination still hardcoded at 6°E in the integration test. Unblocked 
 result; if that ever needs to change, the OFP leg table assumes GS > 0.
 ```
 
-One file per task — never a shared log, so two lanes never conflict on it. The "notes for whoever
+One file per task – never a shared log, so two lanes never conflict on it. The "notes for whoever
 comes next" section is the most valuable part: it is where hard-won context survives the end of a
 session.
