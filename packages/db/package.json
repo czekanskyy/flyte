@@ -4,16 +4,27 @@
   "private": true,
   "type": "module",
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.ts",
+    "./schema": "./src/schema/index.ts",
+    "./client": "./src/client.ts"
   },
   "scripts": {
     "build": "node -e \"process.exit(0)\"",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit -p tsconfig.json",
-    "test": "vitest run"
+    "test": "vitest run",
+    "generate": "drizzle-kit generate",
+    "migrate": "drizzle-kit migrate",
+    "check:postgis": "node scripts/check-postgis.mjs"
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "catalog:",
+    "drizzle-orm": "catalog:"
   },
   "devDependencies": {
     "@flyte/config": "workspace:*",
+    "@types/node": "catalog:",
+    "drizzle-kit": "catalog:",
     "eslint": "catalog:",
     "typescript": "catalog:",
     "vitest": "catalog:"
