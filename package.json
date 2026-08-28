@@ -1,6 +1,7 @@
 {
   "name": "flyte",
   "private": true,
+  "type": "module",
   "packageManager": "pnpm@11.24.0",
   "engines": {
     "node": ">=20.9.0"
@@ -8,18 +9,23 @@
   "scripts": {
     "dev": "turbo dev",
     "build": "turbo build",
-    "lint": "turbo lint",
+    "lint": "eslint . && prettier --check .",
+    "format": "prettier --write .",
     "typecheck": "turbo typecheck",
     "test": "turbo test",
     "test:vectors": "turbo test --filter @flyte/aviation",
-    "verify": "turbo typecheck lint test build && pnpm lint:prose",
+    "verify": "turbo typecheck test build && pnpm lint && pnpm lint:prose",
     "lint:prose": "node scripts/lint-prose.mjs",
     "backlog:sync": "node scripts/backlog-sync.mjs",
     "db:generate": "echo db:generate lands in FLY-012 && node -e \"process.exit(0)\"",
     "db:migrate": "echo db:migrate lands in FLY-012 && node -e \"process.exit(0)\""
   },
   "devDependencies": {
+    "@flyte/config": "workspace:*",
+    "eslint": "catalog:",
+    "prettier": "catalog:",
     "turbo": "catalog:",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "vitest": "catalog:"
   }
 }

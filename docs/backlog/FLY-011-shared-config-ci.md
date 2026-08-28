@@ -1,7 +1,7 @@
 ---
 id: FLY-011
 title: "Shared config: TypeScript, ESLint boundaries, Prettier, Vitest, CI verify"
-status: todo
+status: in-review
 phase: 1
 depends_on: [FLY-010]
 owns_paths:

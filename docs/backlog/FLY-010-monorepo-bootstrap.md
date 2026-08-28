@@ -1,7 +1,7 @@
 ---
 id: FLY-010
 title: "Monorepo bootstrap: pnpm workspace, catalog, Turborepo, package skeletons"
-status: in-review
+status: done
 phase: 1
 depends_on: []
 owns_paths:
