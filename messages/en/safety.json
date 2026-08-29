@@ -1,0 +1,12 @@
+{
+  "safety": {
+    "title": "Before you plan a flight",
+    "statement": "Flyte is not an approved source of aeronautical data. It does not replace AIP, NOTAM or an official pre-flight briefing. Responsibility for the preparation and conduct of the flight rests with the pilot in command.",
+    "accept": "I understand and accept",
+    "alreadyAccepted": "You have already accepted this version of the safety statement."
+  },
+  "plan": {
+    "title": "Plan",
+    "body": "Map, OFP and FPL will live here in later phases. This placeholder is gated by the first-run acknowledgement so planning cannot open without it."
+  }
+}

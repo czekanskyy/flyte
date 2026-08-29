@@ -11,9 +11,9 @@
 | Status | Count |
 |---|---|
 | 🔴 blocked | 0 |
-| ⚪ todo | 4 |
+| ⚪ todo | 3 |
 | 🔵 in-progress | 0 |
-| 🟡 in-review | 2 |
+| 🟡 in-review | 3 |
 | 🟢 done | 5 |
 
 ## Blocking
@@ -47,7 +47,7 @@ Phase 0 documentation was written directly rather than tracked as individual tas
 | [FLY-016](backlog/FLY-016-pwa-serwist.md) | PWA: Serwist, manifest, icons | M | ⚪ todo |
 | [FLY-017](backlog/FLY-017-docker-cd.md) | Docker Compose and CD to GHCR | M | ⚪ todo |
 | [FLY-018](backlog/FLY-018-aviation-units.md) | packages/aviation/units: branded types, converters, golden vectors | M | 🟡 in-review |
-| [FLY-019](backlog/FLY-019-first-run-ack.md) | First-run acknowledgement, credits stub, app chrome | S | ⚪ todo |
+| [FLY-019](backlog/FLY-019-first-run-ack.md) | First-run acknowledgement, credits stub, app chrome | S | 🟡 in-review |
 
 Suggested order: **FLY-010 → FLY-011**, then FLY-012 and FLY-013 in either order, then FLY-014
 (needs both). FLY-018 can start as soon as FLY-011 lands. FLY-015 / FLY-016 / FLY-017 need

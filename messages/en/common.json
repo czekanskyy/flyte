@@ -7,6 +7,8 @@
   },
   "nav": {
     "home": "Home",
+    "plan": "Plan",
+    "credits": "Credits",
     "signIn": "Sign in",
     "language": "Language"
   },

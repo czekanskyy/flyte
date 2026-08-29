@@ -25,5 +25,5 @@ export default async function AppGroupLayout({ children, params }: Props) {
   if (!session) {
     redirect({ href: "/login", locale });
   }
-  return <AppChrome>{children}</AppChrome>;
+  return <AppChrome appLinks>{children}</AppChrome>;
 }

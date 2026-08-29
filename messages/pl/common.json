@@ -7,6 +7,8 @@
   },
   "nav": {
     "home": "Start",
+    "plan": "Plan",
+    "credits": "Źródła",
     "signIn": "Zaloguj się",
     "language": "Język"
   },
