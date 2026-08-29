@@ -1,7 +1,7 @@
 ---
 id: FLY-017
 title: "Docker Compose and CD to GHCR"
-status: todo
+status: in-review
 phase: 1
 depends_on: [FLY-013]
 owns_paths:
@@ -9,6 +9,7 @@ owns_paths:
   - docker-compose.yml
   - docker-compose.prod.yml
   - .dockerignore
+  - docker/pdf-stub/**
   - .github/workflows/cd.yml
   - apps/web/next.config.ts
   - apps/web/next.config.mjs

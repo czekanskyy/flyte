@@ -1,0 +1,58 @@
+# Local shape of production: web, redis, pdf stub.
+# Secrets come from the environment / .env.local – never from this file.
+# Playwright will replace flyte-pdf when print exists.
+
+services:
+  flyte-web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: flyte-web:local
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: production
+      HOSTNAME: 0.0.0.0
+      PORT: "3000"
+      DATABASE_URL: ${DATABASE_URL}
+      BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET}
+      BETTER_AUTH_URL: ${BETTER_AUTH_URL:-http://localhost:3000}
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET:-}
+      REDIS_URL: redis://flyte-redis:6379
+      PDF_SERVICE_URL: http://flyte-pdf:3001
+    depends_on:
+      flyte-redis:
+        condition: service_started
+      flyte-pdf:
+        condition: service_started
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:3000/api/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+
+  flyte-redis:
+    image: redis:7-alpine
+    command: ["redis-server", "--save", "", "--appendonly", "no"]
+
+  # Playwright/Chromium will fill this in when OFP/FPL print exists.
+  flyte-pdf:
+    build:
+      context: ./docker/pdf-stub
+      dockerfile: Dockerfile
+    image: flyte-pdf:stub
+    ports:
+      - "3001:3001"
+    environment:
+      PORT: "3001"
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    profiles: ["tunnel"]
+    command: ["tunnel", "--no-autoupdate", "run"]
+    environment:
+      TUNNEL_TOKEN: ${CLOUDFLARE_TUNNEL_TOKEN}
+    depends_on:
+      - flyte-web

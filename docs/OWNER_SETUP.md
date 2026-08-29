@@ -90,6 +90,24 @@ internal to the Docker network. Public HTTPS is handled by Cloudflare.
 
 DNS is created automatically when the public hostname is added.
 
+### After GHCR has a `flyte-web` image
+
+Actions on `main` build and push `ghcr.io/czekanskyy/flyte-web` (tagged `sha-<commit>` and `latest`).
+They do **not** deploy to TrueNAS. The NAS pulls.
+
+1. On the NAS, copy `docker-compose.prod.yml` (and `docker/pdf-stub` if you still build the
+   PDF stub locally). Point Compose at a host env file that holds `DATABASE_URL` for the
+   Neon **main** branch, `BETTER_AUTH_SECRET`, and `BETTER_AUTH_URL=https://flyte.czekanski.dev`.
+   That env file never lives in git and never on the development machine.
+2. `docker compose -f docker-compose.prod.yml pull flyte-web`
+3. `docker compose -f docker-compose.prod.yml up -d flyte-web flyte-redis flyte-pdf`
+4. Optional tunnel profile: set `CLOUDFLARE_TUNNEL_TOKEN` and
+   `docker compose -f docker-compose.prod.yml --profile tunnel up -d`
+5. Confirm `http://flyte-web:3000/api/health` from the Docker network, then the public
+   hostname mapping in §3.
+
+Re-pull after each merge to `main`. The AIRAC worker container is Phase 4.
+
 ## 4. FAA – NOTAM API access
 
 > **Not self-service, and likely to be refused.** The FAA API portal does not issue NOTAM

@@ -11,9 +11,9 @@
 | Status | Count |
 |---|---|
 | 🔴 blocked | 0 |
-| ⚪ todo | 2 |
+| ⚪ todo | 1 |
 | 🔵 in-progress | 0 |
-| 🟡 in-review | 4 |
+| 🟡 in-review | 5 |
 | 🟢 done | 5 |
 
 ## Blocking
@@ -45,7 +45,7 @@ Phase 0 documentation was written directly rather than tracked as individual tas
 | [FLY-014](backlog/FLY-014-better-auth.md) | Better Auth: email/password, passkeys, Google, magic link | M | 🟢 done |
 | [FLY-015](backlog/FLY-015-ui-theme-night.md) | packages/ui, theme system, red night mode | M | 🟡 in-review |
 | [FLY-016](backlog/FLY-016-pwa-serwist.md) | PWA: Serwist, manifest, icons | M | 🟡 in-review |
-| [FLY-017](backlog/FLY-017-docker-cd.md) | Docker Compose and CD to GHCR | M | ⚪ todo |
+| [FLY-017](backlog/FLY-017-docker-cd.md) | Docker Compose and CD to GHCR | M | 🟡 in-review |
 | [FLY-018](backlog/FLY-018-aviation-units.md) | packages/aviation/units: branded types, converters, golden vectors | M | 🟡 in-review |
 | [FLY-019](backlog/FLY-019-first-run-ack.md) | First-run acknowledgement, credits stub, app chrome | S | 🟡 in-review |
 
