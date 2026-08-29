@@ -3,7 +3,6 @@
 import { useTranslations } from "next-intl";
 import { authClient } from "../../../lib/auth-client.ts";
 import { Link, usePathname, useRouter } from "../../../i18n/navigation.ts";
-import "./login/auth-forms.css";
 
 export function SessionNav() {
   const t = useTranslations("auth");

@@ -1,3 +1,4 @@
+import { ThemeSwitch } from "@flyte/ui";
 import { getTranslations } from "next-intl/server";
 import type { ReactNode } from "react";
 import { SessionNav } from "../app/[locale]/(auth)/session-nav.tsx";
@@ -11,6 +12,7 @@ type Props = {
 export async function AppChrome({ children }: Props) {
   const t = await getTranslations("nav");
   const tApp = await getTranslations();
+  const tTheme = await getTranslations("theme");
 
   return (
     <div className="shell">
@@ -21,6 +23,14 @@ export async function AppChrome({ children }: Props) {
         <nav className="nav" aria-label={tApp("appName")}>
           <Link href="/">{t("home")}</Link>
           <SessionNav />
+          <ThemeSwitch
+            labels={{
+              group: tTheme("label"),
+              light: tTheme("light"),
+              dark: tTheme("dark"),
+              night: tTheme("night"),
+            }}
+          />
           <LanguageSwitch />
         </nav>
       </header>

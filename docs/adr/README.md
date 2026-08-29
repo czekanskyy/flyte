@@ -47,7 +47,8 @@ That last case is the main reason this directory exists. Pinning TypeScript one 
 | 0010 | One agent at a time, with a handoff protocol | Planned (already practised; write-up later) |
 | 0011 | Implement WMM 2025 in-house | Planned (Phase 3) |
 | 0012 | NOTAM source | Blocked on FLY-002 |
-| 0013 | shadcn/ui as the component kit | Planned (FLY-015 writes it) |
+| [0013](0013-shadcn-ui.md) | shadcn/ui copy-in kit in `packages/ui` | Accepted |
+| [0014](0014-glassmorphism.md) | Glassmorphism as the application visual language | Accepted |
 
 ## Evaluated and rejected, pending a full ADR
 

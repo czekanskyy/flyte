@@ -1,0 +1,422 @@
+/* Flyte glass material. Tokens: ADR 0014. Do not introduce a second language. */
+
+:root,
+[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #07080c;
+  --fg: #f3f6fa;
+  --muted: #a8b4c4;
+  --accent: #7eb6ff;
+  --accent-strong: #4d94f7;
+  --line: rgba(255, 255, 255, 0.16);
+  --ok: #8ee0b5;
+  --danger: #ff8b8b;
+  --atmosphere: #07080c;
+  --bloom-a: rgba(80, 140, 255, 0.42);
+  --bloom-b: rgba(168, 90, 220, 0.28);
+  --glass-bg: rgba(18, 22, 32, 0.58);
+  --glass-bg-strong: rgba(18, 22, 32, 0.78);
+  --glass-border: rgba(255, 255, 255, 0.2);
+  --glass-highlight: rgba(255, 255, 255, 0.34);
+  --glass-blur: 28px;
+  --glass-shadow: inset 0 1px 0 var(--glass-highlight), 0 18px 50px rgba(0, 0, 0, 0.38);
+  --field-bg: rgba(255, 255, 255, 0.07);
+  --touch: 44px;
+  --radius-sm: 14px;
+  --radius-md: 18px;
+  --radius-lg: 26px;
+  --font-size: 1rem;
+  --density: 0.75rem;
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+  --bg: #d9e4f5;
+  --fg: #161a22;
+  --muted: #5a6574;
+  --accent: #0b6fe8;
+  --accent-strong: #0958c4;
+  --line: rgba(255, 255, 255, 0.62);
+  --ok: #1f8a5a;
+  --danger: #c43333;
+  --atmosphere: #d5e2f6;
+  --bloom-a: rgba(110, 170, 255, 0.55);
+  --bloom-b: rgba(255, 170, 200, 0.42);
+  --glass-bg: rgba(255, 255, 255, 0.64);
+  --glass-bg-strong: rgba(255, 255, 255, 0.82);
+  --glass-border: rgba(255, 255, 255, 0.78);
+  --glass-highlight: rgba(255, 255, 255, 0.95);
+  --glass-shadow: inset 0 1px 0 var(--glass-highlight), 0 18px 40px rgba(40, 70, 120, 0.16);
+  --field-bg: rgba(255, 255, 255, 0.55);
+}
+
+[data-theme="night"] {
+  color-scheme: dark;
+  --bg: #0a0404;
+  --fg: #ffd2d2;
+  --muted: #c48787;
+  --accent: #ff5a5a;
+  --accent-strong: #e03c3c;
+  --line: rgba(255, 90, 90, 0.28);
+  --ok: #e07a7a;
+  --danger: #ff8a8a;
+  --atmosphere: #0a0404;
+  --bloom-a: rgba(160, 24, 24, 0.32);
+  --bloom-b: rgba(90, 0, 0, 0.22);
+  --glass-bg: rgba(28, 8, 8, 0.78);
+  --glass-bg-strong: rgba(22, 6, 6, 0.9);
+  --glass-border: rgba(255, 96, 96, 0.28);
+  --glass-highlight: rgba(255, 160, 160, 0.22);
+  --glass-shadow: inset 0 1px 0 var(--glass-highlight), 0 18px 50px rgba(0, 0, 0, 0.55);
+  --field-bg: rgba(255, 80, 80, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+html {
+  background: var(--atmosphere);
+}
+
+body {
+  position: relative;
+  color: var(--fg);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", system-ui, sans-serif;
+  font-size: var(--font-size);
+  line-height: 1.45;
+  letter-spacing: -0.011em;
+  -webkit-font-smoothing: antialiased;
+  background: transparent;
+}
+
+a {
+  color: var(--accent);
+}
+
+h1,
+h2 {
+  letter-spacing: -0.03em;
+  font-weight: 650;
+}
+
+h1 {
+  font-size: 1.85rem;
+  margin: 0 0 0.4rem;
+}
+
+h2 {
+  font-size: 1.05rem;
+  margin: 0;
+}
+
+.atmosphere {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  background: var(--atmosphere);
+}
+
+.atmosphere::before,
+.atmosphere::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  will-change: transform;
+  animation: bloom-drift 48s ease-in-out infinite;
+}
+
+.atmosphere::before {
+  width: min(70vw, 34rem);
+  height: min(70vw, 34rem);
+  top: -12%;
+  left: -18%;
+  background: var(--bloom-a);
+}
+
+.atmosphere::after {
+  width: min(60vw, 28rem);
+  height: min(60vw, 28rem);
+  right: -16%;
+  bottom: -10%;
+  background: var(--bloom-b);
+  animation-delay: -18s;
+}
+
+@keyframes bloom-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(4%, 6%, 0) scale(1.08);
+  }
+}
+
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur)) saturate(1.7);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.7);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+}
+
+.shell {
+  max-width: 42rem;
+  margin: 0 auto;
+  padding: 1rem 1.15rem 2.5rem;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+.topbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  justify-content: space-between;
+  margin-bottom: 1.35rem;
+  padding: 0.55rem 0.7rem 0.55rem 1rem;
+  border-radius: var(--radius-lg);
+  position: sticky;
+  top: 0.75rem;
+  z-index: 20;
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur)) saturate(1.7);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.7);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+}
+
+.brand {
+  font-weight: 700;
+  font-size: 1.2rem;
+  letter-spacing: -0.04em;
+  color: var(--fg);
+  text-decoration: none;
+  min-height: var(--touch);
+  display: inline-flex;
+  align-items: center;
+}
+
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  align-items: center;
+}
+
+.nav a,
+.nav button,
+.locale-switch a,
+.theme-switch button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--touch);
+  min-width: var(--touch);
+  padding: 0 0.85rem;
+  border: 1px solid var(--glass-border);
+  border-radius: 999px;
+  text-decoration: none;
+  color: var(--fg);
+  background: var(--field-bg);
+  font: inherit;
+  cursor: pointer;
+}
+
+.nav a[aria-current="page"],
+.locale-switch a[aria-current="true"],
+.theme-switch button[aria-pressed="true"] {
+  background: color-mix(in srgb, var(--accent) 28%, var(--glass-bg));
+  border-color: color-mix(in srgb, var(--accent) 55%, var(--glass-border));
+}
+
+.panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur)) saturate(1.7);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.7);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  border-radius: var(--radius-lg);
+  padding: 1.35rem 1.25rem 1.5rem;
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.tagline {
+  color: var(--muted);
+  font-size: 1.05rem;
+  margin: 0 0 0.85rem;
+}
+
+.locale-switch,
+.theme-switch {
+  display: flex;
+  gap: 0.3rem;
+  padding: 0.2rem;
+  border-radius: 999px;
+  background: var(--field-bg);
+  border: 1px solid var(--glass-border);
+}
+
+.locale-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+.auth-forms {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  width: 100%;
+  flex: 1;
+}
+
+.auth-form,
+.auth-alt {
+  display: flex;
+  flex-direction: column;
+  gap: var(--density);
+  width: 100%;
+}
+
+.auth-form .field,
+.auth-form .btn,
+.auth-alt .btn {
+  width: 100%;
+}
+
+.auth-email-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin: 0;
+  color: var(--muted);
+}
+
+.auth-text-btn {
+  min-height: var(--touch);
+  padding: 0 0.4rem;
+  border: 0;
+  background: transparent;
+  color: var(--accent);
+  font: inherit;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+.field-label,
+.auth-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.field,
+.auth-form input,
+.btn,
+.auth-form button {
+  min-height: var(--touch);
+  min-width: var(--touch);
+  padding: 0 0.95rem;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-sm);
+  background: var(--field-bg);
+  color: var(--fg);
+  font: inherit;
+}
+
+.field:focus,
+.auth-form input:focus,
+.btn:focus-visible,
+.auth-form button:focus-visible,
+.nav a:focus-visible,
+.nav button:focus-visible,
+.theme-switch button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.btn,
+.auth-form button {
+  cursor: pointer;
+  background: color-mix(in srgb, var(--accent) 22%, var(--field-bg));
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--glass-border));
+}
+
+.btn-ghost {
+  background: var(--field-bg);
+  border-color: var(--glass-border);
+}
+
+.btn:disabled,
+.auth-form button:disabled,
+.nav button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.auth-error {
+  margin: 0;
+  color: var(--danger);
+}
+
+.auth-ok {
+  margin: 0;
+  color: var(--ok);
+}
+
+.auth-or {
+  margin: 0;
+  color: var(--muted);
+  text-align: center;
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .glass,
+  .topbar,
+  .panel,
+  .nav a,
+  .nav button,
+  .field,
+  .auth-form input,
+  .btn,
+  .auth-form button {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: var(--glass-bg-strong);
+  }
+
+  .atmosphere::before,
+  .atmosphere::after {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .atmosphere::before,
+  .atmosphere::after {
+    animation: none;
+  }
+}

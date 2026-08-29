@@ -1,7 +1,7 @@
 ---
 id: FLY-015
 title: "packages/ui, theme system, red night mode"
-status: todo
+status: in-review
 phase: 1
 depends_on: [FLY-013]
 owns_paths:
@@ -11,6 +11,8 @@ owns_paths:
   - messages/pl/theme.json
   - messages/en/theme.json
   - docs/adr/0013-shadcn-ui.md
+  - docs/adr/0014-glassmorphism.md
+  - docs/adr/README.md
   - docs/progress/FLY-015.md
   - docs/backlog/FLY-015-ui-theme-night.md
   - docs/BACKLOG.md
@@ -22,9 +24,10 @@ estimate: M
 
 ## Goal
 
-`packages/ui` is a shadcn/ui kit on Tailwind 4. The app has light, dark, and **red night**
-themes, with tokens for accent, radius, density and font size. Night mode is actually red, not
-dark-grey.
+`packages/ui` is a shadcn-style copy-in kit. The visual language is **glassmorphism**
+([ADR 0014](../adr/0014-glassmorphism.md)): translucent, blurred chrome in the manner of
+current Apple system UI. The app has light, dark, and **red night** themes, with tokens for
+accent, radius, density, font size and glass fill. Night mode is actually red, not dark-grey.
 
 ## Context
 
@@ -52,17 +55,19 @@ do not ship white-on-red that fails a basic check.
 
 ## Acceptance criteria
 
-- [ ] ADR 0013 written and indexed from `docs/adr/README.md`.
-- [ ] `packages/ui` exports at least Button, Input, Label, and a ThemeProvider (names may
+- [x] ADR 0013 written and indexed from `docs/adr/README.md`.
+- [x] `packages/ui` exports at least Button, Input, Label, and a ThemeProvider (names may
       follow shadcn). Apps import from `@flyte/ui`, not from a local `components/ui`.
-- [ ] CSS variables for background, foreground, accent, radius, density, font-size.
-- [ ] Three named themes: `light`, `dark`, `night`. Night uses red tones on a near-black
+- [x] CSS variables for background, foreground, accent, radius, density, font-size, and glass
+      fill / blur / border.
+- [x] Surfaces use the glass material (ADR 0014), including login. Not flat grey slabs.
+- [x] Three named themes: `light`, `dark`, `night`. Night uses red tones on a near-black
       background, not a rebadged `dark`.
-- [ ] A control in the `(app)` shell switches themes, including night. Usable at 375 px,
+- [x] A control in the `(app)` shell switches themes, including night. Usable at 375 px,
       ≥ 44 px.
-- [ ] Copy through next-intl (`theme.json` in both languages).
-- [ ] `pnpm verify` green.
-- [ ] `docs/progress/FLY-015.md` written.
+- [x] Copy through next-intl (`theme.json` in both languages).
+- [x] `pnpm verify` green.
+- [x] `docs/progress/FLY-015.md` written.
 
 ## Test plan
 

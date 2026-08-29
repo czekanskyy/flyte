@@ -113,6 +113,10 @@ Beyond that:
  */
 ```
 
+- **Visual language is glassmorphism** ([ADR 0014](adr/0014-glassmorphism.md)). Chrome is
+  translucent, blurred, large-radius. Do not ship flat opaque grey panels as the default.
+  Night mode is red glass, not dark-grey. Print templates are exempt.
+
 - **No em-dashes (U+2014) anywhere.** Use an en-dash (U+2013, `–`). This applies to documentation,
   comments,
   commit messages, PR descriptions and UI copy alike. `pnpm lint:prose` enforces it in CI.

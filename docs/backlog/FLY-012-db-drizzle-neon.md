@@ -1,7 +1,7 @@
 ---
 id: FLY-012
 title: "packages/db: Drizzle, Neon, PostGIS, auth schema"
-status: in-review
+status: done
 phase: 1
 depends_on: [FLY-010, FLY-011]
 owns_paths:

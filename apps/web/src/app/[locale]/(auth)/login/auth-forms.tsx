@@ -1,17 +1,20 @@
 "use client";
 
+import { Button, Input, Label } from "@flyte/ui";
 import { useTranslations } from "next-intl";
 import { useEffect, useState, type FormEvent } from "react";
 import { authClient } from "../../../../lib/auth-client.ts";
 import type { AuthFeatures } from "../../../../lib/auth-types.ts";
+import { normalizeLoginEmail } from "../../../../lib/login-email.ts";
 import { useRouter } from "../../../../i18n/navigation.ts";
-import "./auth-forms.css";
 
 type Props = {
   features: AuthFeatures;
   signedIn: boolean;
   email: string;
 };
+
+type Step = "email" | "password" | "register";
 
 function errorCode(error: unknown): string | undefined {
   if (error && typeof error === "object" && "code" in error && typeof error.code === "string") {
@@ -41,13 +44,13 @@ export function AuthForms({ features, signedIn, email }: Props) {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [ok, setOk] = useState<string | null>(null);
+  const [step, setStep] = useState<Step>("email");
   const [passEmail, setPassEmail] = useState(email);
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
-  const [magicEmail, setMagicEmail] = useState(email);
 
   useEffect(() => {
-    if (signedIn) return;
+    if (signedIn || step !== "email") return;
     if (
       typeof PublicKeyCredential === "undefined" ||
       typeof PublicKeyCredential.isConditionalMediationAvailable !== "function"
@@ -57,7 +60,7 @@ export function AuthForms({ features, signedIn, email }: Props) {
     void PublicKeyCredential.isConditionalMediationAvailable().then((available) => {
       if (available) void authClient.signIn.passkey({ autoFill: true });
     });
-  }, [signedIn]);
+  }, [signedIn, step]);
 
   function fail(code: string | undefined): void {
     setOk(null);
@@ -67,6 +70,39 @@ export function AuthForms({ features, signedIn, email }: Props) {
   async function afterAuth(): Promise<void> {
     router.push("/");
     router.refresh();
+  }
+
+  function resetToEmail(): void {
+    setStep("email");
+    setPassword("");
+    setName("");
+    setError(null);
+    setOk(null);
+  }
+
+  async function onEmailContinue(event: FormEvent<HTMLFormElement>): Promise<void> {
+    event.preventDefault();
+    const normalized = normalizeLoginEmail(passEmail);
+    if (!normalized) {
+      setError(t("errorGeneric"));
+      return;
+    }
+    setPassEmail(normalized);
+    setBusy(true);
+    setError(null);
+    const response = await fetch("/api/login/email-status", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ email: normalized }),
+    });
+    setBusy(false);
+    if (!response.ok) {
+      setError(t("errorGeneric"));
+      return;
+    }
+    const body: unknown = await response.json();
+    const exists = Boolean(body && typeof body === "object" && "exists" in body && body.exists);
+    setStep(exists ? "password" : "register");
   }
 
   async function onSignIn(event: FormEvent<HTMLFormElement>): Promise<void> {
@@ -137,12 +173,11 @@ export function AuthForms({ features, signedIn, email }: Props) {
     if (authError) fail(errorCode(authError));
   }
 
-  async function onMagicLink(event: FormEvent<HTMLFormElement>): Promise<void> {
-    event.preventDefault();
+  async function onMagicLink(): Promise<void> {
     setBusy(true);
     setError(null);
     const { error: authError } = await authClient.signIn.magicLink({
-      email: magicEmail,
+      email: passEmail,
       callbackURL: "/",
     });
     setBusy(false);
@@ -163,108 +198,140 @@ export function AuthForms({ features, signedIn, email }: Props) {
   if (signedIn) {
     return (
       <div className="auth-forms">
+        <h1>{t("accountTitle")}</h1>
         <p>{t("signedInAs", { email })}</p>
         {error ? <p className="auth-error">{error}</p> : null}
         {ok ? <p className="auth-ok">{ok}</p> : null}
         <div className="auth-form">
-          <button type="button" disabled={busy} onClick={() => void onPasskeyRegister()}>
+          <Button disabled={busy} onClick={() => void onPasskeyRegister()}>
             {t("passkeyRegister")}
-          </button>
-          <button type="button" disabled={busy} onClick={() => void onSignOut()}>
+          </Button>
+          <Button variant="ghost" disabled={busy} onClick={() => void onSignOut()}>
             {t("signOut")}
-          </button>
+          </Button>
         </div>
       </div>
     );
   }
 
+  const title =
+    step === "register"
+      ? t("signUpTitle")
+      : step === "password"
+        ? t("welcomeBack")
+        : t("signInTitle");
+
   return (
     <div className="auth-forms">
+      <h1>{title}</h1>
       {error ? <p className="auth-error">{error}</p> : null}
       {ok ? <p className="auth-ok">{ok}</p> : null}
 
-      <form className="auth-form" onSubmit={(event) => void onSignIn(event)}>
-        <label>
-          {t("emailLabel")}
-          <input
-            type="email"
-            name="email"
-            autoComplete="username webauthn"
-            required
-            value={passEmail}
-            onChange={(event) => setPassEmail(event.target.value)}
-          />
-        </label>
-        <label>
-          {t("passwordLabel")}
-          <input
-            type="password"
-            name="password"
-            autoComplete="current-password webauthn"
-            required
-            minLength={8}
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-          />
-        </label>
-        <button type="submit" disabled={busy}>
-          {t("signInSubmit")}
-        </button>
-      </form>
-
-      <form className="auth-form" onSubmit={(event) => void onSignUp(event)}>
-        <h2>{t("signUpTitle")}</h2>
-        <label>
-          {t("nameLabel")}
-          <input
-            type="text"
-            name="name"
-            autoComplete="name"
-            value={name}
-            onChange={(event) => setName(event.target.value)}
-          />
-        </label>
-        <button type="submit" disabled={busy}>
-          {t("signUpSubmit")}
-        </button>
-      </form>
-
-      <p className="auth-or">{t("orDivider")}</p>
-
-      {features.passkeys ? (
-        <div className="auth-form">
-          <button type="button" disabled={busy} onClick={() => void onPasskeySignIn()}>
-            {t("passkeySignIn")}
-          </button>
-        </div>
-      ) : null}
-
-      {features.google ? (
-        <div className="auth-form">
-          <button type="button" disabled={busy} onClick={() => void onGoogle()}>
-            {t("googleSignIn")}
-          </button>
-        </div>
-      ) : null}
-
-      {features.magicLink ? (
-        <form className="auth-form" onSubmit={(event) => void onMagicLink(event)}>
-          <h2>{t("magicLinkTitle")}</h2>
-          <label>
+      {step === "email" ? (
+        <form className="auth-form" onSubmit={(event) => void onEmailContinue(event)}>
+          <Label>
             {t("emailLabel")}
-            <input
+            <Input
               type="email"
-              name="magic-email"
-              autoComplete="email"
+              name="email"
+              autoComplete="username webauthn"
               required
-              value={magicEmail}
-              onChange={(event) => setMagicEmail(event.target.value)}
+              value={passEmail}
+              onChange={(event) => setPassEmail(event.target.value)}
             />
-          </label>
-          <button type="submit" disabled={busy}>
-            {t("magicLinkSubmit")}
-          </button>
+          </Label>
+          <Button type="submit" disabled={busy}>
+            {t("continue")}
+          </Button>
         </form>
+      ) : null}
+
+      {step === "password" ? (
+        <form className="auth-form" onSubmit={(event) => void onSignIn(event)}>
+          <p className="auth-email-line">
+            <span>{passEmail}</span>
+            <button type="button" className="auth-text-btn" onClick={resetToEmail}>
+              {t("changeEmail")}
+            </button>
+          </p>
+          <Label>
+            {t("passwordLabel")}
+            <Input
+              type="password"
+              name="password"
+              autoComplete="current-password webauthn"
+              required
+              minLength={8}
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+            />
+          </Label>
+          <Button type="submit" disabled={busy}>
+            {t("signInSubmit")}
+          </Button>
+        </form>
+      ) : null}
+
+      {step === "register" ? (
+        <form className="auth-form" onSubmit={(event) => void onSignUp(event)}>
+          <p className="auth-email-line">
+            <span>{passEmail}</span>
+            <button type="button" className="auth-text-btn" onClick={resetToEmail}>
+              {t("changeEmail")}
+            </button>
+          </p>
+          <Label>
+            {t("nameLabel")}
+            <Input
+              type="text"
+              name="name"
+              autoComplete="name"
+              required
+              value={name}
+              onChange={(event) => setName(event.target.value)}
+            />
+          </Label>
+          <Label>
+            {t("passwordLabel")}
+            <Input
+              type="password"
+              name="password"
+              autoComplete="new-password"
+              required
+              minLength={8}
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+            />
+          </Label>
+          <Button type="submit" disabled={busy}>
+            {t("signUpSubmit")}
+          </Button>
+        </form>
+      ) : null}
+
+      {step !== "email" ? (
+        <div className="auth-alt">
+          <p className="auth-or">{t("orDivider")}</p>
+          {features.passkeys ? (
+            <Button variant="ghost" disabled={busy} onClick={() => void onPasskeySignIn()}>
+              {t("passkeySignIn")}
+            </Button>
+          ) : null}
+          {features.google ? (
+            <Button variant="ghost" disabled={busy} onClick={() => void onGoogle()}>
+              {t("googleSignIn")}
+            </Button>
+          ) : null}
+          {features.magicLink ? (
+            <Button
+              variant="ghost"
+              disabled={busy || !passEmail}
+              onClick={() => void onMagicLink()}
+            >
+              {t("magicLinkSubmit")}
+            </Button>
+          ) : null}
+        </div>
       ) : null}
     </div>
   );

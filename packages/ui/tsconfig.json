@@ -2,7 +2,9 @@
   "extends": "@flyte/config/tsconfig/react.json",
   "compilerOptions": {
     "rootDir": "src",
-    "outDir": "dist"
+    "outDir": "dist",
+    "declaration": false,
+    "declarationMap": false
   },
   "include": ["src"]
 }
