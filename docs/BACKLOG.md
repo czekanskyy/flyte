@@ -11,9 +11,9 @@
 | Status | Count |
 |---|---|
 | 🔴 blocked | 0 |
-| ⚪ todo | 2 |
+| ⚪ todo | 1 |
 | 🔵 in-progress | 0 |
-| 🟡 in-review | 2 |
+| 🟡 in-review | 3 |
 | 🟢 done | 9 |
 
 ## Blocking
@@ -63,7 +63,7 @@ FLY-013. FLY-019 needs FLY-014 and FLY-015.
 
 | Id | Title | Est. | Status |
 |---|---|---|---|
-| [FLY-021](backlog/FLY-021-manual-ofp-plan.md) | Manual /plan table: DIST, MT, TAS, wind → MH, WCA, GS, Time | M | ⚪ todo |
+| [FLY-021](backlog/FLY-021-manual-ofp-plan.md) | Manual /plan table: DIST, MT, TAS, wind → MH, WCA, GS, Time | M | 🟡 in-review |
 
 ## Legend
 

@@ -1,1 +1,81 @@
 @import "@flyte/ui/styles.css";
+
+.ofp-note {
+  color: var(--muted);
+  margin: 0 0 1rem;
+}
+
+.ofp {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+}
+
+.ofp-cruise {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0.85rem 0.9rem 1rem;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  background: var(--field-bg);
+}
+
+.ofp-cruise legend {
+  padding: 0 0.35rem;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.ofp-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.ofp-table {
+  width: 100%;
+  min-width: 36rem;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+}
+
+.ofp-table th,
+.ofp-table td {
+  padding: 0.35rem 0.3rem;
+  text-align: right;
+  vertical-align: middle;
+}
+
+.ofp-table th[scope="row"] {
+  text-align: left;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.ofp-table thead th {
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.ofp-table .field {
+  width: 5.5rem;
+  min-width: var(--touch);
+  padding: 0 0.45rem;
+}
+
+.ofp-error {
+  color: var(--danger);
+  margin: 0;
+}
+
+.ofp-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.ofp-actions .btn {
+  flex: 1 1 10rem;
+}

@@ -1,0 +1,24 @@
+{
+  "plan": {
+    "title": "Plan",
+    "lead": "Tabela nóg na żywo. To kalkulator, nie zapisany zrzut OFP.",
+    "frame": "MT i kierunek wiatru muszą być w tej samej ramie: oba magnetyczne albo oba rzeczywiste. Mieszanie ich da zły kurs.",
+    "tas": "TAS (kt)",
+    "windDir": "Wiatr z (deg)",
+    "windSpeed": "Wiatr (kt)",
+    "dist": "DIST (NM)",
+    "mt": "MT (deg)",
+    "wca": "WCA (deg)",
+    "mh": "MH (deg)",
+    "gs": "GS (kt)",
+    "time": "Czas (min)",
+    "total": "Suma",
+    "addLeg": "Dodaj nogę",
+    "removeLeg": "Usuń ostatnią nogę",
+    "noSolution": "Brak rozwiązania – przy tym wietrze i TAS nie da się utrzymać kursu.",
+    "incomplete": "–",
+    "legIndex": "Noga {n}",
+    "cruiseLegend": "Przelot (wszystkie nogi)",
+    "legsCaption": "Nogi"
+  }
+}

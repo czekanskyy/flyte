@@ -4,9 +4,5 @@
     "statement": "Flyte nie jest zatwierdzonym źródłem danych lotniczych. Nie zastępuje AIP, NOTAM ani oficjalnej odprawy przedlotowej. Odpowiedzialność za przygotowanie i wykonanie lotu ponosi dowódca statku powietrznego.",
     "accept": "Rozumiem i akceptuję",
     "alreadyAccepted": "Ta wersja oświadczenia bezpieczeństwa jest już przez Ciebie zaakceptowana."
-  },
-  "plan": {
-    "title": "Plan",
-    "body": "Mapa, OFP i FPL pojawią się tu w kolejnych etapach. Ten placeholder jest za bramką oświadczenia, więc planowanie nie otworzy się bez akceptacji."
   }
 }
