@@ -1,7 +1,7 @@
 ---
 id: FLY-019
 title: "First-run acknowledgement, credits stub, app chrome"
-status: in-review
+status: done
 phase: 1
 depends_on: [FLY-014, FLY-015]
 owns_paths:

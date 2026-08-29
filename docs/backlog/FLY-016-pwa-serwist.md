@@ -1,7 +1,7 @@
 ---
 id: FLY-016
 title: "PWA: Serwist, manifest, icons"
-status: in-review
+status: done
 phase: 1
 depends_on: [FLY-013]
 owns_paths:
