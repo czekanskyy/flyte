@@ -1,0 +1,18 @@
+{
+  "credits": {
+    "title": "Autorzy i źródła danych",
+    "intro": "Pełny opis prawny źródeł, z których Flyte będzie korzystać. Na wydrukach OFP i FPL atrybucja nigdy nie występuje.",
+    "openaipTitle": "OpenAIP",
+    "openaipBody": "Licencja: CC BY-NC-SA. Dane OpenAIP nie są w tej wersji wczytywane. Gdy aplikacja zacznie z nich korzystać, atrybucja pojawi się tylko na mapie, w edytorze trasy, w sekcji trasy OFP i w FPL – nie w dzienniku, E6B, ustawieniach ani na koncie.",
+    "pansaTitle": "AIP Polska (PANSA AIS)",
+    "pansaBody": "Źródło oficjalne. Gdy Flyte i AIP Polska się różnią, rację ma AIP Polska.",
+    "pansaLink": "PANSA AIS",
+    "pansaHref": "https://www.ais.pansa.pl/",
+    "weatherTitle": "Pogoda i teren (jeszcze nie podłączone)",
+    "weatherBody": "NOAA Aviation Weather Center (METAR, TAF, SIGMET). Open-Meteo (wiatry na poziomach i elewacja). OpenStreetMap – minutówki, później.",
+    "airacTitle": "Cykl AIRAC",
+    "airacBody": "Żaden cykl lotniczy nie jest jeszcze zaimportowany. Bieżący cykl pojawi się tutaj, gdy powstanie importer.",
+    "printTitle": "Wydruki",
+    "printBody": "Wydruki OFP i FPL nie zawierają tekstu licencji, logo ani kredytów."
+  }
+}

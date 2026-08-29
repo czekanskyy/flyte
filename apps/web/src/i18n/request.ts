@@ -9,6 +9,8 @@ export default getRequestConfig(async ({ requestLocale }) => {
   const common = (await import(`../../../../messages/${locale}/common.json`)).default;
   const auth = (await import(`../../../../messages/${locale}/auth.json`)).default;
   const theme = (await import(`../../../../messages/${locale}/theme.json`)).default;
+  const safety = (await import(`../../../../messages/${locale}/safety.json`)).default;
+  const credits = (await import(`../../../../messages/${locale}/credits.json`)).default;
 
-  return { locale, messages: { ...common, ...auth, ...theme } };
+  return { locale, messages: { ...common, ...auth, ...theme, ...safety, ...credits } };
 });

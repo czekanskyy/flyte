@@ -7,9 +7,10 @@ import { LanguageSwitch } from "./language-switch.tsx";
 
 type Props = {
   children: ReactNode;
+  appLinks?: boolean;
 };
 
-export async function AppChrome({ children }: Props) {
+export async function AppChrome({ children, appLinks = false }: Props) {
   const t = await getTranslations("nav");
   const tApp = await getTranslations();
   const tTheme = await getTranslations("theme");
@@ -22,6 +23,12 @@ export async function AppChrome({ children }: Props) {
         </Link>
         <nav className="nav" aria-label={tApp("appName")}>
           <Link href="/">{t("home")}</Link>
+          {appLinks ? (
+            <>
+              <Link href="/plan">{t("plan")}</Link>
+              <Link href="/credits">{t("credits")}</Link>
+            </>
+          ) : null}
           <SessionNav />
           <ThemeSwitch
             labels={{

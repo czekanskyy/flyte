@@ -1,22 +1,31 @@
 ---
 id: FLY-019
 title: "First-run acknowledgement, credits stub, app chrome"
-status: todo
+status: in-review
 phase: 1
 depends_on: [FLY-014, FLY-015]
 owns_paths:
   - apps/web/src/app/[locale]/(app)/**
-  - apps/web/src/app/[locale]/credits/**
+  - apps/web/src/components/app-chrome.tsx
+  - apps/web/src/i18n/request.ts
+  - apps/web/src/lib/safety-ack.ts
+  - apps/web/src/lib/safety-ack.test.ts
   - messages/pl/safety.json
   - messages/en/safety.json
   - messages/pl/credits.json
   - messages/en/credits.json
+  - messages/pl/common.json
+  - messages/en/common.json
+  - packages/db/src/index.ts
+  - packages/db/src/safety-ack.ts
+  - packages/db/src/safety-ack.test.ts
   - packages/db/src/schema/**
   - packages/db/migrations/**
   - docs/progress/FLY-019.md
   - docs/backlog/FLY-019-first-run-ack.md
   - docs/BACKLOG.md
   - docs/adr/0009-attribution-policy.md
+  - docs/adr/README.md
 estimate: S
 ---
 

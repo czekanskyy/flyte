@@ -43,7 +43,7 @@ That last case is the main reason this directory exists. Pinning TypeScript one 
 | 0006 | MapLibre GL over Leaflet | Planned (Phase 5) |
 | 0007 | Ports and adapters for external data sources | Planned (Phase 4) |
 | [0008](0008-si-branded-units.md) | SI internally, branded unit types | Accepted |
-| 0009 | Attribution policy | Planned (credits page, Phase 1 FLY-019) |
+| [0009](0009-attribution-policy.md) | Attribution policy | Accepted |
 | 0010 | One agent at a time, with a handoff protocol | Planned (already practised; write-up later) |
 | 0011 | Implement WMM 2025 in-house | Planned (Phase 3) |
 | 0012 | NOTAM source | Blocked on FLY-002 |

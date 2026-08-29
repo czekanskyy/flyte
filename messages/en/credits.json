@@ -1,0 +1,18 @@
+{
+  "credits": {
+    "title": "Credits and data sources",
+    "intro": "Full legal detail for every source Flyte will use. Attribution never appears on printed OFP or FPL output.",
+    "openaipTitle": "OpenAIP",
+    "openaipBody": "Licence: CC BY-NC-SA. OpenAIP data is not loaded in this version. When it is consumed, attribution will appear only on the map, the route editor, the OFP route section and FPL – not on the logbook, E6B, settings or account.",
+    "pansaTitle": "AIP Poland (PANSA AIS)",
+    "pansaBody": "The official source. Where Flyte and AIP Poland disagree, AIP Poland is right.",
+    "pansaLink": "PANSA AIS",
+    "pansaHref": "https://www.ais.pansa.pl/",
+    "weatherTitle": "Weather and terrain (not yet wired)",
+    "weatherBody": "NOAA Aviation Weather Center (METAR, TAF, SIGMET). Open-Meteo (winds aloft and elevation). OpenStreetMap for time marks, later.",
+    "airacTitle": "AIRAC cycle",
+    "airacBody": "No aeronautical cycle is imported yet. The current cycle will be shown here once the importer exists.",
+    "printTitle": "Printouts",
+    "printBody": "OFP and FPL printouts carry no licence text, logos or credits."
+  }
+}

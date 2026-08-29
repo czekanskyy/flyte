@@ -15,6 +15,13 @@
       "when": 1787954065077,
       "tag": "0001_fly014_account_issuer",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1788028840976,
+      "tag": "0002_fly019_safety_acknowledgement",
+      "breakpoints": true
     }
   ]
 }
