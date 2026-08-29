@@ -11,6 +11,7 @@ export default getRequestConfig(async ({ requestLocale }) => {
   const theme = (await import(`../../../../messages/${locale}/theme.json`)).default;
   const safety = (await import(`../../../../messages/${locale}/safety.json`)).default;
   const credits = (await import(`../../../../messages/${locale}/credits.json`)).default;
+  const pwa = (await import(`../../../../messages/${locale}/pwa.json`)).default;
 
-  return { locale, messages: { ...common, ...auth, ...theme, ...safety, ...credits } };
+  return { locale, messages: { ...common, ...auth, ...theme, ...safety, ...credits, ...pwa } };
 });

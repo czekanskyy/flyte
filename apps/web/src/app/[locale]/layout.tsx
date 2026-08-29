@@ -1,10 +1,32 @@
 import { ThemeProvider, themeInitScript } from "@flyte/ui";
+import type { Metadata, Viewport } from "next";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
 import { routing } from "../../i18n/routing.ts";
 import "../globals.css";
+
+export const metadata: Metadata = {
+  applicationName: "Flyte",
+  appleWebApp: {
+    capable: true,
+    title: "Flyte",
+    statusBarStyle: "default",
+  },
+  formatDetection: { telephone: false },
+  icons: {
+    icon: [
+      { url: "/icons/icon-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/icons/icon-512.png", sizes: "512x512", type: "image/png" },
+    ],
+    apple: "/apple-touch-icon.png",
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#0b6fe8",
+};
 
 type Props = {
   children: ReactNode;

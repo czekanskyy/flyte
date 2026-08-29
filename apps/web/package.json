@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build",
+    "build": "next build --webpack",
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit -p tsconfig.json",
@@ -16,12 +16,14 @@
     "@better-auth/passkey": "catalog:",
     "@flyte/db": "workspace:*",
     "@flyte/ui": "workspace:*",
+    "@serwist/next": "catalog:",
     "argon2": "catalog:",
     "better-auth": "catalog:",
     "next": "catalog:",
     "next-intl": "catalog:",
     "react": "catalog:",
-    "react-dom": "catalog:"
+    "react-dom": "catalog:",
+    "serwist": "catalog:"
   },
   "devDependencies": {
     "@flyte/config": "workspace:*",

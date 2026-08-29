@@ -21,5 +21,10 @@ export function localeFromPath(pathname: string): (typeof routing.locales)[numbe
 
 export function isAuthPublicPath(pathname: string): boolean {
   const rest = stripLocalePrefix(pathname);
-  return rest === "/login" || rest.startsWith("/login/");
+  return (
+    rest === "/login" ||
+    rest.startsWith("/login/") ||
+    rest === "/offline" ||
+    rest.startsWith("/offline/")
+  );
 }

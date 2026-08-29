@@ -1,21 +1,25 @@
 ---
 id: FLY-016
 title: "PWA: Serwist, manifest, icons"
-status: todo
+status: in-review
 phase: 1
 depends_on: [FLY-013]
 owns_paths:
   - apps/web/src/**
   - apps/web/public/**
+  - apps/web/package.json
   - apps/web/next.config.ts
   - apps/web/next.config.mjs
   - apps/web/serwist.config.ts
+  - apps/web/tsconfig.json
   - messages/pl/pwa.json
   - messages/en/pwa.json
+  - pnpm-lock.yaml
   - docs/progress/FLY-016.md
   - docs/backlog/FLY-016-pwa-serwist.md
   - docs/BACKLOG.md
   - .gitignore
+  - packages/config/eslint.js
 estimate: M
 ---
 

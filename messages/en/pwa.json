@@ -1,0 +1,6 @@
+{
+  "pwa": {
+    "offlineTitle": "You are offline",
+    "offlineBody": "The Flyte shell was loaded earlier. Reconnect to continue. Full logbook-offline is a later phase."
+  }
+}
