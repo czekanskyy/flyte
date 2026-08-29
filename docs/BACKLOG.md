@@ -4,7 +4,7 @@
 
 # Backlog
 
-**Generated:** 2026-08-28 · **Current phase:** 1 – Foundation
+**Generated:** 2026-08-29 · **Current phase:** 1 – Foundation
 
 ## Summary
 
@@ -13,8 +13,8 @@
 | 🔴 blocked | 0 |
 | ⚪ todo | 5 |
 | 🔵 in-progress | 0 |
-| 🟡 in-review | 5 |
-| 🟢 done | 1 |
+| 🟡 in-review | 1 |
+| 🟢 done | 5 |
 
 ## Blocking
 
@@ -39,10 +39,10 @@ Phase 0 documentation was written directly rather than tracked as individual tas
 | Id | Title | Est. | Status |
 |---|---|---|---|
 | [FLY-010](backlog/FLY-010-monorepo-bootstrap.md) | Monorepo bootstrap: pnpm workspace, catalog, Turborepo, package skeletons | M | 🟢 done |
-| [FLY-011](backlog/FLY-011-shared-config-ci.md) | Shared config: TypeScript, ESLint boundaries, Prettier, Vitest, CI verify | M | 🟡 in-review |
-| [FLY-012](backlog/FLY-012-db-drizzle-neon.md) | packages/db: Drizzle, Neon, PostGIS, auth schema | M | 🟡 in-review |
-| [FLY-013](backlog/FLY-013-next-app-i18n.md) | Next.js App Router shell and next-intl (PL/EN) | M | 🟡 in-review |
-| [FLY-014](backlog/FLY-014-better-auth.md) | Better Auth: email/password, passkeys, Google, magic link | M | 🟡 in-review |
+| [FLY-011](backlog/FLY-011-shared-config-ci.md) | Shared config: TypeScript, ESLint boundaries, Prettier, Vitest, CI verify | M | 🟢 done |
+| [FLY-012](backlog/FLY-012-db-drizzle-neon.md) | packages/db: Drizzle, Neon, PostGIS, auth schema | M | 🟢 done |
+| [FLY-013](backlog/FLY-013-next-app-i18n.md) | Next.js App Router shell and next-intl (PL/EN) | M | 🟢 done |
+| [FLY-014](backlog/FLY-014-better-auth.md) | Better Auth: email/password, passkeys, Google, magic link | M | 🟢 done |
 | [FLY-015](backlog/FLY-015-ui-theme-night.md) | packages/ui, theme system, red night mode | M | 🟡 in-review |
 | [FLY-016](backlog/FLY-016-pwa-serwist.md) | PWA: Serwist, manifest, icons | M | ⚪ todo |
 | [FLY-017](backlog/FLY-017-docker-cd.md) | Docker Compose and CD to GHCR | M | ⚪ todo |
