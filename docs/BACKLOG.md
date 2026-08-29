@@ -11,9 +11,9 @@
 | Status | Count |
 |---|---|
 | 🔴 blocked | 0 |
-| ⚪ todo | 1 |
+| ⚪ todo | 2 |
 | 🔵 in-progress | 0 |
-| 🟡 in-review | 1 |
+| 🟡 in-review | 2 |
 | 🟢 done | 9 |
 
 ## Blocking
@@ -52,6 +52,18 @@ Phase 0 documentation was written directly rather than tracked as individual tas
 Suggested order: **FLY-010 → FLY-011**, then FLY-012 and FLY-013 in either order, then FLY-014
 (needs both). FLY-018 can start as soon as FLY-011 lands. FLY-015 / FLY-016 / FLY-017 need
 FLY-013. FLY-019 needs FLY-014 and FLY-015.
+
+## Phase 3 – Calculation engine and E6B
+
+| Id | Title | Est. | Status |
+|---|---|---|---|
+| [FLY-020](backlog/FLY-020-wind-triangle.md) | Wind triangle, angle wrap and leg ETE in packages/aviation | M | 🟡 in-review |
+
+## Phase 6 – OFP, weather and time marks
+
+| Id | Title | Est. | Status |
+|---|---|---|---|
+| [FLY-021](backlog/FLY-021-manual-ofp-plan.md) | Manual /plan table: DIST, MT, TAS, wind → MH, WCA, GS, Time | M | ⚪ todo |
 
 ## Legend
 

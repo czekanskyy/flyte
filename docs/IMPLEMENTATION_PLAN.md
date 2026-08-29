@@ -28,6 +28,12 @@ Aeronautical data before the map, because the map has nothing to draw without it
 map, because the elevation profile is a map feature. Then OFP, which consumes everything built so
 far, and FPL, which consumes the OFP's route.
 
+**Fast-track (owner, 2026-08-29).** Phase 2 logbook and remaining Phase 1 NAS/tunnel steps are
+paused. FLY-020 (wind triangle + leg time) and FLY-021 (manual `/plan` table) come next so a
+pilot can compute MH, WCA, GS and ETE from typed DIST, MT, TAS and wind, without map or weather
+APIs. Fuel, print templates and immutable snapshots stay Phase 6. Do not start the logbook
+until the owner says so.
+
 ---
 
 ## Blocking, before Phase 1

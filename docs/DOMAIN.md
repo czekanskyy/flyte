@@ -349,6 +349,20 @@ WCA, heading less than course) and loses ~13 kt to the headwind component. Both 
   function must return an explicit "no solution" result, never `NaN`.
 - Reversing the course and keeping the wind reverses the sign of the crosswind component.
 
+### 6.5 Same-frame course and wind ✅
+
+§6.1 names `TC` / `WD` / `TH` in degrees true because that is how METAR, TAF and winds-aloft
+are published, and how geodesic azimuths come out of §2. Applying declination is §3.2.
+
+The planar wind triangle is **invariant under a constant rotation of all directions**: adding
+the same angle to course, wind-from and heading leaves `WCA` and `GS` unchanged. That follows
+from §6.2 (`Δ` is a difference; `TH = course + WCA`). It is not a second formula.
+
+Therefore a pilot who supplies **course and wind in one frame** – both magnetic, or both true –
+may substitute that course for `TC` and read heading in the same frame (`MH` if the frame is
+magnetic). **Do not mix frames** (magnetic track with true wind, or the reverse). This slice
+does not apply §3.2; a VAR field or WMM is a later task.
+
 ---
 
 ## 7. Time, distance and fuel per leg
@@ -602,3 +616,4 @@ date.
 | ICAO Annex 5, 5th ed. (July 2010) – Units of Measurement | §1.1 conversion factors: foot, nautical mile, knot, litre |
 | NIST SP 811 – Guide for the Use of the SI (2008), Appendix B.8 | §1.1 conversion factors: pound, gallon, statute mile, conventional inHg |
 | BIPM SI Brochure, 9th ed. (2019) | §1.1 Celsius–kelvin offset |
+| First principles (planar rotation invariance of §6.2) | §6.5 same-frame substitution |
