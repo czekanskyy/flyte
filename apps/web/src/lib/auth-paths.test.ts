@@ -16,6 +16,12 @@ describe("auth path helpers", () => {
     expect(isAuthPublicPath("/pl/")).toBe(false);
   });
 
+  it("treats the offline fallback as public", () => {
+    expect(isAuthPublicPath("/offline")).toBe(true);
+    expect(isAuthPublicPath("/pl/offline")).toBe(true);
+    expect(isAuthPublicPath("/en/offline")).toBe(true);
+  });
+
   it("strips the locale prefix", () => {
     expect(stripLocalePrefix("/pl")).toBe("/");
     expect(stripLocalePrefix("/en/login")).toBe("/login");

@@ -41,6 +41,9 @@ Thumbs.db
 public/sw.js
 public/sw.js.map
 public/swe-worker-*.js
+apps/web/public/sw.js
+apps/web/public/sw.js.map
+apps/web/public/swe-worker-*.js
 
 # Local data caches (AIRAC imports, terrain tiles, Overpass responses)
 .cache/
