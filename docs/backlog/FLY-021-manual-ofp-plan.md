@@ -1,7 +1,7 @@
 ---
 id: FLY-021
 title: "Manual /plan table: DIST, MT, TAS, wind → MH, WCA, GS, Time"
-status: todo
+status: in-review
 phase: 6
 depends_on: [FLY-019, FLY-020]
 owns_paths:
@@ -43,20 +43,20 @@ This is a **live calculator**, not an immutable OFP snapshot ([`SAFETY.md`](../S
 
 ## Acceptance criteria
 
-- [ ] `/plan` still requires session + current safety acknowledgement.
-- [ ] Shared TAS, wind direction, wind speed for every leg. Rows: DIST (NM), MT (deg).
+- [x] `/plan` still requires session + current safety acknowledgement.
+- [x] Shared TAS, wind direction, wind speed for every leg. Rows: DIST (NM), MT (deg).
       Add and remove legs. Touch targets ≥ 44 px. Usable at 375 px. Glass panel.
-- [ ] Outputs per leg: WCA, MH, GS (kt), Time (minutes ceiled per §7). Route total from
+- [x] Outputs per leg: WCA, MH, GS (kt), Time (minutes ceiled per §7). Route total from
       unrounded seconds, ceiled once.
-- [ ] No-solution: explicit message, no invented numbers. Empty/invalid fields: incomplete,
+- [x] No-solution: explicit message, no invented numbers. Empty/invalid fields: incomplete,
       not `NaN`.
-- [ ] Copy in `messages/{pl,en}/plan.json`, both languages. States same-frame wind/course
+- [x] Copy in `messages/{pl,en}/plan.json`, both languages. States same-frame wind/course
       and that this is not a stored OFP.
-- [ ] `@flyte/aviation` is a web workspace dependency; `transpilePackages` includes it.
-- [ ] Tests: `wind-triangle-001` numbers produce WCA/MH/GS within vector tolerance; two-leg
+- [x] `@flyte/aviation` is a web workspace dependency; `transpilePackages` includes it.
+- [x] Tests: `wind-triangle-001` numbers produce WCA/MH/GS within vector tolerance; two-leg
       90 s + 90 s total displays 3 min not 4.
-- [ ] `pnpm verify` green.
-- [ ] `docs/progress/FLY-021.md` written.
+- [x] `pnpm verify` green.
+- [x] `docs/progress/FLY-021.md` written.
 
 ## Test plan
 

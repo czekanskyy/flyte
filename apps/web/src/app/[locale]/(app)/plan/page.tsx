@@ -4,6 +4,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { redirect } from "../../../../i18n/navigation.ts";
 import { getAuth } from "../../../../lib/auth.ts";
 import { planningDestination } from "../../../../lib/safety-ack.ts";
+import { ManualOfpForm } from "./manual-ofp-form.tsx";
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -29,7 +30,9 @@ export default async function PlanPage({ params }: Props) {
   return (
     <main className="panel">
       <h1>{t("title")}</h1>
-      <p>{t("body")}</p>
+      <p className="tagline">{t("lead")}</p>
+      <p className="ofp-note">{t("frame")}</p>
+      <ManualOfpForm />
     </main>
   );
 }

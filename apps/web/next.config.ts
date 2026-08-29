@@ -14,7 +14,7 @@ const nextConfig: NextConfig = {
   output: "standalone",
   outputFileTracingRoot: repoRoot,
   reactStrictMode: true,
-  transpilePackages: ["@flyte/db", "@flyte/ui"],
+  transpilePackages: ["@flyte/db", "@flyte/ui", "@flyte/aviation"],
   serverExternalPackages: ["argon2"],
 };
 

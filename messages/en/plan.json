@@ -1,0 +1,24 @@
+{
+  "plan": {
+    "title": "Plan",
+    "lead": "Live leg table. This is a calculator, not a stored OFP snapshot.",
+    "frame": "MT and wind direction must use the same reference: both magnetic, or both true. Mixing them produces a wrong heading.",
+    "tas": "TAS (kt)",
+    "windDir": "Wind from (deg)",
+    "windSpeed": "Wind (kt)",
+    "dist": "DIST (NM)",
+    "mt": "MT (deg)",
+    "wca": "WCA (deg)",
+    "mh": "MH (deg)",
+    "gs": "GS (kt)",
+    "time": "Time (min)",
+    "total": "Total",
+    "addLeg": "Add leg",
+    "removeLeg": "Remove last leg",
+    "noSolution": "No solution – cannot hold this course with that wind and TAS.",
+    "incomplete": "–",
+    "legIndex": "Leg {n}",
+    "cruiseLegend": "Cruise (all legs)",
+    "legsCaption": "Legs"
+  }
+}
