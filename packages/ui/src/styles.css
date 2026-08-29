@@ -174,6 +174,9 @@ h2 {
   max-width: 42rem;
   margin: 0 auto;
   padding: 1rem 1.15rem 2.5rem;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
 }
 
 .topbar {
@@ -247,6 +250,10 @@ h2 {
   box-shadow: var(--glass-shadow);
   border-radius: var(--radius-lg);
   padding: 1.35rem 1.25rem 1.5rem;
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .tagline {
@@ -277,13 +284,44 @@ h2 {
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
-  max-width: 24rem;
+  width: 100%;
+  flex: 1;
 }
 
-.auth-form {
+.auth-form,
+.auth-alt {
   display: flex;
   flex-direction: column;
   gap: var(--density);
+  width: 100%;
+}
+
+.auth-form .field,
+.auth-form .btn,
+.auth-alt .btn {
+  width: 100%;
+}
+
+.auth-email-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin: 0;
+  color: var(--muted);
+}
+
+.auth-text-btn {
+  min-height: var(--touch);
+  padding: 0 0.4rem;
+  border: 0;
+  background: transparent;
+  color: var(--accent);
+  font: inherit;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
 }
 
 .field-label,
