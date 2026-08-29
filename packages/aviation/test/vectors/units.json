@@ -1,0 +1,424 @@
+[
+  {
+    "id": "units-ft-m-001",
+    "source": "ICAO Annex 5, 5th ed. (2010), Chapter 1 definition of the foot",
+    "kind": "convert",
+    "fn": "feetToMetres",
+    "given": 1,
+    "expect": 0.3048,
+    "tolerance": 0
+  },
+  {
+    "id": "units-m-ft-001",
+    "source": "ICAO Annex 5, 5th ed. (2010), Chapter 1 definition of the foot (inverse)",
+    "kind": "convert",
+    "fn": "metresToFeet",
+    "given": 0.3048,
+    "expect": 1,
+    "tolerance": 0
+  },
+  {
+    "id": "units-nm-m-001",
+    "source": "ICAO Annex 5, 5th ed. (2010), Chapter 1 definition of the nautical mile",
+    "kind": "convert",
+    "fn": "nauticalMilesToMetres",
+    "given": 1,
+    "expect": 1852,
+    "tolerance": 0
+  },
+  {
+    "id": "units-m-nm-001",
+    "source": "ICAO Annex 5, 5th ed. (2010), Chapter 1 definition of the nautical mile (inverse)",
+    "kind": "convert",
+    "fn": "metresToNauticalMiles",
+    "given": 1852,
+    "expect": 1,
+    "tolerance": 0
+  },
+  {
+    "id": "units-km-m-001",
+    "source": "SI: 1 km = 1000 m",
+    "kind": "convert",
+    "fn": "kilometresToMetres",
+    "given": 1,
+    "expect": 1000,
+    "tolerance": 0
+  },
+  {
+    "id": "units-m-km-001",
+    "source": "SI: 1 km = 1000 m (inverse)",
+    "kind": "convert",
+    "fn": "metresToKilometres",
+    "given": 1000,
+    "expect": 1,
+    "tolerance": 0
+  },
+  {
+    "id": "units-mi-m-001",
+    "source": "NIST SP 811 Appendix B.8; 5280 x 0.3048 m",
+    "kind": "convert",
+    "fn": "statuteMilesToMetres",
+    "given": 1,
+    "expect": 1609.344,
+    "tolerance": 0
+  },
+  {
+    "id": "units-m-mi-001",
+    "source": "NIST SP 811 Appendix B.8; 5280 x 0.3048 m (inverse)",
+    "kind": "convert",
+    "fn": "metresToStatuteMiles",
+    "given": 1609.344,
+    "expect": 1,
+    "tolerance": 0
+  },
+  {
+    "id": "units-kt-ms-001",
+    "source": "Derived from DOMAIN.md §1.1: 1 kt = 1 NM/h = 1852/3600 m/s",
+    "kind": "convert",
+    "fn": "knotsToMetresPerSecond",
+    "given": 1,
+    "expect": 0.5144444444444445,
+    "tolerance": 0
+  },
+  {
+    "id": "units-ms-kt-001",
+    "source": "Derived from DOMAIN.md §1.1: 1 kt = 1 NM/h = 1852/3600 m/s (inverse)",
+    "kind": "convert",
+    "fn": "metresPerSecondToKnots",
+    "given": 0.5144444444444445,
+    "expect": 1,
+    "tolerance": 0
+  },
+  {
+    "id": "units-kmh-ms-001",
+    "source": "SI: 1 km/h = 1/3.6 m/s",
+    "kind": "convert",
+    "fn": "kilometresPerHourToMetresPerSecond",
+    "given": 1,
+    "expect": 0.2777777777777778,
+    "tolerance": 0
+  },
+  {
+    "id": "units-ms-kmh-001",
+    "source": "SI: 1 km/h = 1/3.6 m/s (inverse)",
+    "kind": "convert",
+    "fn": "metresPerSecondToKilometresPerHour",
+    "given": 0.2777777777777778,
+    "expect": 1,
+    "tolerance": 0
+  },
+  {
+    "id": "units-fpm-ms-001",
+    "source": "Derived from the foot: 0.3048/60 m/s per ft/min; DOMAIN.md §1.1",
+    "kind": "convert",
+    "fn": "feetPerMinuteToMetresPerSecond",
+    "given": 1,
+    "expect": 0.00508,
+    "tolerance": 0
+  },
+  {
+    "id": "units-ms-fpm-001",
+    "source": "Derived from the foot: 0.3048/60 m/s per ft/min (inverse); DOMAIN.md §1.1",
+    "kind": "convert",
+    "fn": "metresPerSecondToFeetPerMinute",
+    "given": 0.00508,
+    "expect": 1,
+    "tolerance": 0
+  },
+  {
+    "id": "units-mph-ms-001",
+    "source": "Derived from the statute mile: 1609.344/3600 m/s per mph; DOMAIN.md §1.1",
+    "kind": "convert",
+    "fn": "milesPerHourToMetresPerSecond",
+    "given": 1,
+    "expect": 0.44704,
+    "tolerance": 0
+  },
+  {
+    "id": "units-ms-mph-001",
+    "source": "Derived from the statute mile: 1609.344/3600 m/s per mph (inverse); DOMAIN.md §1.1",
+    "kind": "convert",
+    "fn": "metresPerSecondToMilesPerHour",
+    "given": 0.44704,
+    "expect": 1,
+    "tolerance": 0
+  },
+  {
+    "id": "units-lb-kg-001",
+    "source": "International Yard and Pound Agreement (1959); NIST SP 811 footnote 22",
+    "kind": "convert",
+    "fn": "poundsToKilograms",
+    "given": 1,
+    "expect": 0.45359237,
+    "tolerance": 0
+  },
+  {
+    "id": "units-kg-lb-001",
+    "source": "International Yard and Pound Agreement (1959); NIST SP 811 footnote 22 (inverse)",
+    "kind": "convert",
+    "fn": "kilogramsToPounds",
+    "given": 0.45359237,
+    "expect": 1,
+    "tolerance": 0
+  },
+  {
+    "id": "units-l-m3-001",
+    "source": "ICAO Annex 5 Chapter 1: 1 L = 1 dm^3 = 0.001 m^3",
+    "kind": "convert",
+    "fn": "litresToCubicMetres",
+    "given": 1,
+    "expect": 0.001,
+    "tolerance": 0
+  },
+  {
+    "id": "units-m3-l-001",
+    "source": "ICAO Annex 5 Chapter 1: 1 L = 1 dm^3 = 0.001 m^3 (inverse)",
+    "kind": "convert",
+    "fn": "cubicMetresToLitres",
+    "given": 0.001,
+    "expect": 1,
+    "tolerance": 0
+  },
+  {
+    "id": "units-usgal-l-001",
+    "source": "231 in^3, 1 in = 0.0254 m exactly (NIST SP 811)",
+    "kind": "convert",
+    "fn": "usGallonsToLitres",
+    "given": 1,
+    "expect": 3.785411784,
+    "tolerance": 0
+  },
+  {
+    "id": "units-l-usgal-001",
+    "source": "231 in^3, 1 in = 0.0254 m exactly (NIST SP 811) (inverse)",
+    "kind": "convert",
+    "fn": "litresToUsGallons",
+    "given": 3.785411784,
+    "expect": 1,
+    "tolerance": 0
+  },
+  {
+    "id": "units-impgal-l-001",
+    "source": "NIST SP 811 Appendix B.8 (marked exact)",
+    "kind": "convert",
+    "fn": "imperialGallonsToLitres",
+    "given": 1,
+    "expect": 4.54609,
+    "tolerance": 0
+  },
+  {
+    "id": "units-l-impgal-001",
+    "source": "NIST SP 811 Appendix B.8 (marked exact) (inverse)",
+    "kind": "convert",
+    "fn": "litresToImperialGallons",
+    "given": 4.54609,
+    "expect": 1,
+    "tolerance": 0
+  },
+  {
+    "id": "units-hpa-pa-001",
+    "source": "SI prefix: 1 hPa = 100 Pa",
+    "kind": "convert",
+    "fn": "hectopascalsToPascals",
+    "given": 1,
+    "expect": 100,
+    "tolerance": 0
+  },
+  {
+    "id": "units-pa-hpa-001",
+    "source": "SI prefix: 1 hPa = 100 Pa (inverse)",
+    "kind": "convert",
+    "fn": "pascalsToHectopascals",
+    "given": 100,
+    "expect": 1,
+    "tolerance": 0
+  },
+  {
+    "id": "units-inhg-pa-001",
+    "source": "NIST SP 811 conventional inch of mercury (inHg)",
+    "kind": "convert",
+    "fn": "inchesOfMercuryToPascals",
+    "given": 1,
+    "expect": 3386.389,
+    "tolerance": 0
+  },
+  {
+    "id": "units-pa-inhg-001",
+    "source": "NIST SP 811 conventional inch of mercury (inHg) (inverse)",
+    "kind": "convert",
+    "fn": "pascalsToInchesOfMercury",
+    "given": 3386.389,
+    "expect": 1,
+    "tolerance": 0
+  },
+  {
+    "id": "units-c-k-001",
+    "source": "BIPM SI Brochure 9th ed. (2019); ICAO Annex 5 Chapter 1",
+    "kind": "convert",
+    "fn": "celsiusToKelvin",
+    "given": 0,
+    "expect": 273.15,
+    "tolerance": 0
+  },
+  {
+    "id": "units-k-c-001",
+    "source": "BIPM SI Brochure 9th ed. (2019); ICAO Annex 5 Chapter 1 (inverse)",
+    "kind": "convert",
+    "fn": "kelvinToCelsius",
+    "given": 273.15,
+    "expect": 0,
+    "tolerance": 0
+  },
+  {
+    "id": "units-f-c-001",
+    "source": "NIST SP 811: t = (t_F - 32) x 5/9",
+    "kind": "convert",
+    "fn": "fahrenheitToCelsius",
+    "given": 32,
+    "expect": 0,
+    "tolerance": 0
+  },
+  {
+    "id": "units-c-f-001",
+    "source": "NIST SP 811: t = (t_F - 32) x 5/9 (inverse)",
+    "kind": "convert",
+    "fn": "celsiusToFahrenheit",
+    "given": 0,
+    "expect": 32,
+    "tolerance": 0
+  },
+  {
+    "id": "units-deg-rad-001",
+    "source": "SI: 1 deg = pi/180 rad",
+    "kind": "convert",
+    "fn": "degreesToRadians",
+    "given": 1,
+    "expect": 0.017453292519943295,
+    "tolerance": 0
+  },
+  {
+    "id": "units-rad-deg-001",
+    "source": "SI: 1 deg = pi/180 rad (inverse)",
+    "kind": "convert",
+    "fn": "radiansToDegrees",
+    "given": 0.017453292519943295,
+    "expect": 1,
+    "tolerance": 0
+  },
+  {
+    "id": "units-min-s-001",
+    "source": "SI: 1 min = 60 s",
+    "kind": "convert",
+    "fn": "minutesToSeconds",
+    "given": 1,
+    "expect": 60,
+    "tolerance": 0
+  },
+  {
+    "id": "units-s-min-001",
+    "source": "SI: 1 min = 60 s (inverse)",
+    "kind": "convert",
+    "fn": "secondsToMinutes",
+    "given": 60,
+    "expect": 1,
+    "tolerance": 0
+  },
+  {
+    "id": "units-h-s-001",
+    "source": "SI: 1 h = 3600 s",
+    "kind": "convert",
+    "fn": "hoursToSeconds",
+    "given": 1,
+    "expect": 3600,
+    "tolerance": 0
+  },
+  {
+    "id": "units-s-h-001",
+    "source": "SI: 1 h = 3600 s (inverse)",
+    "kind": "convert",
+    "fn": "secondsToHours",
+    "given": 3600,
+    "expect": 1,
+    "tolerance": 0
+  },
+  {
+    "id": "units-ft-roundtrip-001",
+    "source": "DOMAIN.md §1.1 invariant: conversions round-trip within relative 1e-9",
+    "kind": "roundtrip",
+    "forward": "feetToMetres",
+    "back": "metresToFeet",
+    "given": 3000,
+    "expect": 3000,
+    "tolerance": 1e-9
+  },
+  {
+    "id": "units-kt-roundtrip-001",
+    "source": "DOMAIN.md §1.1 invariant: conversions round-trip within relative 1e-9",
+    "kind": "roundtrip",
+    "forward": "knotsToMetresPerSecond",
+    "back": "metresPerSecondToKnots",
+    "given": 90,
+    "expect": 90,
+    "tolerance": 1e-9
+  },
+  {
+    "id": "units-lb-roundtrip-001",
+    "source": "DOMAIN.md §1.1 invariant: conversions round-trip within relative 1e-9",
+    "kind": "roundtrip",
+    "forward": "poundsToKilograms",
+    "back": "kilogramsToPounds",
+    "given": 180,
+    "expect": 180,
+    "tolerance": 1e-9
+  },
+  {
+    "id": "units-l-roundtrip-001",
+    "source": "DOMAIN.md §1.1 invariant: conversions round-trip within relative 1e-9",
+    "kind": "roundtrip",
+    "forward": "litresToCubicMetres",
+    "back": "cubicMetresToLitres",
+    "given": 100,
+    "expect": 100,
+    "tolerance": 1e-9
+  },
+  {
+    "id": "units-hpa-roundtrip-001",
+    "source": "DOMAIN.md §1.1 invariant: conversions round-trip within relative 1e-9",
+    "kind": "roundtrip",
+    "forward": "hectopascalsToPascals",
+    "back": "pascalsToHectopascals",
+    "given": 1013.25,
+    "expect": 1013.25,
+    "tolerance": 1e-9
+  },
+  {
+    "id": "units-c-roundtrip-001",
+    "source": "DOMAIN.md §1.1 invariant: conversions round-trip within relative 1e-9",
+    "kind": "roundtrip",
+    "forward": "celsiusToKelvin",
+    "back": "kelvinToCelsius",
+    "given": 15,
+    "expect": 15,
+    "tolerance": 1e-9
+  },
+  {
+    "id": "units-deg-roundtrip-001",
+    "source": "DOMAIN.md §1.1 invariant: conversions round-trip within relative 1e-9",
+    "kind": "roundtrip",
+    "forward": "degreesToRadians",
+    "back": "radiansToDegrees",
+    "given": 90,
+    "expect": 90,
+    "tolerance": 1e-9
+  },
+  {
+    "id": "units-min-roundtrip-001",
+    "source": "DOMAIN.md §1.1 invariant: conversions round-trip within relative 1e-9",
+    "kind": "roundtrip",
+    "forward": "minutesToSeconds",
+    "back": "secondsToMinutes",
+    "given": 60,
+    "expect": 60,
+    "tolerance": 1e-9
+  }
+]

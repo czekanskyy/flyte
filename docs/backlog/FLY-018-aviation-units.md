@@ -1,11 +1,12 @@
 ---
 id: FLY-018
 title: "packages/aviation/units: branded types, converters, golden vectors"
-status: todo
+status: in-review
 phase: 1
 depends_on: [FLY-011]
 owns_paths:
   - packages/aviation/**
+  - pnpm-lock.yaml
   - docs/progress/FLY-018.md
   - docs/backlog/FLY-018-aviation-units.md
   - docs/BACKLOG.md
