@@ -1,0 +1,130 @@
+[
+  {
+    "id": "angle-signed-delta-001",
+    "kind": "signed-delta",
+    "source": "DOMAIN.md §6.3 worked Δ = signedDelta(40, 90) = −50°",
+    "given": { "a_deg": 40, "b_deg": 90 },
+    "expect": { "delta_deg": -50 },
+    "tolerance": 1e-9
+  },
+  {
+    "id": "angle-signed-delta-180",
+    "kind": "signed-delta",
+    "source": "DOMAIN.md §2.4 range (−180, 180]; exactly 180° is positive",
+    "given": { "a_deg": 180, "b_deg": 0 },
+    "expect": { "delta_deg": 180 },
+    "tolerance": 1e-9
+  },
+  {
+    "id": "angle-normalise-negative",
+    "kind": "normalise",
+    "source": "DOMAIN.md §2.4 normalise360 → [0, 360)",
+    "given": { "deg": -10 },
+    "expect": { "deg": 350 },
+    "tolerance": 1e-9
+  },
+  {
+    "id": "angle-normalise-360",
+    "kind": "normalise",
+    "source": "DOMAIN.md §2.4 normalise360 → [0, 360)",
+    "given": { "deg": 360 },
+    "expect": { "deg": 0 },
+    "tolerance": 1e-9
+  },
+  {
+    "id": "wind-triangle-001",
+    "kind": "wind-triangle",
+    "source": "Derived from DOMAIN.md §6.2; cross-check on manual E6B",
+    "given": { "tc_deg": 90, "tas_kt": 100, "wind_dir_deg": 40, "wind_kt": 20 },
+    "expect": { "ok": true, "wca_deg": -8.81, "th_deg": 81.19, "gs_kt": 85.96 },
+    "tolerance": 0.05
+  },
+  {
+    "id": "wind-triangle-zero-wind",
+    "kind": "wind-triangle",
+    "source": "DOMAIN.md §6.4 invariant WS = 0 ⇒ WCA = 0 and GS = TAS",
+    "given": { "tc_deg": 90, "tas_kt": 100, "wind_dir_deg": 90, "wind_kt": 0 },
+    "expect": { "ok": true, "wca_deg": 0, "th_deg": 90, "gs_kt": 100 },
+    "tolerance": 1e-9
+  },
+  {
+    "id": "wind-triangle-headwind",
+    "kind": "wind-triangle",
+    "source": "DOMAIN.md §6.4 pure headwind Δ = 0 ⇒ WCA = 0 and GS = TAS − WS",
+    "given": { "tc_deg": 90, "tas_kt": 100, "wind_dir_deg": 90, "wind_kt": 20 },
+    "expect": { "ok": true, "wca_deg": 0, "th_deg": 90, "gs_kt": 80 },
+    "tolerance": 1e-9
+  },
+  {
+    "id": "wind-triangle-tailwind",
+    "kind": "wind-triangle",
+    "source": "DOMAIN.md §6.4 pure tailwind Δ = 180° ⇒ WCA = 0 and GS = TAS + WS",
+    "given": { "tc_deg": 90, "tas_kt": 100, "wind_dir_deg": 270, "wind_kt": 20 },
+    "expect": { "ok": true, "wca_deg": 0, "th_deg": 90, "gs_kt": 120 },
+    "tolerance": 0.05
+  },
+  {
+    "id": "wind-triangle-front-right",
+    "kind": "wind-triangle",
+    "source": "Derived from DOMAIN.md §6.2; TC 090, wind FROM 135/20 (right front quadrant)",
+    "given": { "tc_deg": 90, "tas_kt": 100, "wind_dir_deg": 135, "wind_kt": 20 },
+    "expect": { "ok": true, "wca_deg": 8.13, "th_deg": 98.13, "gs_kt": 84.85 },
+    "tolerance": 0.05
+  },
+  {
+    "id": "wind-triangle-rear-right",
+    "kind": "wind-triangle",
+    "source": "Derived from DOMAIN.md §6.2; TC 090, wind FROM 225/20 (right rear quadrant)",
+    "given": { "tc_deg": 90, "tas_kt": 100, "wind_dir_deg": 225, "wind_kt": 20 },
+    "expect": { "ok": true, "wca_deg": 8.13, "th_deg": 98.13, "gs_kt": 113.14 },
+    "tolerance": 0.05
+  },
+  {
+    "id": "wind-triangle-rear-left",
+    "kind": "wind-triangle",
+    "source": "Derived from DOMAIN.md §6.2; TC 090, wind FROM 315/20 (left rear quadrant)",
+    "given": { "tc_deg": 90, "tas_kt": 100, "wind_dir_deg": 315, "wind_kt": 20 },
+    "expect": { "ok": true, "wca_deg": -8.13, "th_deg": 81.87, "gs_kt": 113.14 },
+    "tolerance": 0.05
+  },
+  {
+    "id": "wind-triangle-no-solution-asin",
+    "kind": "wind-triangle",
+    "source": "DOMAIN.md §6.4 WS > TAS with large |Δ| has no solution (asin domain)",
+    "given": { "tc_deg": 90, "tas_kt": 50, "wind_dir_deg": 0, "wind_kt": 100 },
+    "expect": { "ok": false },
+    "tolerance": 0
+  },
+  {
+    "id": "wind-triangle-no-solution-gs",
+    "kind": "wind-triangle",
+    "source": "DOMAIN.md §6.4 / §7: GS ≤ 0 cannot complete the leg (pure headwind WS > TAS)",
+    "given": { "tc_deg": 90, "tas_kt": 50, "wind_dir_deg": 90, "wind_kt": 80 },
+    "expect": { "ok": false },
+    "tolerance": 0
+  },
+  {
+    "id": "leg-time-001",
+    "kind": "ete",
+    "source": "DOMAIN.md §7 ETE = distance/GS; 1 NM = 1852 m, 1 kt = 1852/3600 m/s (Annex 5)",
+    "given": { "distance_nm": 100, "gs_kt": 100 },
+    "expect": { "ete_s": 3600 },
+    "tolerance": 1e-9
+  },
+  {
+    "id": "leg-time-round-up-001",
+    "kind": "display-ceil",
+    "source": "DOMAIN.md §7 displayed times round up to the next whole minute",
+    "given": { "ete_s": 61 },
+    "expect": { "minutes": 2 },
+    "tolerance": 0
+  },
+  {
+    "id": "leg-time-total-001",
+    "kind": "route-total",
+    "source": "DOMAIN.md §7 totals from unrounded seconds, rounded once",
+    "given": { "ete_s": [90, 90] },
+    "expect": { "total_s": 180, "display_min": 3, "sum_of_ceiled_min": 4 },
+    "tolerance": 0
+  }
+]
